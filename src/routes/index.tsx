@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Amamaza | AI Advertising for Rwandan Businesses" },
       { property: "og:description", content: "Kora amatangazo y'ubucuruzi ukoresheje AI: posts, flyers, video zamamaza n'ibyapa by'amaduka. Create ads in Kinyarwanda or English." },
     ],
-    links: [{"rel":"canonical","href":"https://amamaza.vercel.app/"},{"rel":"alternate","href":"https://amamaza.vercel.app/","hreflang":"rw"},{"rel":"alternate","href":"https://amamaza.vercel.app/","hreflang":"en"},{"rel":"alternate","href":"https://amamaza.vercel.app/","hreflang":"x-default"}],
+    links: [{"rel":"canonical","href":"https://amamaza.vercel.app/"}],
   }),
   component: Landing,
 });

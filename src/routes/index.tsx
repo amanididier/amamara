@@ -12,11 +12,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Amamaza — Amamaza yawe, mu buryo bworoshye" },
-      { name: "description", content: "Kora video, flyer na banner by'ubucuruzi bwawe mu Rwanda ukoresheje AI. Nta bumenyi bwo gushushanya busabwa." },
-      { property: "og:title", content: "Amamaza — Amatangazo meza, byoroshye" },
-      { property: "og:description", content: "AI ikora amatangazo y'ubucuruzi bwawe: video, flyer, banner z'amaduka." },
+      { title: "Amamaza | AI Advertising & Design for Rwanda" },
+      { name: "description", content: "Create business adverts in Rwanda with AI. Make social media posts, promotional flyers, short video ads and shop banners in Kinyarwanda or English." },
+      { property: "og:title", content: "Amamaza | AI Advertising for Rwandan Businesses" },
+      { property: "og:description", content: "Kora amatangazo y'ubucuruzi ukoresheje AI: posts, flyers, video zamamaza n'ibyapa by'amaduka. Create ads in Kinyarwanda or English." },
     ],
+    links: [{"rel":"canonical","href":"https://amamaza.vercel.app/"},{"rel":"alternate","href":"https://amamaza.vercel.app/","hreflang":"rw"},{"rel":"alternate","href":"https://amamaza.vercel.app/","hreflang":"en"},{"rel":"alternate","href":"https://amamaza.vercel.app/","hreflang":"x-default"}],
   }),
   component: Landing,
 });

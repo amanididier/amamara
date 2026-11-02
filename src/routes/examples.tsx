@@ -55,6 +55,7 @@ function Examples() {
           {list.map((ad) => <AdCard key={ad.id} ad={ad} />)}
         </div>
         {list.length === 0 && <p className="py-20 text-center text-white/55">{t("Nta rugero ruhari ubu.", "No samples here yet.")}</p>}
+        </div>
       </main>
       <SiteFooter />
     </div>

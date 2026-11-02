@@ -32,7 +32,7 @@ function Landing() {
       <PricingPreview />
       <FinalCta />
       <SiteFooter />
-    </div>
+   n    </div>
   );
 }
 
@@ -116,9 +116,10 @@ function Hero() {
           </div>
         </div>
 
-        <div className="mx-auto mt-14 flex max-w-5xl items-end justify-center gap-3 sm:gap-4">
+        <div className="relative mx-auto mt-16 flex max-w-5xl items-center justify-center" style={{ perspective: "1200px" }}>
           {ordered.map((card, i) => {
             const isCenter = i === 1;
+            const isLeft = i === 0;
             return (
               <Link
                 key={card.key}
@@ -126,20 +127,23 @@ function Hero() {
                 search={{ type: card.type }}
                 onClick={() => setActive(cards.findIndex((c) => c.key === card.key))}
                 className={cn(
-                  "group relative isolate overflow-hidden rounded-[1.5rem] border-4 border-card bg-card shadow-2xl transition-all duration-500",
+                  "group relative isolate overflow-hidden border border-white/10 bg-card shadow-2xl transition-all duration-500",
                   isCenter
-                    ? "z-20 w-[42%] max-w-[280px] aspect-[4/5] scale-105 -translate-y-2 sm:w-[38%] sm:max-w-[300px]"
-                    : "z-10 w-[28%] max-w-[200px] aspect-[4/5] opacity-80 scale-95 sm:w-[26%]",
+                    ? "z-30 w-[44%] max-w-[300px] aspect-[4/5] scale-110 sm:w-[40%] sm:max-w-[320px]"
+                    : "z-10 w-[32%] max-w-[220px] aspect-[4/5] opacity-90 sm:w-[30%]",
+                  isLeft && "-mr-6 -rotate-[14deg] translate-y-4 sm:-mr-10",
+                  !isCenter && !isLeft && "-ml-6 rotate-[14deg] translate-y-4 sm:-ml-10",
+                  isCenter && "-translate-y-1",
                 )}
               >
                 <img src={card.image} alt={card.title} className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className={cn("absolute inset-0 bg-gradient-to-t", card.accent, "via-black/20 to-transparent")} />
-                <span className="absolute left-3 top-3 rounded-full border border-white/30 bg-black/40 px-2.5 py-1 text-[10px] font-bold text-white backdrop-blur-md sm:left-4 sm:top-4 sm:text-[11px]">{card.tag}</span>
-                <div className="absolute inset-x-2 bottom-2 rounded-xl border border-white/30 bg-white/95 p-3 text-left text-neutral-950 shadow-lg backdrop-blur sm:inset-x-3 sm:bottom-3 sm:rounded-2xl sm:p-4">
+                <span className="absolute left-3 top-3 border border-white/30 bg-black/40 px-2.5 py-1 text-[10px] font-bold text-white backdrop-blur-md sm:left-4 sm:top-4 sm:text-[11px]">{card.tag}</span>
+                <div className="absolute inset-x-0 bottom-0 border-t border-white/20 bg-white/95 p-3 text-left text-neutral-950 backdrop-blur sm:p-4">
                   <div className="flex items-center justify-between gap-1">
                     <h2 className={cn("font-extrabold leading-tight", isCenter ? "text-base sm:text-lg" : "text-sm")}>{card.title}</h2>
                     {isCenter && (
-                      <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-white sm:size-8">
+                      <span className="grid size-7 shrink-0 place-items-center bg-primary text-white sm:size-8">
                         <ArrowRight className="size-3.5 sm:size-4" />
                       </span>
                     )}
@@ -151,7 +155,7 @@ function Hero() {
           })}
         </div>
 
-        <div className="mt-6 flex justify-center gap-2">
+        <div className="mt-8 flex justify-center gap-2">
           {cards.map((c, i) => (
             <button key={c.key} onClick={() => setActive(i)} aria-label={c.title} className={cn("h-1.5 rounded-full transition-all", i === active ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/40")} />
           ))}
@@ -253,7 +257,7 @@ function WhatWeDo() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order--1">
             <span className="inline-flex items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 text-xs font-bold text-violet-400"><Film className="size-3.5" /> {t("Video zamamaza", "Video ads")}</span>
             <h3 className="mt-4 text-3xl font-bold sm:text-4xl">{t("Video ngufi z'ubucuruzi bwawe.", "Short videos for your business.")}</h3>
             <p className="mt-4 max-w-md text-muted-foreground">{t("Kora video za 10–30s ziteguye kuri TikTok, Instagram Reels, WhatsApp Status na Facebook. Nta bumenyi bwo gukora video busabwa.", "Create 10–30s videos ready for TikTok, Instagram Reels, WhatsApp Status and Facebook. No video-editing skills needed.")}</p>

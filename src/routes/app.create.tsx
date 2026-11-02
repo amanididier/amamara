@@ -8,12 +8,12 @@ import { useLibrary } from "@/lib/library";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
 
-type Search = { type?: string; ref?: string };
+type Search = { type?: string | undefined; ref?: string | undefined };
 
 export const Route = createFileRoute("/app/create")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    type: typeof s.type === "string" ? s.type : undefined,
-    ref: typeof s.ref === "string" ? s.ref : undefined,
+    type: typeof s["type"] === "string" ? s["type"] : undefined,
+    ref: typeof s["ref"] === "string" ? s["ref"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -121,7 +121,7 @@ function Studio() {
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {styles.map((s, i) => (
               <button key={s.id} onClick={() => setStyle(s.id)} className={cn("overflow-hidden rounded-2xl border-2 text-left", style === s.id ? "border-primary" : "border-transparent")}>
-                <img src={sampleAds[i % sampleAds.length].image} alt="" className="aspect-square w-full object-cover" />
+                <img src={sampleAds[i % sampleAds.length]!.image} alt="" className="aspect-square w-full object-cover" />
                 <p className="bg-card p-2.5 text-sm font-semibold">{lang === "rw" ? s.rw : s.en}</p>
               </button>
             ))}
@@ -158,9 +158,9 @@ function Studio() {
           <p className="mt-2 rounded-xl bg-creative/15 p-3 text-sm text-creative">
             {t("Demo: AI ntirahuzwa. Iyi ni ishusho y'urugero, si itangazo ryawe nyaryo.", "Demo: AI isn't connected yet. This is a sample preview, not your real ad.")}
           </p>
-          <img src={(refAd ?? sampleAds[0]).image} alt="Preview" className="mt-4 w-full rounded-3xl object-cover" />
+          <img src={(refAd ?? sampleAds[0]!).image} alt="Preview" className="mt-4 w-full rounded-3xl object-cover" />
           <div className="mt-4 grid grid-cols-2 gap-2">
-            <button onClick={() => { add({ id: crypto.randomUUID(), name: name || t("Itangazo rishya", "New ad"), type: type === "template" ? "flyer" : type, date: new Date().toISOString().slice(0, 10), status: "progress", image: (refAd ?? sampleAds[0]).image }); toast.success(t("Byabitswe", "Saved")); }} className="rounded-full bg-primary py-3 font-semibold text-primary-foreground">{t("Bika", "Save")}</button>
+            <button onClick={() => { add({ id: crypto.randomUUID(), name: name || t("Itangazo rishya", "New ad"), type: type === "template" ? "flyer" : type, date: new Date().toISOString().slice(0, 10), status: "progress", image: (refAd ?? sampleAds[0]!).image }); toast.success(t("Byabitswe", "Saved")); }} className="rounded-full bg-primary py-3 font-semibold text-primary-foreground">{t("Bika", "Save")}</button>
             <button onClick={() => setStep(1)} className="rounded-full border py-3 font-semibold">{t("Indi verisiyo", "Another version")}</button>
             <Link to="/app/pro" className="col-span-2 rounded-full border py-3 text-center font-semibold">{t("Saba guhindurirwa", "Request an edit")}</Link>
           </div>

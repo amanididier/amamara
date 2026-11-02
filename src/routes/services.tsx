@@ -39,7 +39,7 @@ function Services() {
               <div className="p-8">
                 <h2 className="text-3xl font-bold">{r.title}</h2>
                 <p className="mt-3 text-muted-foreground">{r.body}</p>
-                <Link to={r.type === "pro" ? "/app/pro" : "/app/create"} search={r.type === "pro" ? undefined : { type: r.type }} className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">
+                <Link to={r.type === "pro" ? "/app/pro" : "/app/create"} search={r.type === "pro" ? {} : { type: r.type }} className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">
                   {t("Tangira", "Start")} <ArrowRight className="size-4" />
                 </Link>
               </div>

@@ -248,7 +248,7 @@ function Services() {
           <Link
             key={s.title}
             to={s.type === "pro" ? "/app/pro" : "/app/create"}
-            search={s.type === "pro" ? undefined : { type: s.type }}
+            search={s.type === "pro" ? {} : { type: s.type }}
             className="group overflow-hidden rounded-3xl border bg-card"
           >
             <div className="aspect-[4/3] overflow-hidden">

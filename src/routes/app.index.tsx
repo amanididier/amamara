@@ -38,7 +38,7 @@ function Dashboard() {
           <Link
             key={a.type}
             to={a.type === "template" ? "/app/templates" : "/app/create"}
-            search={a.type === "template" ? undefined : { type: a.type }}
+            search={a.type === "template" ? {} : { type: a.type }}
             className="group relative aspect-[4/5] overflow-hidden rounded-3xl sm:aspect-[4/3]"
           >
             <img src={a.img} alt={a.title} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />

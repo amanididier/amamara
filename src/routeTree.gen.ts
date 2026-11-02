@@ -15,6 +15,7 @@ import { Route as ExamplesRouteImport } from './routes/examples'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppCreateRouteImport } from './routes/app.create'
 import { Route as AppProRouteImport } from './routes/app.pro'
 import { Route as AppProjectsRouteImport } from './routes/app.projects'
 import { Route as AppTemplatesRouteImport } from './routes/app.templates'
@@ -50,6 +51,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCreateRoute = AppCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppProRoute = AppProRouteImport.update({
   id: '/pro',
   path: '/pro',
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/examples': typeof ExamplesRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
+  '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
   '/app/templates': typeof AppTemplatesRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/examples': typeof ExamplesRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
+  '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
   '/app/templates': typeof AppTemplatesRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/examples': typeof ExamplesRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
+  '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
   '/app/templates': typeof AppTemplatesRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/examples'
     | '/pricing'
     | '/services'
+    | '/app/create'
     | '/app/pro'
     | '/app/projects'
     | '/app/templates'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/examples'
     | '/pricing'
     | '/services'
+    | '/app/create'
     | '/app/pro'
     | '/app/projects'
     | '/app/templates'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/examples'
     | '/pricing'
     | '/services'
+    | '/app/create'
     | '/app/pro'
     | '/app/projects'
     | '/app/templates'
@@ -197,6 +209,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/create': {
+      id: '/app/create'
+      path: '/create'
+      fullPath: '/app/create'
+      preLoaderRoute: typeof AppCreateRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/pro': {
       id: '/app/pro'
       path: '/pro'
@@ -229,6 +248,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppCreateRoute: typeof AppCreateRoute
   AppProRoute: typeof AppProRoute
   AppProjectsRoute: typeof AppProjectsRoute
   AppTemplatesRoute: typeof AppTemplatesRoute
@@ -237,6 +257,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppCreateRoute: AppCreateRoute,
   AppProRoute: AppProRoute,
   AppProjectsRoute: AppProjectsRoute,
   AppTemplatesRoute: AppTemplatesRoute,

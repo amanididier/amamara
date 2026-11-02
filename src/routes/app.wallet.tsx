@@ -27,7 +27,7 @@ const demoTx = [
 
 function WalletPage() {
   const { t } = usePrefs();
-  const [amount, setAmount] = useState(pricing.topUpOptions[1]);
+  const [amount, setAmount] = useState<number>(pricing.topUpOptions[1] ?? 10000);
   const [method, setMethod] = useState<"mtn" | "airtel">("mtn");
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 sm:px-8 sm:py-12">

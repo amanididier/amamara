@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Amamaza | AI Advertising for Rwandan Businesses" },
       { property: "og:description", content: "Kora amatangazo y'ubucuruzi ukoresheje AI: posts, flyers, video zamamaza n'ibyapa by'amaduka. Create ads in Kinyarwanda or English." },
     ],
-    links: [{"rel":"canonical","href":"https://amamaza.vercel.app/"}],
+    links: [{ rel: "canonical", href: "https://amamaza.vercel.app/" }],
   }),
   component: Landing,
 });
@@ -33,7 +33,7 @@ function Landing() {
       <PricingPreview />
       <FinalCta />
       <SiteFooter />
-   n    </div>
+    </div>
   );
 }
 
@@ -72,14 +72,17 @@ function Hero() {
   const [active, setActive] = useState(1);
 
   useEffect(() => {
-    const id = setInterval(() => setActive((prev) => (prev + 1) % cards.length), 4000);
+    const id = setInterval(() => setActive((prev) => (prev + 1) % cards.length), 4500);
     return () => clearInterval(id);
   }, [cards.length]);
 
-  const ordered = [
-    cards[(active + cards.length - 1) % cards.length]!,
-    cards[active]!,
-    cards[(active + 1) % cards.length]!,
+  const left = cards[(active + cards.length - 1) % cards.length]!;
+  const center = cards[active]!;
+  const right = cards[(active + 1) % cards.length]!;
+  const stack = [
+    { card: left, role: "left" as const },
+    { card: center, role: "center" as const },
+    { card: right, role: "right" as const },
   ];
 
   return (
@@ -91,74 +94,87 @@ function Hero() {
         }}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/50 via-background/75 to-background" />
+
       <div className="relative mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-20">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-semibold">
-            <span className="size-1.5 rounded-full bg-creative" />
-            {t("Byakozwe ku bucuruzi bwo mu Rwanda", "Built for Rwandan businesses")}
-          </span>
-          <h1 className="mx-auto mt-6 text-5xl font-extrabold leading-[1.02] sm:text-7xl">
-            {t("Amamaza yawe,", "Your ads,")}{" "}
-            <span className="text-primary">{t("mu buryo bworoshye.", "made simple.")}</span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-            {t(
-              "Kora post, video n'ibyapa by'ubucuruzi bwawe ukoresheje AI. Nta bumenyi bwihariye bwo gushushanya busabwa.",
-              "Create social posts, video ads and storefront banners with AI. No design skills needed.",
-            )}
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link to="/app/create" className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground glow-primary transition-transform hover:scale-[1.03]">
-              {t("Tangira gukora", "Start creating")} <ArrowRight className="size-4" />
-            </Link>
-            <a href="#trending" className="inline-flex h-12 items-center gap-2 rounded-full border bg-card px-7 font-semibold hover:bg-accent">
-              <Play className="size-4 fill-current" /> {t("Reba ingero", "See examples")}
-            </a>
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
+          <div className="text-center lg:text-left">
+            <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-semibold">
+              <span className="size-1.5 rounded-full bg-creative" />
+              {t("Byakozwe ku bucuruzi bwo mu Rwanda", "Built for Rwandan businesses")}
+            </span>
+            <h1 className="mt-6 text-5xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
+              {t("Amamaza yawe,", "Your ads,")}{" "}
+              <span className="text-primary">{t("mu buryo bworoshye.", "made simple.")}</span>
+            </h1>
+            <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg lg:mx-0">
+              {t(
+                "Kora post, video n'ibyapa by'ubucuruzi bwawe ukoresheje AI. Nta bumenyi bwihariye bwo gushushanya busabwa.",
+                "Create social posts, video ads and storefront banners with AI. No design skills needed.",
+              )}
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
+              <Link
+                to="/app/create"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground glow-primary transition-transform hover:scale-[1.03]"
+              >
+                {t("Tangira gukora", "Start creating")} <ArrowRight className="size-4" />
+              </Link>
+              <a
+                href="#trending"
+                className="inline-flex h-12 items-center gap-2 rounded-full border bg-card px-7 font-semibold hover:bg-accent"
+              >
+                <Play className="size-4 fill-current" /> {t("Reba ingero", "See examples")}
+              </a>
+            </div>
+          </div>
+
+          <div className="relative mx-auto flex h-[420px] w-full max-w-[420px] items-center justify-center sm:h-[480px] lg:max-w-none">
+            {stack.map(({ card, role }) => {
+              const isCenter = role === "center";
+              return (
+                <Link
+                  key={card.key + "-" + role}
+                  to="/app/create"
+                  search={{ type: card.type }}
+                  onClick={() => setActive(cards.findIndex((x) => x.key === card.key))}
+                  className={cn(
+                    "absolute overflow-hidden border border-white/15 bg-black shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "aspect-[9/16] w-[160px] sm:w-[180px]",
+                    isCenter ? "z-30 scale-110 opacity-100" : "z-10 scale-90 opacity-80",
+                    role === "left" && "-translate-x-[70%] -rotate-[12deg] translate-y-3",
+                    role === "right" && "translate-x-[70%] rotate-[12deg] translate-y-3",
+                    role === "center" && "translate-x-0 rotate-0",
+                  )}
+                >
+                  <div className="absolute inset-x-0 top-0 z-10 flex h-6 items-center justify-center bg-black/40">
+                    <span className="h-1 w-10 rounded-full bg-white/25" />
+                  </div>
+                  <img src={card.image} alt={card.title} className="absolute inset-0 size-full object-cover" />
+                  <div className={cn("absolute inset-0 bg-gradient-to-t", card.accent, "via-transparent to-transparent")} />
+                  <span className="absolute left-2 top-8 border border-white/25 bg-black/45 px-2 py-0.5 text-[10px] font-bold text-white backdrop-blur-md">
+                    {card.tag}
+                  </span>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-3 pb-3 pt-10 text-left text-white">
+                    <p className={cn("font-extrabold leading-tight", isCenter ? "text-sm" : "text-xs")}>{card.title}</p>
+                    {isCenter && <p className="mt-0.5 text-[10px] text-white/70">{card.detail}</p>}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
 
-        <div className="relative mx-auto mt-16 flex max-w-5xl items-center justify-center" style={{ perspective: "1200px" }}>
-          {ordered.map((card, i) => {
-            const isCenter = i === 1;
-            const isLeft = i === 0;
-            return (
-              <Link
-                key={card.key}
-                to="/app/create"
-                search={{ type: card.type }}
-                onClick={() => setActive(cards.findIndex((c) => c.key === card.key))}
-                className={cn(
-                  "group relative isolate overflow-hidden border border-white/10 bg-card shadow-2xl transition-all duration-500",
-                  isCenter
-                    ? "z-30 w-[44%] max-w-[300px] aspect-[4/5] scale-110 sm:w-[40%] sm:max-w-[320px]"
-                    : "z-10 w-[32%] max-w-[220px] aspect-[4/5] opacity-90 sm:w-[30%]",
-                  isLeft && "-mr-6 -rotate-[14deg] translate-y-4 sm:-mr-10",
-                  !isCenter && !isLeft && "-ml-6 rotate-[14deg] translate-y-4 sm:-ml-10",
-                  isCenter && "-translate-y-1",
-                )}
-              >
-                <img src={card.image} alt={card.title} className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className={cn("absolute inset-0 bg-gradient-to-t", card.accent, "via-black/20 to-transparent")} />
-                <span className="absolute left-3 top-3 border border-white/30 bg-black/40 px-2.5 py-1 text-[10px] font-bold text-white backdrop-blur-md sm:left-4 sm:top-4 sm:text-[11px]">{card.tag}</span>
-                <div className="absolute inset-x-0 bottom-0 border-t border-white/20 bg-white/95 p-3 text-left text-neutral-950 backdrop-blur sm:p-4">
-                  <div className="flex items-center justify-between gap-1">
-                    <h2 className={cn("font-extrabold leading-tight", isCenter ? "text-base sm:text-lg" : "text-sm")}>{card.title}</h2>
-                    {isCenter && (
-                      <span className="grid size-7 shrink-0 place-items-center bg-primary text-white sm:size-8">
-                        <ArrowRight className="size-3.5 sm:size-4" />
-                      </span>
-                    )}
-                  </div>
-                  {isCenter && <p className="mt-1 text-[11px] leading-relaxed text-neutral-600 sm:text-xs">{card.detail}</p>}
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="mt-8 flex justify-center gap-2">
-          {cards.map((c, i) => (
-            <button key={c.key} onClick={() => setActive(i)} aria-label={c.title} className={cn("h-1.5 rounded-full transition-all", i === active ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/40")} />
+        <div className="mt-8 flex justify-center gap-2 lg:justify-end lg:pr-8">
+          {cards.map((cItem, i) => (
+            <button
+              key={cItem.key}
+              onClick={() => setActive(i)}
+              aria-label={cItem.title}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-500",
+                i === active ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/40",
+              )}
+            />
           ))}
         </div>
       </div>
@@ -178,6 +194,7 @@ function ProblemSolution() {
     t("Uvuga icyo ushaka mu Kinyarwanda", "Just say what you want in Kinyarwanda"),
     t("Itangazo ryawe riboneka mu minota", "Your ad is ready in minutes"),
   ];
+    ];
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
       <h2 className="text-center text-3xl font-bold sm:text-5xl">{t("Ikibazo n'igisubizo", "The problem, solved")}</h2>
@@ -258,7 +275,7 @@ function WhatWeDo() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="order-2 lg:order--1">
+          <div className="order-2 lg:order-1">
             <span className="inline-flex items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 text-xs font-bold text-violet-400"><Film className="size-3.5" /> {t("Video zamamaza", "Video ads")}</span>
             <h3 className="mt-4 text-3xl font-bold sm:text-4xl">{t("Video ngufi z'ubucuruzi bwawe.", "Short videos for your business.")}</h3>
             <p className="mt-4 max-w-md text-muted-foreground">{t("Kora video za 10–30s ziteguye kuri TikTok, Instagram Reels, WhatsApp Status na Facebook. Nta bumenyi bwo gukora video busabwa.", "Create 10–30s videos ready for TikTok, Instagram Reels, WhatsApp Status and Facebook. No video-editing skills needed.")}</p>

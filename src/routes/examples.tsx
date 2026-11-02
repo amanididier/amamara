@@ -30,9 +30,9 @@ function Examples() {
     { id: "banner", l: "Banner" },
   ];
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#090909] text-white">
       <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+      <main className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6">
         <h1 className="text-4xl font-extrabold sm:text-6xl">{t("Ingero z'amatangazo", "Ad examples")}</h1>
         <p className="mt-3 max-w-xl text-muted-foreground">
           {t("Izi ni ingero zakozwe ngo zikwereke ibishoboka. Hitamo imwe, uyihindure ibe iyawe.", "These samples show what's possible. Pick one and make it yours.")}
@@ -51,10 +51,11 @@ function Examples() {
             </button>
           ))}
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-black p-3 shadow-2xl sm:p-5"><div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {list.map((ad) => <AdCard key={ad.id} ad={ad} />)}
         </div>
-        {list.length === 0 && <p className="py-20 text-center text-muted-foreground">{t("Nta rugero ruhari ubu.", "No samples here yet.")}</p>}
+        {list.length === 0 && <p className="py-20 text-center text-white/55">{t("Nta rugero ruhari ubu.", "No samples here yet.")}</p>}
+        </div>
       </main>
       <SiteFooter />
     </div>

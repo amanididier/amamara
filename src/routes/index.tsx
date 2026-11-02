@@ -37,7 +37,7 @@ function Landing() {
 }
 
 function Hero() {
-  const { t } = usePrefs();
+  const { t, theme } = usePrefs();
   const cards = [
     {
       key: "post",
@@ -82,8 +82,16 @@ function Hero() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-grid pb-16 sm:pb-24">
-      <div className="pointer-events-none absolute left-1/2 top-24 size-[560px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
+    <section className="relative overflow-hidden pb-16 sm:pb-24">
+      {/* Theme-aware social wallpaper */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${theme === "light" ? "/hero-social-light.jpg" : "/hero-social-dark.png"})`,
+        }}
+      />
+      {/* Soft fade so headline + cards stay readable */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/50 via-background/75 to-background" />
       <div className="relative mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-20">
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-semibold">

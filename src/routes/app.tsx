@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { Home, Sparkles, LayoutGrid, FolderOpen, Wallet, UserRound, LifeBuoy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Home, Sparkles, LayoutGrid, FolderOpen, UserRound, LifeBuoy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { LangSwitch, Logo, ThemeSwitch } from "@/components/brand";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
-import { formatRWF } from "@/lib/pricing";
 
 export const Route = createFileRoute("/app")({
   head: () => ({
@@ -26,7 +25,6 @@ function AppLayout() {
     { to: "/app/create", label: t("Kurema itangazo", "Create ad"), Icon: Sparkles },
     { to: "/app/templates", label: t("Ingero", "Templates"), Icon: LayoutGrid },
     { to: "/app/projects", label: t("Ibikorwa byanjye", "My ads"), Icon: FolderOpen },
-    { to: "/app/wallet", label: t("Amafaranga", "Wallet"), Icon: Wallet },
     { to: "/app/pro", label: t("Serivisi z'abahanga", "Pro services"), Icon: UserRound },
   ] as const;
 
@@ -53,13 +51,6 @@ function AppLayout() {
             </Link>
           ))}
         </nav>
-        {!collapsed && (
-          <Link to="/app/wallet" className="mb-3 rounded-2xl border bg-card p-4">
-            <p className="text-xs text-muted-foreground">{t("Amafaranga asigaye", "Balance")}</p>
-            <p className="font-display text-xl font-bold">{formatRWF(0)}</p>
-            <p className="mt-2 text-xs font-semibold text-primary">+ {t("Ongeramo", "Top up")}</p>
-          </Link>
-        )}
         <div className={cn("flex items-center gap-2 px-1", collapsed && "flex-col")}>
           <Link to="/app" className="grid size-9 place-items-center rounded-full text-muted-foreground hover:text-foreground" title={t("Ubufasha", "Help")}>
             <LifeBuoy className="size-4" />
@@ -77,7 +68,7 @@ function AppLayout() {
         <Outlet />
       </div>
 
-      {/* Mobile bottom nav */}
+      {/* Mobile bottom nav — no wallet */}
       <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t bg-background/95 px-2 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
         {[nav[0], nav[2], nav[1], nav[3], nav[4]].map((n, i) =>
           i === 2 ? (

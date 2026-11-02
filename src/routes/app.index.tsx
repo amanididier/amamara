@@ -4,7 +4,6 @@ import { AdCard } from "@/components/ad-card";
 import { images, sampleAds } from "@/data/ads";
 import { useLibrary } from "@/lib/library";
 import { usePrefs } from "@/lib/prefs";
-import { formatRWF } from "@/lib/pricing";
 
 export const Route = createFileRoute("/app/")({
   head: () => ({
@@ -56,7 +55,7 @@ function Dashboard() {
         ))}
       </div>
 
-      <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_320px]">
+      <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_280px]">
         <section>
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold">{t("Ingero zikunzwe", "Popular templates")}</h2>
@@ -67,11 +66,6 @@ function Dashboard() {
           </div>
         </section>
         <aside className="space-y-4">
-          <div className="rounded-3xl bg-primary p-6 text-primary-foreground">
-            <p className="text-sm opacity-80">{t("Amafaranga asigaye", "Wallet balance")}</p>
-            <p className="mt-1 font-display text-3xl font-extrabold">{formatRWF(0)}</p>
-            <Link to="/app/wallet" className="mt-5 inline-block rounded-full bg-background px-5 py-2 text-sm font-semibold text-foreground">+ {t("Ongeramo amafaranga", "Add money")}</Link>
-          </div>
           <div className="rounded-3xl border bg-card p-6">
             <p className="font-bold">{t("Uko bikora", "How it works")}</p>
             <ol className="mt-3 space-y-2 text-sm text-muted-foreground">

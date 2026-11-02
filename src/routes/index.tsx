@@ -38,64 +38,94 @@ function Landing() {
 
 function Hero() {
   const { t } = usePrefs();
-  const fan = [
-    { img: images.fashion, rot: -14, y: 60, label: "Fashion" },
-    { img: images.restaurant, rot: -7, y: 20, label: "Restaurant" },
-    { img: images.juice, rot: 0, y: 0, label: "Product", main: true },
-    { img: images.hotel, rot: 7, y: 20, label: "Hotel" },
-    { img: images.salon, rot: 14, y: 60, label: "Salon" },
+  const serviceCards = [
+    {
+      title: t("Post", "Post"),
+      detail: t("Flyer na post byiteguye gusangizwa", "Scroll-stopping posts and flyers"),
+      image: images.fashion,
+      type: "flyer" as const,
+      tag: t("Flyer", "Social post"),
+      accent: "from-rose-500/80",
+    },
+    {
+      title: t("Video Ad", "Video ad"),
+      detail: t("Video ngufi zamamaza ubucuruzi", "Short-form video ads for your business"),
+      image: images.juice,
+      type: "video" as const,
+      tag: "9:16 · 0:15",
+      accent: "from-black/80",
+    },
+    {
+      title: t("Ibyapa", "Shop banners"),
+      detail: t("Ibyapa by'amaduka biteguye gucapwa", "Print-ready storefront banners"),
+      image: images.shopBanner,
+      type: "banner" as const,
+      tag: t("Byiteguye gucapwa", "Print ready"),
+      accent: "from-amber-600/80",
+    },
   ];
-  return (
-    <section className="relative overflow-hidden bg-grid">
-      <div className="pointer-events-none absolute left-1/2 top-1/3 size-[640px] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px]" />
-      <div className="relative mx-auto max-w-5xl px-4 pt-16 text-center sm:pt-24">
-        <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-semibold">
-          <span className="size-1.5 rounded-full bg-creative" />
-          {t("Byakozwe ku bucuruzi bwo mu Rwanda", "Built for Rwandan businesses")}
-        </span>
-        <h1 className="mx-auto mt-6 max-w-3xl text-5xl font-extrabold leading-[1.02] sm:text-7xl">
-          {t("Amamaza yawe,", "Your ads,")}{" "}
-          <span className="text-primary">{t("mu buryo bworoshye.", "made simple.")}</span>
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-          {t(
-            "Kora amashusho, amafoto n'amatangazo meza y'ubucuruzi bwawe ukoresheje AI. Nta bumenyi bwihariye bwo gushushanya busabwa.",
-            "Create beautiful videos, photos and ads for your business with AI. No design skills needed.",
-          )}
-        </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link to="/app/create" className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground glow-primary transition-transform hover:scale-[1.03]">
-            {t("Tangira gukora", "Start creating")} <ArrowRight className="size-4" />
-          </Link>
-          <Link to="/examples" className="inline-flex h-12 items-center gap-2 rounded-full border bg-card px-7 font-semibold hover:bg-accent">
-            <Play className="size-4 fill-current" /> {t("Reba ingero", "See examples")}
-          </Link>
-        </div>
-      </div>
 
-      {/* Fanned ad cards — Nintendo-style showcase */}
-      <div className="relative mx-auto mt-14 flex h-[300px] [--step:95px] sm:[--step:180px] max-w-5xl items-end justify-center sm:h-[420px]">
-        {fan.map((c, i) => (
-          <div
-            key={i}
-            className={cn(
-              "absolute bottom-0 origin-bottom overflow-hidden rounded-2xl border-4 border-card shadow-2xl transition-transform duration-500 hover:-translate-y-4",
-              c.main ? "z-20 w-[150px] sm:w-[240px]" : "w-[120px] sm:w-[200px]",
-              (i === 0 || i === 4) && "hidden sm:block",
+  return (
+    <section className="relative overflow-hidden bg-grid pb-20">
+      <div className="pointer-events-none absolute left-1/2 top-24 size-[560px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
+      <div className="relative mx-auto max-w-7xl px-4 pt-16 sm:px-6 sm:pt-24">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-semibold">
+            <span className="size-1.5 rounded-full bg-creative" />
+            {t("Byakozwe ku bucuruzi bwo mu Rwanda", "Built for Rwandan businesses")}
+          </span>
+          <h1 className="mx-auto mt-6 text-5xl font-extrabold leading-[1.02] sm:text-7xl">
+            {t("Amamaza yawe,", "Your ads,")}{" "}
+            <span className="text-primary">{t("mu buryo bworoshye.", "made simple.")}</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
+            {t(
+              "Kora post, video n'ibyapa by'ubucuruzi bwawe ukoresheje AI. Nta bumenyi bwihariye bwo gushushanya busabwa.",
+              "Create social posts, video ads and storefront banners with AI. No design skills needed.",
             )}
-            style={{
-              transform: `translateX(calc(var(--step) * ${i - 2})) translateY(${c.y}px) rotate(${c.rot}deg)`,
-              zIndex: 20 - Math.abs(i - 2) * 5,
-            }}
-          >
-            <img src={c.img} alt={c.label} className="aspect-[4/5] w-full object-cover" width={1024} height={1280} />
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link to="/app/create" className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground glow-primary transition-transform hover:scale-[1.03]">
+              {t("Tangira gukora", "Start creating")} <ArrowRight className="size-4" />
+            </Link>
+            <Link to="/examples" className="inline-flex h-12 items-center gap-2 rounded-full border bg-card px-7 font-semibold hover:bg-accent">
+              <Play className="size-4 fill-current" /> {t("Reba ingero", "See examples")}
+            </Link>
           </div>
-        ))}
+        </div>
+
+        <div className="mx-auto mt-14 grid max-w-5xl items-center gap-4 md:grid-cols-3 md:gap-3">
+          {serviceCards.map((card, i) => (
+            <Link
+              key={card.type}
+              to="/app/create"
+              search={{ type: card.type }}
+              className={cn(
+                "group relative isolate block aspect-[4/5] overflow-hidden rounded-[1.6rem] border-4 border-card bg-card shadow-2xl transition duration-500 hover:z-10 hover:-translate-y-2 hover:shadow-primary/10",
+                i === 1 ? "md:-mt-8 md:scale-[1.04]" : i === 0 ? "md:mt-5 md:-rotate-2" : "md:mt-5 md:rotate-2",
+              )}
+            >
+              <img src={card.image} alt={card.title} loading="eager" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className={cn("absolute inset-0 bg-gradient-to-t", card.accent, "via-black/10 to-transparent")} />
+              <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-black/35 px-3 py-1.5 text-[11px] font-bold text-white backdrop-blur-md">
+                {card.tag}
+              </span>
+              <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-white/40 bg-white/95 p-4 text-left text-neutral-950 shadow-lg backdrop-blur">
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className="text-lg font-extrabold">{card.title}</h2>
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-white transition-transform group-hover:translate-x-1">
+                    <ArrowRight className="size-4" />
+                  </span>
+                </div>
+                <p className="mt-1 text-xs leading-relaxed text-neutral-600">{card.detail}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
-
 function ProblemSolution() {
   const { t } = usePrefs();
   const problems = [
@@ -146,39 +176,57 @@ function Showcase() {
   const [cat, setCat] = useState<Category | "all">("all");
   const list = sampleAds.filter((a) => cat === "all" || a.category === cat);
   return (
-    <section id="showcase" className="border-y bg-surface py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+    <section id="showcase" className="border-y bg-[#090909] py-20 text-white sm:py-24">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+        <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <h2 className="text-3xl font-bold sm:text-5xl">{t("Reba ibyo ushobora gukora.", "See what you can create.")}</h2>
-            <p className="mt-3 text-muted-foreground">{t("Hitamo urugero, ukande \"Kora ibisa n'ibi\".", "Pick a sample and tap \"Make similar\".")}</p>
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-white/45">{t("Ibikorwa byacu", "Made with Amamaza")}</span>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-5xl">{t("Reba ibyo ushobora gukora.", "See what you can create.")}</h2>
+            <p className="mt-3 max-w-xl text-sm text-white/55 sm:text-base">{t("Ingero z'amatangazo y'ubucuruzi — hitamo imwe uyihindure iyawe.", "A library of business creatives. Choose one and make it yours.")}</p>
           </div>
-          <Link to="/examples" className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
-            {t("Reba zose", "View all")} <ArrowRight className="size-4" />
+          <Link to="/examples" className="inline-flex items-center gap-1 text-sm font-semibold text-white hover:text-primary">
+            {t("Reba zose", "Explore gallery")} <ArrowRight className="size-4" />
           </Link>
         </div>
-        <div className="no-scrollbar -mx-4 mt-8 flex gap-2 overflow-x-auto px-4">
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setCat(c.id)}
-              className={cn(
-                "shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors",
-                cat === c.id ? "bg-primary text-primary-foreground" : "border bg-card text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {c[lang]}
-            </button>
-          ))}
-        </div>
-        <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
-          {list.map((ad) => <AdCard key={ad.id} ad={ad} tall />)}
+
+        <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-white/10 bg-black shadow-2xl">
+          <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 sm:px-6">
+            <div className="flex items-center gap-2">
+              <span className="grid size-7 place-items-center rounded-lg bg-primary text-xs font-black text-white">A</span>
+              <span className="text-sm font-bold tracking-tight">amamaza</span>
+              <span className="ml-2 hidden text-xs text-white/35 sm:inline">{t("Ingero", "Creative library")}</span>
+            </div>
+            <div className="hidden items-center gap-5 text-[11px] font-medium text-white/45 lg:flex">
+              <span className="text-white">{t("Kuri wowe", "For you")}</span>
+              <span>{t("Ibyamamare", "Popular")}</span>
+              <span>{t("Video", "Videos")}</span>
+              <span>{t("Flyer", "Posts")}</span>
+              <span>{t("Ibyapa", "Banners")}</span>
+            </div>
+            <span className="rounded-full border border-white/10 px-3 py-1.5 text-[11px] text-white/45">{list.length} {t("ingero", "samples")}</span>
+          </div>
+          <div className="no-scrollbar flex gap-2 overflow-x-auto border-b border-white/10 px-4 py-3 sm:px-6">
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setCat(c.id)}
+                className={cn(
+                  "shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors",
+                  cat === c.id ? "bg-white text-black" : "bg-white/[0.06] text-white/55 hover:bg-white/10 hover:text-white",
+                )}
+              >
+                {c[lang]}
+              </button>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-2 p-2 sm:grid-cols-3 sm:gap-3 sm:p-4 lg:grid-cols-4">
+            {list.map((ad) => <AdCard key={ad.id} ad={ad} tall className="[&_h3]:text-white [&_p]:text-white/45" />)}
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
 function HowItWorks() {
   const { t } = usePrefs();
   const steps = [

@@ -9,11 +9,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/examples")({
   head: () => ({
     meta: [
-      { title: "Ingero z'amatangazo — Amamaza" },
-      { name: "description", content: "Reba ingero z'amatangazo: video, flyer na banner z'amaduka, resitora, amahoteli n'ibindi." },
-      { property: "og:title", content: "Ingero z'amatangazo — Amamaza" },
-      { property: "og:description", content: "Galeri y'amatangazo y'ubucuruzi bwo mu Rwanda." },
+      { title: "Ad Examples & Design Inspiration in Rwanda | Amamaza" },
+      { name: "description", content: "Browse advertising examples for Rwandan businesses, including promotional videos, social media posts, flyers and shop banners for restaurants, hotels, salons and more." },
+      { property: "og:title", content: "Advertising Examples & Inspiration | Amamaza" },
+      { property: "og:description", content: "Explore sample ads and creative ideas for businesses in Rwanda. Reba ingero za video, flyers, posts n'ibyapa." },
     ],
+    links: [{"rel":"canonical","href":"https://amamaza.vercel.app/examples"}],
   }),
   component: Examples,
 });

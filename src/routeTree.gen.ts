@@ -10,33 +10,159 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as ExamplesRouteImport } from './routes/examples'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppCreateRouteImport } from './routes/app.create'
+import { Route as AppProRouteImport } from './routes/app.pro'
+import { Route as AppProjectsRouteImport } from './routes/app.projects'
+import { Route as AppTemplatesRouteImport } from './routes/app.templates'
+import { Route as AppWalletRouteImport } from './routes/app.wallet'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamplesRoute = ExamplesRouteImport.update({
+  id: '/examples',
+  path: '/examples',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCreateRoute = AppCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProRoute = AppProRouteImport.update({
+  id: '/pro',
+  path: '/pro',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProjectsRoute = AppProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTemplatesRoute = AppTemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppWalletRoute = AppWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/examples': typeof ExamplesRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
+  '/app/create': typeof AppCreateRoute
+  '/app/pro': typeof AppProRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/templates': typeof AppTemplatesRoute
+  '/app/wallet': typeof AppWalletRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/examples': typeof ExamplesRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
+  '/app/create': typeof AppCreateRoute
+  '/app/pro': typeof AppProRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/templates': typeof AppTemplatesRoute
+  '/app/wallet': typeof AppWalletRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/examples': typeof ExamplesRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
+  '/app/create': typeof AppCreateRoute
+  '/app/pro': typeof AppProRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/templates': typeof AppTemplatesRoute
+  '/app/wallet': typeof AppWalletRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/examples'
+    | '/pricing'
+    | '/services'
+    | '/app/create'
+    | '/app/pro'
+    | '/app/projects'
+    | '/app/templates'
+    | '/app/wallet'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/examples'
+    | '/pricing'
+    | '/services'
+    | '/app/create'
+    | '/app/pro'
+    | '/app/projects'
+    | '/app/templates'
+    | '/app/wallet'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/examples'
+    | '/pricing'
+    | '/services'
+    | '/app/create'
+    | '/app/pro'
+    | '/app/projects'
+    | '/app/templates'
+    | '/app/wallet'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  ExamplesRoute: typeof ExamplesRoute
+  PricingRoute: typeof PricingRoute
+  ServicesRoute: typeof ServicesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +174,105 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/examples': {
+      id: '/examples'
+      path: '/examples'
+      fullPath: '/examples'
+      preLoaderRoute: typeof ExamplesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/create': {
+      id: '/app/create'
+      path: '/create'
+      fullPath: '/app/create'
+      preLoaderRoute: typeof AppCreateRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/pro': {
+      id: '/app/pro'
+      path: '/pro'
+      fullPath: '/app/pro'
+      preLoaderRoute: typeof AppProRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/projects': {
+      id: '/app/projects'
+      path: '/projects'
+      fullPath: '/app/projects'
+      preLoaderRoute: typeof AppProjectsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/templates': {
+      id: '/app/templates'
+      path: '/templates'
+      fullPath: '/app/templates'
+      preLoaderRoute: typeof AppTemplatesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/wallet': {
+      id: '/app/wallet'
+      path: '/wallet'
+      fullPath: '/app/wallet'
+      preLoaderRoute: typeof AppWalletRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppCreateRoute: typeof AppCreateRoute
+  AppProRoute: typeof AppProRoute
+  AppProjectsRoute: typeof AppProjectsRoute
+  AppTemplatesRoute: typeof AppTemplatesRoute
+  AppWalletRoute: typeof AppWalletRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCreateRoute: AppCreateRoute,
+  AppProRoute: AppProRoute,
+  AppProjectsRoute: AppProjectsRoute,
+  AppTemplatesRoute: AppTemplatesRoute,
+  AppWalletRoute: AppWalletRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  ExamplesRoute: ExamplesRoute,
+  PricingRoute: PricingRoute,
+  ServicesRoute: ServicesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

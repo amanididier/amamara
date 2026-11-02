@@ -3,19 +3,46 @@ import { Moon, Sun } from "lucide-react";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
 
-export function Logo({ className }: { className?: string }) {
+type LogoVariant = "primary" | "white";
+
+/**
+ * Amamaza logo.
+ * - variant="primary" (default): red mark — use inside the app / on light surfaces
+ * - variant="white": white mark — use on red brand areas, dark headers, or app icons
+ */
+export function Logo({
+  className,
+  variant = "primary",
+  showWordmark = true,
+}: {
+  className?: string;
+  variant?: LogoVariant;
+  showWordmark?: boolean;
+}) {
+  const markSrc = variant === "white" ? "/amamaza-mark-white.png" : "/amamaza-mark-red.png";
+
   return (
-    <Link to="/" aria-label="Amamaza home" className={cn("flex items-center gap-2.5 font-display text-lg font-extrabold tracking-tight", className)}>
-      <svg viewBox="0 0 40 40" className="size-9 shrink-0" role="img" aria-label="Amamaza mark">
-        <path d="M5 33.5 17.3 6.8c1.1-2.4 4.4-2.4 5.5 0l5.1 11.1-5.5 3.1-2.4-5.1-8.2 17.6H5Z" fill="currentColor" className="text-primary" />
-        <path d="M20.4 27.2 25 24.6l4.1 8.9H18.9l1.5-6.3Z" fill="currentColor" className="text-primary" />
-        <path d="M27.5 13.1c2.4 1.6 3.8 4 3.8 6.9s-1.4 5.3-3.8 6.9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" className="text-primary" />
-        <path d="M32.4 8.7c3.8 2.6 6 6.5 6 11.3s-2.2 8.7-6 11.3" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" className="text-primary" />
-      </svg>
-      <span>amamaza</span>
+    <Link
+      to="/"
+      aria-label="Amamaza home"
+      className={cn(
+        "flex items-center gap-2.5 font-display text-lg font-extrabold tracking-tight",
+        className,
+      )}
+    >
+      <img
+        src={markSrc}
+        alt=""
+        width={36}
+        height={36}
+        className="size-9 shrink-0 object-contain"
+        aria-hidden
+      />
+      {showWordmark && <span>amamaza</span>}
     </Link>
   );
 }
+
 export function LangSwitch({ className }: { className?: string }) {
   const { lang, setLang } = usePrefs();
   return (

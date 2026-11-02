@@ -83,14 +83,12 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden pb-16 sm:pb-24">
-      {/* Theme-aware social wallpaper */}
       <div
         className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${theme === "light" ? "/hero-social-light.jpg" : "/hero-social-dark.png"})`,
         }}
       />
-      {/* Soft fade so headline + cards stay readable */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/50 via-background/75 to-background" />
       <div className="relative mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-20">
         <div className="mx-auto max-w-3xl text-center">
@@ -308,11 +306,11 @@ function WhatWeDo() {
                 <p className="mt-4 max-w-md text-white/60">{t("Ushaka itangazo ryihariye ryakozwe n'umuhanga? Tanga brief, tuhire abahanga bakora video, flyer cyangwa banner yihariye ku giciro giteganyijwe.", "Need a custom ad crafted by a real creative? Share a brief and our pros will produce a tailored video, flyer or banner at a clear price.")}</p>
                 <Link to="/app/pro" className="mt-8 inline-flex h-12 w-fit items-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground">{t("Vugana n'abahanga", "Talk to a pro")} <ArrowRight className="size-4" /></Link>
               </div>
-              <div className="relative min-h-[320px] sm:min-h-[420px] lg:min-h-full">
+              <div className="relative flex items-center justify-center overflow-hidden bg-black min-h-[280px] lg:min-h-full">
                 <img
                   src="/pro-collage.png"
                   alt="Amamaza creative professionals"
-                  className="absolute inset-0 size-full object-cover object-center"
+                  className="h-full w-full object-contain object-center"
                 />
               </div>
             </div>

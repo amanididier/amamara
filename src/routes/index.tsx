@@ -74,7 +74,7 @@ function Hero() {
       </div>
 
       {/* Fanned ad cards — Nintendo-style showcase */}
-      <div className="relative mx-auto mt-14 flex h-[300px] max-w-5xl items-end justify-center sm:h-[420px]">
+      <div className="relative mx-auto mt-14 flex h-[300px] [--step:95px] sm:[--step:180px] max-w-5xl items-end justify-center sm:h-[420px]">
         {fan.map((c, i) => (
           <div
             key={i}
@@ -84,7 +84,7 @@ function Hero() {
               (i === 0 || i === 4) && "hidden sm:block",
             )}
             style={{
-              transform: `translateX(${(i - 2) * (typeof window !== "undefined" && window.innerWidth < 640 ? 95 : 180)}px) translateY(${c.y}px) rotate(${c.rot}deg)`,
+              transform: `translateX(calc(var(--step) * ${i - 2})) translateY(${c.y}px) rotate(${c.rot}deg)`,
               zIndex: 20 - Math.abs(i - 2) * 5,
             }}
           >

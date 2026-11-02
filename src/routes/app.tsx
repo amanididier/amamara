@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/app")({
   head: () => ({
     meta: [
-      { title: "Studio — Amamaza" },
-      { name: "description", content: "Studio ya Amamaza: kora amatangazo y'ubucuruzi bwawe." },
-      { property: "og:title", content: "Studio — Amamaza" },
+      { title: "Amamaza Studio" },
+      { name: "description", content: "Create and manage your advertising projects in Amamaza Studio." },
+      { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: "Amamaza Studio" },
       { property: "og:description", content: "Kora video, flyer na banner mu buryo bworoshye." },
     ],
   }),

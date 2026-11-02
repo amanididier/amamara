@@ -5,17 +5,17 @@ import { cn } from "@/lib/utils";
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link to="/" className={cn("flex items-center gap-2 font-display text-lg font-bold", className)}>
-      <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-        <svg viewBox="0 0 24 24" className="size-4 fill-current" aria-hidden>
-          <path d="M8 5.5v13l10-6.5z" />
-        </svg>
-      </span>
-      amamaza
+    <Link to="/" aria-label="Amamaza home" className={cn("flex items-center gap-2.5 font-display text-lg font-extrabold tracking-tight", className)}>
+      <svg viewBox="0 0 40 40" className="size-9 shrink-0" role="img" aria-label="Amamaza mark">
+        <path d="M5 33.5 17.3 6.8c1.1-2.4 4.4-2.4 5.5 0l5.1 11.1-5.5 3.1-2.4-5.1-8.2 17.6H5Z" fill="currentColor" className="text-primary" />
+        <path d="M20.4 27.2 25 24.6l4.1 8.9H18.9l1.5-6.3Z" fill="currentColor" className="text-primary" />
+        <path d="M27.5 13.1c2.4 1.6 3.8 4 3.8 6.9s-1.4 5.3-3.8 6.9" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" className="text-primary" />
+        <path d="M32.4 8.7c3.8 2.6 6 6.5 6 11.3s-2.2 8.7-6 11.3" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" className="text-primary" />
+      </svg>
+      <span>amamaza</span>
     </Link>
   );
 }
-
 export function LangSwitch({ className }: { className?: string }) {
   const { lang, setLang } = usePrefs();
   return (

@@ -7,11 +7,12 @@ import { usePrefs } from "@/lib/prefs";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Ibyo dukora — Amamaza" },
-      { name: "description", content: "Video zamamaza, flyers, banner z'amaduka n'abahanga bagukorera — byose ahantu hamwe." },
-      { property: "og:title", content: "Ibyo dukora — Amamaza" },
-      { property: "og:description", content: "Serivisi za Amamaza ku bucuruzi bwo mu Rwanda." },
+      { title: "AI Ad Design Services in Rwanda | Amamaza" },
+      { name: "description", content: "Explore Amamaza services for Rwandan businesses: AI video ads, promotional flyers, social media posts, print-ready shop banners and professional ad design." },
+      { property: "og:title", content: "AI Advertising & Design Services | Amamaza" },
+      { property: "og:description", content: "Video ads, flyers, social posts and shop banners for businesses in Rwanda. Kora amatangazo meza y'ubucuruzi bwawe." },
     ],
+    links: [{"rel":"canonical","href":"https://amamaza.vercel.app/services"}],
   }),
   component: Services,
 });

@@ -308,19 +308,12 @@ function WhatWeDo() {
                 <p className="mt-4 max-w-md text-white/60">{t("Ushaka itangazo ryihariye ryakozwe n'umuhanga? Tanga brief, tuhire abahanga bakora video, flyer cyangwa banner yihariye ku giciro giteganyijwe.", "Need a custom ad crafted by a real creative? Share a brief and our pros will produce a tailored video, flyer or banner at a clear price.")}</p>
                 <Link to="/app/pro" className="mt-8 inline-flex h-12 w-fit items-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground">{t("Vugana n'abahanga", "Talk to a pro")} <ArrowRight className="size-4" /></Link>
               </div>
-              <div className="relative grid grid-cols-3 gap-2 p-4 sm:gap-3 sm:p-6">
-                {[
-                  { img: images.fashion, bg: "bg-yellow-400" },
-                  { img: images.hotel, bg: "bg-blue-500" },
-                  { img: images.juice, bg: "bg-violet-500" },
-                  { img: images.salon, bg: "bg-lime-400" },
-                  { img: images.restaurant, bg: "bg-pink-500" },
-                  { img: images.realestate, bg: "bg-cyan-400" },
-                ].map((item, i) => (
-                  <div key={i} className={cn("overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem]", item.bg, i % 2 === 1 ? "mt-6 sm:mt-10" : "")}>
-                    <img src={item.img} alt="" className="aspect-[3/4] w-full object-cover mix-blend-multiply opacity-95" />
-                  </div>
-                ))}
+              <div className="relative min-h-[320px] sm:min-h-[420px] lg:min-h-full">
+                <img
+                  src="/pro-collage.png"
+                  alt="Amamaza creative professionals"
+                  className="absolute inset-0 size-full object-cover object-center"
+                />
               </div>
             </div>
           </div>

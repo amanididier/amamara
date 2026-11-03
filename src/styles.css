@@ -235,3 +235,8 @@
 @media(max-width:1023px){.duo-hero__inner{min-height:0;grid-template-columns:1fr}.duo-hero__copy{max-width:680px}.duo-hero__visual{min-height:460px}.amamaza-three-stage{width:min(100%,660px);height:460px}}
 @media(max-width:639px){.duo-hero__inner{padding-top:36px}.duo-hero__visual{min-height:320px;margin-inline:-8px}.amamaza-three-stage{width:100%;height:320px}.duo-controls{bottom:0}.duo-dots{bottom:13px;right:0}.duo-counter{top:0;right:0}}
 @media(prefers-reduced-motion:reduce){.duo-hero__copy,.duo-controls button,.duo-dots button{transition:none!important;animation:none!important}}
+
+.duo-fold-control{position:absolute;left:50%;bottom:62px;z-index:12;display:flex;align-items:center;gap:12px;width:min(310px,68%);padding:8px 13px;border:1px solid var(--border);border-radius:999px;background:color-mix(in srgb,var(--card) 86%,transparent);backdrop-filter:blur(12px);transform:translateX(-50%);box-shadow:0 8px 24px rgb(0 0 0 / .12)}
+.duo-fold-control span{font-size:9px;font-weight:800;letter-spacing:.16em;color:var(--muted-foreground)}
+.duo-fold-control input{width:100%;accent-color:var(--primary);cursor:ew-resize}
+@media(max-width:639px){.duo-fold-control{bottom:48px;width:min(260px,70%)}}

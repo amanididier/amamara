@@ -67,7 +67,7 @@ export function WhatWeDo() {
       </section>
 
       <section className="bg-post-soft/70 py-10 sm:py-14">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-[1180px] items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-14 lg:px-12">
           <div className="relative mx-auto flex min-h-[340px] w-full max-w-xl items-center justify-center px-1 sm:px-2">
             <img
               src="/ads/amamaza-social-posts-collage.png"

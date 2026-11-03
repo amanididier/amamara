@@ -23,8 +23,8 @@ export function DuoHero() {
   const [word, setWord] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const words = lang === "rw"
-    ? ["video zamamaza ibicuruzwa na serivisi", "amapost yo kwamamaza ibicuruzwa na serivisi", "ibyapa byamamaza ibicuruzwa na serivisi"]
-    : ["video ads for your products and services", "social media posts for your business", "promotional shop banners"];
+    ? ["video zamamaza", "amapost yo kwamamaza", "ibyapa byamamaza"]
+    : ["video ads", "social media posts", "promotional shop banners"];
   const current = slides[active]!;
   const playing = phase === "play";
   const open = phase !== "intro";
@@ -74,7 +74,7 @@ export function DuoHero() {
             {" "}
             <span key={word} className="inline-block font-semibold text-primary animate-word">{words[word]}</span>
             {" "}
-            {t("by'ibicuruzwa na serivisi utanga byihuse kandi mu buryo ushaka.", "for your products and services, quickly and your way.")}
+            {t("ibicuruzwa na serivisi utanga byihuse kandi mu buryo ushaka.", "for your products and services, quickly and your way.")}
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
             <a href="/app/create" className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto">

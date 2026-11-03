@@ -110,7 +110,7 @@ export function DuoHero() {
                       <img src={current.right} alt="Amamaza promotional product post" />
                     </div>
                   )}
-                  {current.kind === "image" && <img src={current.src} alt="Printed shop banner created with Amamaza" />}
+                  {current.kind === "image" && <img src={current.src} alt="Printed shop banner created with Amamaza" style={{ objectFit: "contain", backgroundColor: "#111" }} />}
                 </div>
               )}
             </div>

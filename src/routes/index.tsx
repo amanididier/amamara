@@ -123,7 +123,7 @@ function ProSection() {
           <div className="grid lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
             <div className="flex flex-col justify-center p-8 sm:p-10 lg:py-14 lg:pl-16 lg:pr-8">
               <h3 className="mt-5 text-3xl font-extrabold leading-tight sm:text-5xl">
-                {t("Tuzamurira ubucuruzi bwawe.", "We will launch your brand.")}
+                {t("Tukuzamurira ubucuruzi bwawe.", "We will launch your brand.")}
               </h3>
               <p className="mt-4 max-w-md text-white/60">
                 {t(

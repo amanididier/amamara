@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Facebook, Heart, Image as ImageIcon, MessageCircle, Play, Share2, Store, Film } from "lucide-react";
+import { ArrowRight, Facebook, Heart, MessageCircle, Play, Share2 } from "lucide-react";
 import { images } from "@/data/ads";
 import shopEntranceBanner from "@/assets/ads/shop-entrance-banner.jpg";
 import furniturePost from "@/assets/ads/post-furniture.jpg";

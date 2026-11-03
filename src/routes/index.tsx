@@ -258,10 +258,10 @@ function WhatWeDo() {
       <section className="bg-[#0a0a0a] py-16 text-white sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black">
-            <div className="grid lg:grid-cols-2">
+            <div className="grid lg:grid-cols-2 lg:items-stretch">
               <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
                 <span className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary">
-                  <UserRound className="size-3.5" /> {t("Serivisi z'abahanga", "Pro services services")}
+                  <UserRound className="size-3.5" /> {t("Serivisi z'abahanga", "Pro services")}
                 </span>
                 <h3 className="mt-5 text-3xl font-extrabold leading-tight sm:text-5xl">
                   {t("Tuzamurira ubucuruzi bwawe.", "We will launch your brand.")}
@@ -280,12 +280,12 @@ function WhatWeDo() {
                 </Link>
               </div>
 
-              {/* full pro-collage image, object-contain so nothing is cropped */}
-              <div className="relative flex min-h-[320px] items-center justify-center bg-[#111] p-4 sm:min-h-[400px] sm:p-6">
+              {/* collage fills the cell edge-to-edge — no gray gap */}
+              <div className="relative min-h-[360px] sm:min-h-[440px] lg:min-h-full">
                 <img
                   src="/pro-collage.png"
                   alt="Creative professionals"
-                  className="max-h-full max-w-full object-contain"
+                  className="absolute inset-0 size-full object-cover object-center"
                 />
               </div>
             </div>

@@ -11,8 +11,8 @@ export function ReelGallery({ ads }: { ads: SampleAd[] }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-        {ads.map((ad, i) => <ReelCard key={ad.id} ad={ad} onOpen={() => setOpen(i)} />)}
+      <div className="mx-auto grid max-w-[1080px] grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4">
+        {ads.map((ad, i) => <ReelCard key={`${ad.id}-tile-${i}`} ad={ad} onOpen={() => setOpen(i)} />)}
       </div>
       {open !== null && ads[open] && <ReelViewer ads={ads} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />}
     </>
@@ -25,9 +25,9 @@ function ReelCard({ ad, onOpen }: { ad: SampleAd; onOpen: () => void }) {
   const isVideo = ad.format === "video";
   return (
     <article className="group min-w-0">
-      <button onClick={onOpen} className="relative block aspect-[4/5] w-full overflow-hidden rounded-[2px] bg-muted text-left outline-none focus-visible:ring-2 focus-visible:ring-primary">
+      <button onClick={onOpen} className="relative block aspect-[9/16] w-full overflow-hidden rounded-none bg-muted text-left outline-none focus-visible:ring-2 focus-visible:ring-primary">
         <img src={ad.image} alt={ad.title} loading="lazy" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
-        <span className="absolute inset-x-3 top-3 h-[2px] bg-white/35"><span className="block h-full w-2/5 bg-white" /></span>
+        {isVideo && <span className="absolute inset-x-3 top-3 h-[2px] bg-white/35"><span className="block h-full w-2/5 bg-white" /></span>}
         <span className="absolute right-3 top-5 text-[11px] font-semibold text-white drop-shadow">{isVideo ? ad.duration : formatLabel[ad.format][lang]}</span>
         {isVideo && <span className="absolute left-1/2 top-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100"><Play className="ml-0.5 size-5 fill-current" /></span>}
         <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent px-3 pb-3 pt-12 text-white">

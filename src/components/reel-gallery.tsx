@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Heart, MessageCircle, Play, Send, Sparkles, X } from "lucide-react";
 import type { SampleAd } from "@/data/ads";
@@ -75,7 +75,7 @@ function ReelViewer({ ads, index, onIndex, onClose }: { ads: SampleAd[]; index: 
     }
     setLastTap(now);
   };
-  const submit = (e: React.FormEvent) => {
+  const submit = (e: FormEvent) => {
     e.preventDefault();
     if (!comment.trim()) return;
     add(name, comment);

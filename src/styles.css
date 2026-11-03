@@ -254,6 +254,23 @@
 .duo2__stage{--w:clamp(150px,36vw,250px);transition:transform 1s cubic-bezier(.65,0,.25,1);perspective:1600px}
 @media (min-width:1024px){.duo2.is-intro .duo2__stage,.duo2.is-unfold .duo2__stage{transform:translateX(-52%)}}
 @media (max-width:1023px){.duo2__stage{--w:clamp(140px,42vw,230px)}}
+
+/* Keep the foldable hero centered on phones throughout its animation.
+   Desktop may slide the device into its showcase position; mobile should unfold in place. */
+@media (max-width:767px){
+  .duo2__stage{
+    width:100%;
+    min-width:0;
+    justify-content:center;
+    margin-inline:auto;
+    transform:none!important;
+    translate:0 0!important;
+  }
+  .duo2__device{margin-inline:auto}
+  .duo2__device.is-open{
+    width:min(calc(var(--w)*2),calc(100vw - 40px));
+  }
+}
 .duo2__device{position:relative;width:var(--w);aspect-ratio:auto;height:calc(var(--w)*1.42);padding:9px;border-radius:34px;
   background:linear-gradient(135deg,var(--duo-frame-a),var(--duo-frame-b) 45%,var(--duo-frame-a) 70%,var(--duo-frame-b));
   box-shadow:0 0 0 1px color-mix(in oklch,var(--foreground) 12%,transparent),0 40px 80px -30px oklch(0 0 0/.75),inset 0 1px 1px oklch(1 0 0/.5);

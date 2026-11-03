@@ -397,3 +397,125 @@
 }
 .duo-device__screen img,
 .duo-device__screen video { animation: duo-media-enter 600ms ease both; }
+
+
+/* Original Amamaza Duo industrial design — CSS 3D, no external model or WebGL. */
+.duo-hero {
+  background: var(--background);
+  background-image: radial-gradient(ellipse at 78% 42%, color-mix(in oklch, var(--primary) 7%, transparent), transparent 48%);
+}
+.duo-hero__inner { min-height: 650px; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); }
+.duo-hero__copy { animation: duo-copy-in 700ms 180ms both; }
+@keyframes duo-copy-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.duo-hero__visual { min-height: 520px; perspective: 1800px; }
+.amamaza-foldable {
+  --device-metal: #858b94;
+  --device-dark: #171a20;
+  position: relative;
+  width: min(100%, 620px);
+  aspect-ratio: 1.68 / 1;
+  transform: scale(.82) translateY(10px);
+  transform-style: preserve-3d;
+  transition: transform 900ms cubic-bezier(.2,.8,.18,1);
+  filter: drop-shadow(0 34px 30px rgb(0 0 0 / .25));
+}
+.amamaza-foldable--open { transform: scale(1) translateY(0); }
+.amamaza-foldable__shadow { position:absolute; inset:12% 5%; border-radius:36px; background:var(--primary); opacity:.08; filter:blur(35px); }
+.amamaza-foldable__device {
+  position:absolute; inset:3% 1%;
+  display:flex; padding:7px; gap:0;
+  border:1px solid color-mix(in srgb,var(--device-metal),transparent 20%);
+  border-radius:32px;
+  background:linear-gradient(145deg,#c3c8ce 0%,#555c66 13%,#242831 45%,#858c95 78%,#303640 100%);
+  box-shadow:inset 0 1px 1px #fff8,inset 0 -2px 4px #0009,0 24px 45px #0004;
+  transform-style:preserve-3d;
+}
+.amamaza-foldable__left,.amamaza-foldable__right {
+  position:relative; width:50%; min-width:0; height:100%;
+  padding:5px; overflow:hidden;
+  background:linear-gradient(145deg,#11151b,#303640 45%,#090b0f);
+  transform-style:preserve-3d;
+}
+.amamaza-foldable__left {
+  z-index:3; transform-origin:right center;
+  border-radius:25px 3px 3px 25px;
+  border:1px solid #aeb5bf88;
+  box-shadow:inset 0 0 0 1px #fff2,5px 0 10px #0005;
+  transition:transform 1150ms cubic-bezier(.2,.78,.16,1);
+  backface-visibility:visible;
+}
+.amamaza-foldable:not(.amamaza-foldable--open) .amamaza-foldable__left { transform:rotateY(-177deg); }
+.amamaza-foldable--open .amamaza-foldable__left { transform:rotateY(0deg); }
+.amamaza-foldable__right { z-index:1; border-radius:3px 25px 25px 3px; border:1px solid #aeb5bf88; }
+.amamaza-foldable__screen {
+  position:absolute; inset:5px; overflow:hidden;
+  border-radius:19px; background:#080a0e;
+  box-shadow:inset 0 0 0 1px #fff2;
+}
+.amamaza-foldable__screen img,.amamaza-foldable__screen video {
+  display:block; width:100%; height:100%; object-fit:cover;
+}
+.amamaza-foldable__left .amamaza-foldable__screen:has(video) { overflow:visible; z-index:4; }
+.amamaza-foldable__left .amamaza-foldable__screen video { width:200%; max-width:none; position:relative; z-index:5; }
+.amamaza-foldable__right .amamaza-foldable__screen:has(img[src*="print-banner"]) img { width:200%; max-width:none; object-position:right center; }
+.amamaza-foldable__left .amamaza-foldable__screen img[src*="print-banner"] { width:200%; max-width:none; object-position:left center; }
+.amamaza-foldable__video-continuation { width:100%; height:100%; background:#080a0e; }
+.amamaza-foldable__camera-cutout {
+  position:absolute; z-index:6; top:13px; left:50%; width:36px; height:9px;
+  transform:translateX(-50%); border-radius:99px;
+  background:#030405; box-shadow:inset 0 1px 2px #fff2,0 0 0 1px #fff2;
+  opacity:.65; pointer-events:none;
+}
+.amamaza-foldable__hinge {
+  position:absolute; z-index:8; top:5px; bottom:5px; left:50%; width:10px;
+  transform:translateX(-50%); display:flex; align-items:center; justify-content:space-evenly;
+  flex-direction:column; border-radius:8px;
+  background:linear-gradient(90deg,#11151b,#aeb5bd 28%,#414852 52%,#c1c6cc 76%,#161a20);
+  box-shadow:0 0 0 1px #0008, inset 0 0 3px #fff8;
+}
+.amamaza-foldable__hinge i { display:block; width:3px; height:17%; border-radius:5px; background:#15191f; box-shadow:0 1px 1px #fff6; }
+.amamaza-foldable__outer-cover {
+  position:absolute; z-index:9; inset:0 0 0 50%;
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;
+  overflow:hidden; border:1px solid #aab1bc88; border-radius:0 25px 25px 0;
+  color:white; background:
+    radial-gradient(ellipse at 50% 28%,#3d4652 0%,transparent 42%),
+    linear-gradient(145deg,#252c36,#090c12 70%);
+  box-shadow:inset 0 0 0 1px #fff2,inset 0 -15px 30px #0006;
+  transition:opacity 450ms ease,visibility 450ms ease;
+}
+.amamaza-foldable--open .amamaza-foldable__outer-cover { opacity:0; visibility:hidden; }
+.amamaza-foldable__camera-island {
+  position:absolute; top:16px; right:16px; display:flex; gap:5px;
+  padding:7px; border:1px solid #ffffff20; border-radius:20px;
+  background:linear-gradient(145deg,#080a0e,#202630); box-shadow:0 3px 8px #0008;
+}
+.amamaza-foldable__camera-island i { width:9px; height:9px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#667c98,#080b12 65%); border:1px solid #9aa5b355; }
+.amamaza-foldable__brand { display:flex; align-items:center; flex-direction:column; gap:6px; font-weight:800; letter-spacing:-.04em; font-size:18px; }
+.amamaza-foldable__edition { font-size:7px; letter-spacing:.28em; color:#ffffff70; }
+.amamaza-foldable__rail { position:absolute; z-index:10; top:18%; bottom:18%; right:-3px; width:4px; border-radius:4px; background:linear-gradient(90deg,#333b46,#c0c5cc,#3b424c); box-shadow:1px 0 2px #0008; }
+.duo-controls { bottom:8px; }
+.duo-dots { bottom:21px; }
+.duo-counter { top:12px; }
+@media(max-width:1023px) {
+  .duo-hero__inner { min-height:0; grid-template-columns:1fr; }
+  .duo-hero__copy { max-width:680px; }
+  .duo-hero__visual { min-height:470px; }
+  .amamaza-foldable { width:min(100%,620px); }
+}
+@media(max-width:639px) {
+  .duo-hero__inner { padding-top:36px; }
+  .duo-hero__visual { min-height:300px; margin-inline:-8px; }
+  .amamaza-foldable { width:min(100%,470px); transform:scale(.78); }
+  .amamaza-foldable--open { transform:scale(.9); }
+  .amamaza-foldable__device { border-radius:23px; padding:5px; }
+  .amamaza-foldable__left { border-radius:18px 2px 2px 18px; }
+  .amamaza-foldable__right,.amamaza-foldable__outer-cover { border-radius:2px 18px 18px 2px; }
+  .amamaza-foldable__screen { border-radius:14px; }
+  .duo-controls { bottom:0; }
+  .duo-dots { bottom:13px; right:0; }
+  .duo-counter { top:0; right:0; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .amamaza-foldable,.amamaza-foldable__left,.amamaza-foldable__outer-cover,.duo-hero__copy { transition:none!important; animation:none!important; }
+}

@@ -88,7 +88,7 @@ export function WhatWeDo() {
       </section>
 
       <section className="bg-ban-soft/70 py-8 sm:py-10">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-[1180px] items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-14 lg:px-12">
           <div>
             <h3 className="text-3xl font-bold sm:text-4xl">{t("Icyapa cyo hejuru y'iduka ryawe", "A banner above your shop")}</h3>
             <p className="mt-4 max-w-md text-muted-foreground">

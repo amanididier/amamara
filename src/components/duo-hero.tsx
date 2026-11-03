@@ -62,25 +62,25 @@ export function DuoHero() {
   return (
     <section className={cn("duo2 relative isolate overflow-hidden", `is-${phase}`)}>
       <div className="duo2__blur" aria-hidden />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-12 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]">
-        <div className="duo2__copy relative z-10 order-2 mx-auto max-w-xl text-center lg:order-1 lg:mx-0 lg:text-left">
-          <h1 className="text-4xl font-extrabold leading-[1.04] tracking-tight sm:text-5xl lg:text-6xl">
+      <div className="relative mx-auto grid max-w-[1180px] items-center gap-7 px-6 pb-12 pt-7 sm:gap-8 sm:px-10 sm:pb-14 sm:pt-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:px-12">
+        <div className="duo2__copy relative z-10 order-2 mx-auto max-w-[540px] text-center lg:order-1 lg:mx-0 lg:text-left">
+          <h1 className="text-[2rem] font-bold leading-[1.08] tracking-[-0.045em] sm:text-[2.5rem] lg:text-[3rem]">
             <span className="text-primary">{t("Kwamamaza ibikorwa byawe", "Advertise your business")}</span>
             <br />
             {t("ubu Byoroshye!", "the easy way!")}
           </h1>
-          <p className="mt-5 text-lg font-medium leading-relaxed text-muted-foreground sm:text-xl">
+          <p className="mt-4 text-[15px] font-medium leading-[1.7] text-muted-foreground sm:text-base">
             {t("Ubu ushobora kwikorera", "Now you can create your own")}
             {" "}
             <span key={word} className="inline-block font-semibold text-primary animate-word">{words[word]}</span>
             {" "}
             {t("ibicuruzwa na serivisi utanga byihuse kandi mu buryo ushaka.", "for your products and services, quickly and your way.")}
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-            <a href="/app/create" className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto">
+          <div className="mt-6 flex flex-col items-center gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
+            <a href="/app/create" className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto">
               {t("Tangira gukora", "Start creating")} <ArrowRight className="size-4" />
             </a>
-            <a href="/app" className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border bg-background px-7 font-semibold transition-colors hover:bg-accent sm:w-auto">
+            <a href="/app" className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border bg-background px-6 text-sm font-semibold transition-colors hover:bg-accent sm:w-auto">
               <Download className="size-4" /> {t("Downloadinga application", "Download the app")}
             </a>
           </div>

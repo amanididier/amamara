@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
-import { AdCard } from "@/components/ad-card";
+import { ReelGallery } from "@/components/reel-gallery";
 import { categories, sampleAds, type Category, type Format } from "@/data/ads";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
@@ -52,9 +52,8 @@ function Examples() {
             </button>
           ))}
         </div>
-        <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-black p-3 shadow-2xl sm:p-5"><div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-          {list.map((ad) => <AdCard key={ad.id} ad={ad} />)}
-        </div>
+        <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-black p-3 shadow-2xl sm:p-5">
+          {list.length > 0 && <ReelGallery ads={list} />}
         {list.length === 0 && <p className="py-20 text-center text-white/55">{t("Nta rugero ruhari ubu.", "No samples here yet.")}</p>}
         </div>
       </main>

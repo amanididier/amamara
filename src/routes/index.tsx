@@ -118,10 +118,10 @@ function ProSection() {
   const { t } = usePrefs();
   return (
     <section className="bg-[#0a0a0a] py-12 text-white sm:py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] lg:items-stretch">
-            <div className="flex flex-col justify-center p-8 sm:p-10 lg:py-14 lg:pl-12 lg:pr-6">
+          <div className="grid lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
+            <div className="flex flex-col justify-center p-8 sm:p-10 lg:py-14 lg:pl-16 lg:pr-8">
               <h3 className="mt-5 text-3xl font-extrabold leading-tight sm:text-5xl">
                 {t("Tuzamurira ubucuruzi bwawe.", "We will launch your brand.")}
               </h3>
@@ -142,7 +142,7 @@ function ProSection() {
               <img
                 src="/pro-collage.png"
                 alt="Creative professionals"
-                className="relative block h-auto max-h-[360px] w-full max-w-[520px] -translate-x-10 object-contain sm:translate-x-0 lg:absolute lg:inset-0 lg:size-full lg:max-h-none lg:max-w-none lg:-translate-x-8 lg:object-contain lg:object-top"
+                className="relative block h-auto max-h-[360px] w-full max-w-[520px] -translate-x-10 object-contain sm:translate-x-0 lg:absolute lg:inset-y-0 lg:right-0 lg:left-auto lg:h-full lg:w-full lg:max-h-none lg:max-w-none lg:translate-x-0 lg:object-contain lg:object-top"
               />
             </div>
           </div>

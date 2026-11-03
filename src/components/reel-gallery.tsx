@@ -11,7 +11,7 @@ export function ReelGallery({ ads }: { ads: SampleAd[] }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <>
-      <div className="mx-auto grid max-w-[1080px] grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-[1080px] grid-cols-2 gap-x-3 gap-y-5 max-sm:[&>article:nth-child(n+5)]:hidden sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4">
         {ads.map((ad, i) => <ReelCard key={`${ad.id}-tile-${i}`} ad={ad} onOpen={() => setOpen(i)} />)}
       </div>
       {open !== null && ads[open] && <ReelViewer ads={ads} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />}

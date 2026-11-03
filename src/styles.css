@@ -213,3 +213,168 @@
 @utility animate-floaty {
   animation: floaty 5s ease-in-out infinite;
 }
+
+
+/* Lightweight foldable Duo hero — CSS transforms only, no WebGL runtime. */
+.duo-hero__inner {
+  min-height: 620px;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+}
+.duo-hero__copy {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 850ms ease 650ms, transform 850ms cubic-bezier(.2,.75,.25,1) 650ms;
+}
+.duo-hero__inner--settled .duo-hero__copy {
+  opacity: 1;
+  transform: translateY(0);
+}
+.duo-hero__visual {
+  min-height: 490px;
+  perspective: 1500px;
+}
+.duo-device {
+  width: min(100%, 590px);
+  aspect-ratio: 1.72 / 1;
+  position: relative;
+  transform: translateX(-20%) scale(.66);
+  transform-style: preserve-3d;
+  transition: transform 1250ms cubic-bezier(.18,.78,.2,1);
+  filter: drop-shadow(0 28px 32px rgb(0 0 0 / .38));
+}
+.duo-device--open { transform: translateX(-20%) scale(.88); }
+.duo-device--settled { transform: translateX(0) scale(1); }
+.duo-device__body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: visible;
+  transform-style: preserve-3d;
+  border: 7px solid #22252b;
+  border-radius: 34px;
+  background: #090a0d;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .2), 0 0 0 1px rgb(0 0 0 / .7);
+}
+.duo-device__panel {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background: #08090c;
+  transform-style: preserve-3d;
+}
+.duo-device__panel--left {
+  border-radius: 26px 0 0 26px;
+  transform-origin: right center;
+  transition: transform 1450ms cubic-bezier(.2,.75,.2,1);
+  z-index: 2;
+}
+.duo-device--open .duo-device__panel--left { transform: rotateY(0deg); }
+.duo-device:not(.duo-device--open) .duo-device__panel--left { transform: rotateY(-176deg); }
+.duo-device__panel--right { border-radius: 0 26px 26px 0; z-index: 1; }
+.duo-device__screen {
+  position: absolute;
+  inset: 5px;
+  overflow: hidden;
+  border-radius: 21px;
+  background: #111;
+}
+.duo-device__screen img,
+.duo-device__screen video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 450ms ease;
+}
+.duo-device__hinge {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background: linear-gradient(90deg,#090a0d,#555960 48%,#090a0d);
+  opacity: .85;
+}
+.duo-device__cover {
+  position: absolute;
+  z-index: 6;
+  inset: 0 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 0 26px 26px 0;
+  color: white;
+  background: radial-gradient(ellipse at 50% 35%,#292b31,#090a0d 72%);
+  transition: opacity 450ms ease, visibility 450ms ease;
+}
+.duo-device--open .duo-device__cover { opacity: 0; visibility: hidden; }
+.duo-device__cover-brand { display: flex; flex-direction: column; align-items: center; gap: 7px; font-size: 17px; font-weight: 800; letter-spacing: -.04em; }
+.duo-device__cover-caption { font-size: 7px; letter-spacing: .22em; color: rgb(255 255 255 / .48); }
+.duo-device__camera { position: absolute; top: 15px; right: 15px; display: flex; gap: 4px; }
+.duo-device__camera i { width: 7px; height: 7px; border-radius: 50%; background: #17191e; border: 1px solid #565b63; }
+.duo-device__bezel { position: absolute; pointer-events: none; inset: 0; z-index: 7; border-radius: 27px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .1); }
+.duo-controls {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  z-index: 12;
+  display: flex;
+  gap: 7px;
+  padding: 6px;
+  border: 1px solid rgb(255 255 255 / .12);
+  border-radius: 999px;
+  background: rgb(16 17 20 / .82);
+  box-shadow: 0 8px 24px rgb(0 0 0 / .22);
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+}
+.duo-controls button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  transition: background 180ms ease, color 180ms ease;
+}
+.duo-controls button:hover { background: rgb(255 255 255 / .13); color: var(--primary); }
+.duo-dots { position: absolute; right: 8px; bottom: 31px; z-index: 12; display: flex; gap: 5px; }
+.duo-dots button { width: 6px; height: 6px; border-radius: 99px; background: rgb(255 255 255 / .32); transition: width 250ms ease, background 250ms ease; }
+.duo-dots button.is-active { width: 20px; background: var(--primary); }
+.duo-counter { position: absolute; right: 8px; top: 22px; z-index: 12; font-size: 10px; font-weight: 700; letter-spacing: .16em; color: rgb(255 255 255 / .58); }
+.duo-hero__story { transition: opacity 250ms ease; }
+@media (max-width: 1023px) {
+  .duo-hero__inner { min-height: 0; grid-template-columns: 1fr; }
+  .duo-hero__copy { max-width: 680px; }
+  .duo-hero__visual { min-height: 430px; }
+  .duo-device { width: min(100%, 570px); }
+}
+@media (max-width: 639px) {
+  .duo-hero__inner { padding-top: 42px; }
+  .duo-hero__visual { min-height: 300px; margin-inline: -8px; }
+  .duo-device { width: min(100%, 440px); border-width: 5px; border-radius: 23px; }
+  .duo-device--settled { transform: translateX(0) scale(1); }
+  .duo-device__body { border-width: 5px; border-radius: 23px; }
+  .duo-device__screen { inset: 4px; border-radius: 16px; }
+  .duo-device__panel--left { border-radius: 18px 0 0 18px; }
+  .duo-device__panel--right, .duo-device__cover { border-radius: 0 18px 18px 0; }
+  .duo-device__cover-brand { font-size: 13px; }
+  .duo-device__cover-brand img { width: 34px; height: 34px; }
+  .duo-device__cover-caption { font-size: 5px; }
+  .duo-controls { bottom: 3px; }
+  .duo-dots { bottom: 16px; right: 2px; }
+  .duo-counter { top: 4px; right: 3px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .duo-hero__copy, .duo-device, .duo-device__panel--left, .duo-device__cover,
+  .duo-device__screen img, .duo-device__screen video, .duo-controls button, .duo-dots button {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}

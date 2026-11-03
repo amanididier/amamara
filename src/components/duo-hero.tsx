@@ -110,7 +110,8 @@ function ThreeFoldable({slide,replayKey,paused,foldValue,onVideoEnded}:{slide:Sl
   },[slide.id]);
 
   useEffect(()=>{const v=sceneState.current?.video;if(!v)return;if(paused)v.pause();else void v.play().catch(()=>{});},[paused,slide.id]);
-  useEffect(()=>{const s=sceneState.current;if(s)s.target=Math.PI*foldValue;},[foldValue]);\n  useEffect(()=>{const s=sceneState.current;if(!s)return;s.target=Math.PI;const timer=window.setTimeout(()=>{if(sceneState.current)sceneState.current.target=0;},100);return()=>window.clearTimeout(timer);},[replayKey]);
+  useEffect(()=>{const s=sceneState.current;if(s)s.target=Math.PI*foldValue;},[foldValue]);
+  useEffect(()=>{const s=sceneState.current;if(!s)return;s.target=Math.PI;const timer=window.setTimeout(()=>{if(sceneState.current)sceneState.current.target=0;},100);return()=>window.clearTimeout(timer);},[replayKey]);
   return <div ref={host} className="amamaza-three-stage" role="img" aria-label="Interactive Amamaza foldable phone. Drag to rotate and scroll to zoom." />;
 }
 
@@ -118,7 +119,8 @@ export function DuoHero() {
   const {t,lang}=usePrefs();
   const [active,setActive]=useState(0);
   const [isPaused,setIsPaused]=useState(false);
-  const [replayKey,setReplayKey]=useState(0);\n  const [foldValue,setFoldValue]=useState(0);
+  const [replayKey,setReplayKey]=useState(0);
+  const [foldValue,setFoldValue]=useState(0);
   const current=slides[active]!;
   useEffect(()=>{if(isPaused||current.kind==="video")return;const timer=window.setTimeout(()=>setActive(i=>(i+1)%slides.length),current.kind==="banner"?5000:3500);return()=>window.clearTimeout(timer);},[active,current.kind,isPaused]);
   useEffect(()=>{const visibility=()=>{if(document.visibilityState==="hidden")setIsPaused(true);};document.addEventListener("visibilitychange",visibility);return()=>document.removeEventListener("visibilitychange",visibility);},[]);
@@ -149,7 +151,8 @@ export function DuoHero() {
             <button type="button" onClick={()=>move(1)} aria-label={t("Ikurikira","Next ad")}><ArrowRight className="size-4"/></button>
             <button type="button" onClick={()=>{setFoldValue(0);setReplayKey(k=>k+1);}} aria-label={t("Subiramo gufunguka","Replay fold animation")}><RotateCcw className="size-4"/></button>
           </div>
-          <div className="duo-fold-control"><span>{t("GUFUNGA","FOLD")}</span><input aria-label={t("Urwego rwo gufunga","Fold angle")} type="range" min="0" max="1" step="0.01" value={foldValue} onChange={e=>setFoldValue(Number(e.target.value))}/></div>\n          <div className="duo-dots">{slides.map((slide,index)=><button key={slide.id} type="button" onClick={()=>setActive(index)} aria-label={slide.title} aria-current={index===active?"true":undefined} className={cn(index===active&&"is-active")}/>)}</div>
+          <div className="duo-fold-control"><span>{t("GUFUNGA","FOLD")}</span><input aria-label={t("Urwego rwo gufunga","Fold angle")} type="range" min="0" max="1" step="0.01" value={foldValue} onChange={e=>setFoldValue(Number(e.target.value))}/></div>
+          <div className="duo-dots">{slides.map((slide,index)=><button key={slide.id} type="button" onClick={()=>setActive(index)} aria-label={slide.title} aria-current={index===active?"true":undefined} className={cn(index===active&&"is-active")}/>)}</div>
           <span className="duo-counter">{String(active+1).padStart(2,"0")} / 03</span>
         </div>
       </div>

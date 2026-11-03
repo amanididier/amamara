@@ -141,11 +141,11 @@ function ProSection() {
                 {t("Vugana n'abahanga", "Talk to a pro")} <ArrowRight className="size-4" />
               </Link>
             </div>
-            <div className="relative flex min-h-[280px] items-center justify-center px-4 pb-6 sm:min-h-[340px] lg:block lg:min-h-[440px] lg:px-0 lg:pb-0">
+            <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden px-4 pb-6 sm:min-h-[340px] lg:min-h-[440px] lg:px-0 lg:pb-0">
               <img
                 src="/pro-collage.png"
                 alt="Creative professionals"
-                className="relative block h-auto max-h-[360px] w-full max-w-[520px] object-contain lg:absolute lg:inset-0 lg:size-full lg:max-h-none lg:max-w-none lg:object-cover"
+                className="relative block h-auto max-h-[360px] w-full max-w-[520px] -translate-x-4 object-contain sm:-translate-x-6 lg:absolute lg:inset-0 lg:size-full lg:max-h-none lg:max-w-none lg:-translate-x-8 lg:object-contain lg:object-top"
               />
             </div>
           </div>

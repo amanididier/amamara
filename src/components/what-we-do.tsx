@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Facebook, Heart, MessageCircle, Play, Share2 } from "lucide-react";
-import { images } from "@/data/ads";
 import shopEntranceBanner from "@/assets/ads/shop-entrance-banner.jpg";
-import furniturePost from "@/assets/ads/post-furniture.jpg";
 import { usePrefs } from "@/lib/prefs";
 
 export function WhatWeDo() {
@@ -70,11 +68,12 @@ export function WhatWeDo() {
 
       <section className="bg-post-soft/70 py-14 sm:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
-          <div className="relative mx-auto flex min-h-[330px] w-full max-w-lg items-center justify-center">
-            <img src={images.fashion} alt="Fashion shop social media advertisement" className="absolute left-[2%] top-[12%] z-[1] w-[42%] rotate-[-8deg] border-[7px] border-background object-cover shadow-xl" />
-            <img src={images.juice} alt="Local drink product social media advertisement" className="relative z-[3] w-[46%] border-[7px] border-background object-cover shadow-2xl" />
-            <img src={furniturePost} alt="Furniture shop social media advertisement" className="absolute right-[2%] top-[12%] z-[2] w-[42%] rotate-[8deg] border-[7px] border-background object-cover shadow-xl" />
-            <span className="sticker bottom-[9%] right-[4%] z-[5] rotate-[-5deg] bg-[#DDF5FF] text-sky-900">{t("Gura ubu", "Buy now")}</span>
+          <div className="relative mx-auto flex min-h-[300px] w-full max-w-md items-center justify-center px-3">
+            <img
+              src="/ads/amamaza-social-posts-collage.png"
+              alt="Collection of Amamaza social media advertisement designs"
+              className="block max-h-[360px] w-full max-w-[420px] object-contain drop-shadow-2xl"
+            />
           </div>
           <div>
             <h3 className="text-3xl font-bold sm:text-4xl">{t("Amafoto yo kuri social media", "Social media posts")}</h3>

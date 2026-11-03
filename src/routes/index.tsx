@@ -480,7 +480,7 @@ function WhatWeDo() {
 
 /* ───────────────────────── PRICING PREVIEW ───────────────────────── */
 function PricingPreview() {
-  const { t } = usePrefsPrefs();
+  const { t } = usePrefs();
   const opts = [
     { Icon: Receipt, title: t("Wishyura icyo ukoze", "Pay per creation"), body: t("Ubona igiciro mbere yo gukora.", "See the price before you create.") },
     { Icon: Wallet, title: t("Shyira amafaranga kuri konti", "Prepaid balance"), body: t("Ukoresheje MoMo cyangwa Airtel Money.", "Top up with MoMo or Airtel Money.") },

@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Facebook, Heart, Image as ImageIcon, MessageCircle, Play, Share2, Store, Film } from "lucide-react";
 import { images } from "@/data/ads";
 import shopEntranceBanner from "@/assets/ads/shop-entrance-banner.jpg";
+import furniturePost from "@/assets/ads/post-furniture.jpg";
 import { usePrefs } from "@/lib/prefs";
 
 export function WhatWeDo() {
@@ -72,7 +73,7 @@ export function WhatWeDo() {
           <div className="relative mx-auto flex min-h-[330px] w-full max-w-lg items-center justify-center">
             <img src={images.fashion} alt="Fashion shop social media advertisement" className="absolute left-[2%] top-[12%] z-[1] w-[42%] rotate-[-8deg] border-[7px] border-background object-cover shadow-xl" />
             <img src={images.juice} alt="Local drink product social media advertisement" className="relative z-[3] w-[46%] border-[7px] border-background object-cover shadow-2xl" />
-            <img src={images.furniture} alt="Furniture shop social media advertisement" className="absolute right-[2%] top-[12%] z-[2] w-[42%] rotate-[8deg] border-[7px] border-background object-cover shadow-xl" />
+            <img src={furniturePost} alt="Furniture shop social media advertisement" className="absolute right-[2%] top-[12%] z-[2] w-[42%] rotate-[8deg] border-[7px] border-background object-cover shadow-xl" />
             <span className="sticker bottom-[9%] right-[4%] z-[5] rotate-[-5deg] bg-[#DDF5FF] text-sky-900">{t("Gura ubu", "Buy now")}</span>
           </div>
           <div>

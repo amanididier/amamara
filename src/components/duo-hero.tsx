@@ -62,14 +62,13 @@ export function DuoHero() {
   return (
     <section className={cn("duo2 relative isolate overflow-hidden", `is-${phase}`)}>
       <div className="duo2__blur" aria-hidden />
-      <div className="relative mx-auto grid max-w-[1180px] items-center gap-7 px-6 pb-12 pt-7 sm:gap-8 sm:px-10 sm:pb-14 sm:pt-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:px-12">
+      <div className="relative mx-auto grid max-w-[1180px] items-center gap-10 px-6 pb-12 pt-7 sm:gap-10 sm:px-10 sm:pb-14 sm:pt-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-14 lg:px-12">
         <div className="duo2__copy relative z-10 order-2 mx-auto max-w-[540px] text-center lg:order-1 lg:mx-0 lg:text-left">
-          <h1 className="text-[2rem] font-bold leading-[1.08] tracking-[-0.045em] sm:text-[2.5rem] lg:text-[3rem]">
-            <span className="text-primary">{t("Kwamamaza ibikorwa byawe", "Advertise your business")}</span>
-            <br />
-            {t("ubu Byoroshye!", "the easy way!")}
+          <h1 className="text-[clamp(1.35rem,3.1vw,2.25rem)] font-bold leading-[1.12] tracking-[-0.045em]">
+            <span className="block whitespace-nowrap text-primary">{t("Kwamamaza ibikorwa byawe", "Advertise your business")}</span>
+            <span className="block">{t("ubu Byoroshye!", "the easy way!")}</span>
           </h1>
-          <p className="mt-4 text-[15px] font-medium leading-[1.7] text-muted-foreground sm:text-base">
+          <p className="mt-4 text-[13px] font-medium leading-[1.65] text-muted-foreground sm:text-sm">
             {t("Ubu ushobora kwikorera", "Now you can create your own")}
             {" "}
             <span key={word} className="inline-block font-semibold text-primary animate-word">{words[word]}</span>

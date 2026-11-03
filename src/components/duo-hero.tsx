@@ -57,20 +57,20 @@ function ThreeFoldable({slide,replayKey,paused,foldValue,onVideoEnded}:{slide:Sl
     const bodyGeo=new THREE.BoxGeometry(width,height,depth);
     const right=new THREE.Group(); right.position.x=width/2; device.add(right);
     const rightBody=new THREE.Mesh(bodyGeo,metal); right.add(rightBody);
-    const rightBezel=new THREE.Mesh(new THREE.PlaneGeometry(width-.16,height-.16),black); rightBezel.position.z=depth/2+.003; right.add(rightBezel);
-    const rightScreen=new THREE.Mesh(new THREE.PlaneGeometry(width-.27,height-.27),black.clone()); rightScreen.position.z=depth/2+.009; right.add(rightScreen);
+    const rightBezel=new THREE.Mesh(new THREE.PlaneGeometry(width+.035,height-.18),black); rightBezel.position.z=depth/2+.003; right.add(rightBezel);
+    const rightScreen=new THREE.Mesh(new THREE.PlaneGeometry(width+.02,height-.24),black.clone()); rightScreen.position.z=depth/2+.010; right.add(rightScreen);
 
     const left=new THREE.Group(); device.add(left);
     const leftBody=new THREE.Mesh(bodyGeo,metal); leftBody.position.x=-width/2; left.add(leftBody);
     const leftBezel=new THREE.Mesh(new THREE.PlaneGeometry(width-.16,height-.16),black); leftBezel.position.set(-width/2,0,depth/2+.003); left.add(leftBezel);
-    const leftScreen=new THREE.Mesh(new THREE.PlaneGeometry(width-.27,height-.27),black.clone()); leftScreen.position.set(-width/2,0,depth/2+.009); left.add(leftScreen);
+    const leftScreen=new THREE.Mesh(new THREE.PlaneGeometry(width-.27,height-.27),black.clone()); leftScreen.position.set(-width/2,0,depth/2+.011); left.add(leftScreen);
 
     const outer=new THREE.Mesh(new THREE.PlaneGeometry(width-.12,height-.12),new THREE.MeshBasicMaterial({map:coverTexture()}));
     outer.position.set(-width/2,0,-depth/2-.012); outer.rotation.y=Math.PI; left.add(outer);
-    const hinge=new THREE.Mesh(new THREE.CylinderGeometry(.105,.105,height+.08,32),dark); hinge.rotation.z=Math.PI/2; hinge.position.x=0; device.add(hinge);
-    const hingeSpine=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,height-.3,20),metal); hingeSpine.rotation.z=Math.PI/2; device.add(hingeSpine);
+    const hinge=new THREE.Mesh(new THREE.CylinderGeometry(.105,.105,height+.08,32),dark); hinge.rotation.z=Math.PI/2; hinge.position.set(0,0,-depth/2-.018); device.add(hinge);
+    
     const railMat=new THREE.MeshStandardMaterial({color:0x454d58,metalness:.9,roughness:.22});
-    for(const x of [-width,width]){const rail=new THREE.Mesh(new THREE.BoxGeometry(.045,height-.55,.11),railMat);rail.position.x=x;device.add(rail);}
+    for(const x of [-width,width]){const rail=new THREE.Mesh(new THREE.BoxGeometry(.035,height-.55,.075),railMat);rail.position.set(x,0,-.035);device.add(rail);}
 
     const controls=new OrbitControls(camera,renderer.domElement); controls.enableDamping=true; controls.dampingFactor=.075; controls.enablePan=false;
     controls.minDistance=9; controls.maxDistance=23; controls.minPolarAngle=Math.PI*.22; controls.maxPolarAngle=Math.PI*.78; controls.target.set(0,0,0); controls.update();

@@ -122,7 +122,7 @@ function ProSection() {
         <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black">
           <div className="grid lg:grid-cols-[1fr_1.2fr] lg:items-stretch">
             <div className="flex flex-col justify-center p-8 sm:p-10 lg:py-14 lg:pl-12 lg:pr-6">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary">
+              <span className="hidden w-fit items-center gap-2 rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary lg:inline-flex">
                 <UserRound className="size-3.5" /> {t("Serivisi z'abahanga", "Pro services")}
               </span>
               <h3 className="mt-5 text-3xl font-extrabold leading-tight sm:text-5xl">
@@ -141,11 +141,11 @@ function ProSection() {
                 {t("Vugana n'abahanga", "Talk to a pro")} <ArrowRight className="size-4" />
               </Link>
             </div>
-            <div className="relative min-h-[360px] sm:min-h-[440px] lg:min-h-full">
+            <div className="relative flex min-h-[280px] items-center justify-center px-4 pb-6 sm:min-h-[340px] lg:block lg:min-h-[440px] lg:px-0 lg:pb-0">
               <img
                 src="/pro-collage.png"
                 alt="Creative professionals"
-                className="absolute inset-0 size-full object-cover object-center"
+                className="relative block h-auto max-h-[360px] w-full max-w-[520px] object-contain lg:absolute lg:inset-0 lg:size-full lg:max-h-none lg:max-w-none lg:object-cover"
               />
             </div>
           </div>

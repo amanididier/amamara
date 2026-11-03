@@ -30,15 +30,15 @@ export function WhatWeDo() {
 
   return (
     <div>
-      <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 sm:pt-16">
+      <div className="mx-auto max-w-[1180px] px-6 pt-12 sm:px-10 sm:pt-16 lg:px-12">
         <h2 className="text-center text-3xl font-bold sm:text-5xl">{t("Ibyo dukora", "What we do")}</h2>
         <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground">
           {t("Hitamo ubwoko bw'itangazo ushaka — video, post cyangwa icyapa.", "Choose the kind of ad you need — video, social post or banner.")}
         </p>
       </div>
 
-      <section ref={videoSectionRef} className="mt-10 bg-vid-soft/70 py-14 sm:py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <section ref={videoSectionRef} className="mt-10 bg-vid-soft/70 py-8 sm:py-10">
+        <div className="mx-auto grid max-w-[1180px] items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-14 lg:px-12">
           <div>
             <h3 className="text-3xl font-bold sm:text-4xl">{t("Video ngufi z'ubucuruzi bwawe.", "Short videos for your business.")}</h3>
             <p className="mt-4 max-w-md text-muted-foreground">
@@ -66,13 +66,13 @@ export function WhatWeDo() {
         </div>
       </section>
 
-      <section className="bg-post-soft/70 py-14 sm:py-20">
+      <section className="bg-post-soft/70 py-10 sm:py-14">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
-          <div className="relative mx-auto flex min-h-[300px] w-full max-w-md items-center justify-center px-3">
+          <div className="relative mx-auto flex min-h-[340px] w-full max-w-xl items-center justify-center px-1 sm:px-2">
             <img
               src="/ads/amamaza-social-posts-collage.png"
               alt="Collection of Amamaza social media advertisement designs"
-              className="block max-h-[360px] w-full max-w-[420px] object-contain drop-shadow-2xl"
+              className="block max-h-[420px] w-full max-w-[560px] object-contain drop-shadow-2xl"
             />
           </div>
           <div>
@@ -87,7 +87,7 @@ export function WhatWeDo() {
         </div>
       </section>
 
-      <section className="bg-ban-soft/70 py-14 sm:py-20">
+      <section className="bg-ban-soft/70 py-8 sm:py-10">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
           <div>
             <h3 className="text-3xl font-bold sm:text-4xl">{t("Icyapa cyo hejuru y'iduka ryawe", "A banner above your shop")}</h3>

@@ -23,8 +23,8 @@ export function DuoHero() {
   const [word, setWord] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const words = lang === "rw"
-    ? ["video", "social media post", "ibyapa byamamaza"]
-    : ["video ads", "social media posts", "shop banners"];
+    ? ["video zamamaza ibicuruzwa na serivisi", "amapost yo kwamamaza ibicuruzwa na serivisi", "ibyapa byamamaza ibicuruzwa na serivisi"]
+    : ["video ads for your products and services", "social media posts for your business", "promotional shop banners"];
   const current = slides[active]!;
   const playing = phase === "play";
   const open = phase !== "intro";

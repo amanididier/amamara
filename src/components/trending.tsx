@@ -1,44 +1,55 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clapperboard, Image as ImageIcon, PanelsTopLeft } from "lucide-react";
 import { ReelGallery } from "@/components/reel-gallery";
 import { sampleAds, type Format } from "@/data/ads";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
 
+const mixedCardOrder: Record<"video" | "flyer", number[]> = {
+  video: [0, 2, 1, 0, 1, 2, 0, 2],
+  flyer: [1, 0, 1, 0, 0, 1, 0, 1],
+};
+
 export function TrendingSection() {
   const { t, lang } = usePrefs();
   const [tab, setTab] = useState<Format>("video");
-  const list = useMemo(() => sampleAds.filter((ad) => ad.format === tab), [tab]);
-  const tabs: { id: Format; rw: string; en: string; style: string; active: string }[] = [
-    { id: "video", rw: "Video", en: "Videos", style: "bg-primary/10 text-primary hover:bg-primary/15", active: "bg-primary text-white" },
-    { id: "flyer", rw: "Amaposti", en: "Posts", style: "bg-sky-100 text-sky-800 hover:bg-sky-200", active: "bg-sky-500 text-white" },
-    { id: "banner", rw: "Ibyapa", en: "Banners", style: "bg-lime-100 text-lime-900 hover:bg-lime-200", active: "bg-lime-500 text-white" },
+  const list = useMemo(() => {
+    const source = sampleAds.filter((ad) => ad.format === tab);
+    if (tab === "banner" || source.length === 0) return source;
+    return mixedCardOrder[tab].map((index) => source[index % source.length]!);
+  }, [tab]);
+  const tabs = [
+    { id: "video" as const, rw: "Video", en: "Videos", Icon: Clapperboard },
+    { id: "flyer" as const, rw: "Amaposti", en: "Posts", Icon: ImageIcon },
+    { id: "banner" as const, rw: "Ibyapa", en: "Banners", Icon: PanelsTopLeft },
   ];
 
   return (
-    <section id="trending" className="border-y bg-background py-14 text-foreground sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+    <section id="trending" className="border-y bg-background py-12 text-foreground sm:py-16">
+      <div className="mx-auto max-w-[1180px] px-6 sm:px-10 lg:px-12">
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">{t("Byamamaye", "Trending")}</span>
-            <h2 className="mt-2 text-3xl font-bold sm:text-5xl">{t("Reba ibyo abandi bakora.", "See what others are creating.")}</h2>
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{t("Byamamaye", "Trending")}</span>
+            <h2 className="mt-2 max-w-2xl text-[1.65rem] font-bold leading-tight tracking-[-0.04em] sm:text-3xl">{t("Reba ibyo abandi bakora.", "See what others are creating.")}</h2>
           </div>
-          <Link to="/examples" className="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">
+          <Link to="/examples" className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-primary transition-opacity hover:opacity-75">
             {t("Reba byinshi", "See more")} <ArrowRight className="size-4" />
           </Link>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-2.5" role="tablist" aria-label={t("Ubwoko bw'amatangazo", "Ad formats")}>
-          {tabs.map((item) => (
-            <button key={item.id} role="tab" aria-selected={tab === item.id} onClick={() => setTab(item.id)}
-              className={cn("rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-200", tab === item.id ? item.active : item.style)}>
-              {lang === "rw" ? item.rw : item.en}
+        <div className="mt-7 flex items-center justify-center gap-8 border-b sm:justify-start sm:gap-10" role="tablist" aria-label={t("Ubwoko bw'amatangazo", "Ad formats")}>
+          {tabs.map(({ id, rw, en, Icon }) => (
+            <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
+              className={cn("relative inline-flex min-h-12 items-center gap-2 border-b-2 px-1 text-[13px] font-semibold transition-colors sm:text-sm",
+                tab === id ? "border-foreground text-foreground" : "border-transparent text-muted-foreground hover:text-foreground")}>
+              <Icon className="size-4" />
+              {lang === "rw" ? rw : en}
             </button>
           ))}
         </div>
 
-        <div className="mt-7" role="tabpanel">
+        <div className="mt-6" role="tabpanel">
           {tab === "banner" ? (
             <div className="grid gap-5 md:grid-cols-2">
               {list.map((ad) => (
@@ -48,14 +59,14 @@ export function TrendingSection() {
                   </div>
                   <div className="flex flex-col justify-center p-5">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{t("Urugero rw'icyapa", "Banner example")}</span>
-                    <h3 className="mt-2 text-lg font-bold">{ad.title}</h3>
+                    <h3 className="mt-2 text-base font-bold">{ad.title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">{lang === "rw" ? ad.descRw : ad.descEn}</p>
                     <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">{t("Reba ingero", "Explore examples")} <ArrowRight className="size-4" /></span>
                   </div>
                 </Link>
               ))}
             </div>
-          ) : <ReelGallery ads={list.slice(0, 8)} />}
+          ) : <ReelGallery ads={list} />}
         </div>
       </div>
     </section>

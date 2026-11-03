@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight, Check, Play, X, Sparkles, MessageSquareText, Download,
@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { AdCard } from "@/components/ad-card";
+import { DuoHero } from "@/components/duo-hero";
 import { categories, images, sampleAds, type Category, type Format } from "@/data/ads";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
@@ -29,7 +30,7 @@ function Landing() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <Hero />
+      <DuoHero />
       <ProblemSolution />
       <Trending />
       <WhatWeDo />
@@ -37,192 +38,6 @@ function Landing() {
       <FinalCta />
       <SiteFooter />
     </div>
-  );
-}
-
-/* ───────────────────────── HERO — text left + phone cards right ───────────────────────── */
-function Hero() {
-  const { t, theme } = usePrefs();
-  const cards = [
-    {
-      key: "post",
-      title: t("Post / Flyer", "Post / Flyer"),
-      detail: t("Post n'ama flyer byiteguye gusangizwa", "Scroll-stopping posts & flyers"),
-      image: images.fashion,
-      type: "flyer" as const,
-      tag: t("Post", "Social post"),
-      accent: "from-rose-500/80",
-    },
-    {
-      key: "video",
-      title: t("Video yamamaza", "Video ad"),
-      detail: t("Video ngufi za TikTok, Reels na WhatsApp", "Short videos for TikTok, Reels & WhatsApp"),
-      image: images.juice,
-      type: "video" as const,
-      tag: "9:16 · 0:15",
-      accent: "from-violet-600/80",
-    },
-    {
-      key: "banner",
-      title: t("Icyapa / Banner", "Shop banner"),
-      detail: t("Ibyapa by'amaduka biteguye gucapwa", "Print-ready storefront banners"),
-      image: images.shopBanner,
-      type: "banner" as const,
-      tag: t("Byiteguye gucapwa", "Print ready"),
-      accent: "from-amber-600/80",
-    },
-  ];
-
-  const [active, setActive] = useState(1); // start with video
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActive((prev) => (prev + 1) % cards.length);
-    }, 4500);
-    return () => clearInterval(id);
-  }, [cards.length]);
-
-  // Order so active is always the center (index 1)
-  const ordered = [
-    cards[(active + cards.length - 1) % cards.length]!,
-    cards[active]!,
-    cards[(active + 1) % cards.length]!,
-  ];
-
-  return (
-    <section className="relative overflow-hidden pb-16 sm:pb-24">
-      <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${theme === "light" ? "/hero-social-light.jpg" : "/hero-social-dark.png"})`,
-        }}
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/50 via-background/75 to-background" />
-
-      <div className="relative mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-20">
-        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-8">
-          {/* ── LEFT: copy ── */}
-          <div className="max-w-xl">
-            <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-semibold">
-              <span className="size-1.5 rounded-full bg-creative" />
-              {t("Byakozwe ku bucuruzi bwo mu Rwanda", "Built for Rwandan businesses")}
-            </span>
-
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-              {t("Amamaza yawe,", "Your ads,")}{" "}
-              <span className="text-primary">{t("mu buryo bworoshye.", "made simple.")}</span>
-            </h1>
-
-            <p className="mt-5 text-base text-muted-foreground sm:text-lg">
-              {t(
-                "Kora post, video n'ibyapa by'ubucuruzi bwawe ukoresheje AI. Nta bumenyi bwihariye bwo gushushanya busabwa.",
-                "Create social posts, video ads and storefront banners with AI. No design skills needed.",
-              )}
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="/app/create"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 font-semibold text-primary-foreground glow-primary transition-transform hover:scale-[1.03]"
-              >
-                {t("Tangira gukora", "Start creating")} <ArrowRight className="size-4" />
-              </Link>
-              <a
-                href="#trending"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border bg-card px-7 font-semibold hover:bg-accent"
-              >
-                <Play className="size-4 fill-current" /> {t("Reba ingero", "See examples")}
-              </a>
-            </div>
-          </div>
-
-          {/* ── RIGHT: phone-style vertical cards ── */}
-          <div className="relative flex items-center justify-center">
-            {/* perspective container for slight 3D */}
-            <div
-              className="relative flex h-[420px] w-full max-w-[480px] items-center justify-center sm:h-[480px]"
-              style={{ perspective: "1200px" }}
-            >
-              {ordered.map((card, i) => {
-                const isCenter = i === 1;
-                // slight left/right tilt for the side cards
-                const rotateY = i === 0 ? 18 : i === 2 ? -18 : 0;
-                const translateX = i === 0 ? -70 : i === 2 ? 70 : 0;
-                const scale = isCenter ? 1.05 : 0.88;
-                const z = isCenter ? 30 : 10;
-                const opacity = isCenter ? 1 : 0.72;
-
-                return (
-                  <Link
-                    key={card.key}
-                    to="/app/create"
-                    search={{ type: card.type }}
-                    onClick={() => setActive(cards.findIndex((c) => c.key === card.key))}
-                    className={cn(
-                      "absolute overflow-hidden border-[3px] border-card bg-card shadow-2xl transition-all duration-700 ease-out",
-                      // phone aspect ratio 9:16, square-ish corners
-                      "aspect-[9/16] w-[160px] sm:w-[190px]",
-                      isCenter ? "rounded-[1.25rem]" : "rounded-[1.1rem]",
-                    )}
-                    style={{
-                      transform: `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`,
-                      zIndex: z,
-                      opacity,
-                    }}
-                  >
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="absolute inset-0 size-full object-cover"
-                    />
-                    <div className={cn("absolute inset-0 bg-gradient-to-t", card.accent, "via-black/25 to-transparent")} />
-
-                    {/* top tag */}
-                    <span className="absolute left-3 top-3 rounded-full border border-white/25 bg-black/40 px-2.5 py-1 text-[10px] font-bold text-white backdrop-blur-md">
-                      {card.tag}
-                    </span>
-
-                    {/* bottom label — only full on center */}
-                    <div className="absolute inset-x-2 bottom-2 rounded-xl border border-white/25 bg-white/95 p-2.5 text-left text-neutral-950 shadow-lg backdrop-blur sm:inset-x-3 sm:bottom-3 sm:p-3">
-                      <div className="flex items-center justify-between gap-1">
-                        <h2 className={cn("font-extrabold leading-tight", isCenter ? "text-sm sm:text-base" : "text-xs")}>
-                          {card.title}
-                        </h2>
-                        {isCenter && (
-                          <span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary text-white sm:size-7">
-                            <ArrowRight className="size-3.5" />
-                          </span>
-                        )}
-                      </div>
-                      {isCenter && (
-                        <p className="mt-0.5 text-[10px] leading-snug text-neutral-600 sm:text-[11px]">
-                          {card.detail}
-                        </p>
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* dots */}
-        <div className="mt-10 flex justify-center gap-2 lg:mt-8">
-          {cards.map((c, i) => (
-            <button
-              key={c.key}
-              onClick={() => setActive(i)}
-              aria-label={c.title}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === active ? "w-7 bg-primary" : "w-1.5 bg-muted-foreground/40 hover:bg-muted-foreground/60",
-              )}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 

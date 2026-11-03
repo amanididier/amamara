@@ -38,7 +38,7 @@ export function TrendingSection() {
           </Link>
         </div>
 
-        <div className="mt-7 flex items-center justify-center gap-8 border-b sm:justify-start sm:gap-10" role="tablist" aria-label={t("Ubwoko bw'amatangazo", "Ad formats")}>
+        <div className="sticky top-16 z-40 -mx-6 mt-7 flex items-center justify-center gap-8 border-b bg-background px-6 sm:-mx-10 sm:justify-start sm:gap-10 sm:px-10 lg:-mx-12 lg:px-12" role="tablist" aria-label={t("Ubwoko bw'amatangazo", "Ad formats")}>
           {tabs.map(({ id, rw, en, Icon }) => (
             <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
               className={cn("relative inline-flex min-h-12 items-center gap-2 border-b-2 px-1 text-[13px] font-semibold transition-colors sm:text-sm",

@@ -145,7 +145,7 @@ function ProSection() {
               <img
                 src="/pro-collage.png"
                 alt="Creative professionals"
-                className="absolute inset-0 size-full object-cover object-left"
+                className="absolute inset-0 size-full object-cover object-center"
               />
             </div>
           </div>

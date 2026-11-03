@@ -258,8 +258,8 @@ function WhatWeDo() {
       <section className="bg-[#0a0a0a] py-16 text-white sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black">
-            <div className="grid lg:grid-cols-2 lg:items-stretch">
-              <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
+            <div className="grid lg:grid-cols-[1fr_1.2fr] lg:items-stretch">
+              <div className="flex flex-col justify-center p-8 sm:p-10 lg:py-14 lg:pl-12 lg:pr-6">
                 <span className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary">
                   <UserRound className="size-3.5" /> {t("Serivisi z'abahanga", "Pro services")}
                 </span>
@@ -280,12 +280,12 @@ function WhatWeDo() {
                 </Link>
               </div>
 
-              {/* collage fills the cell edge-to-edge — no gray gap */}
+              {/* collage fills the cell edge-to-edge — pulled left to close middle gap */}
               <div className="relative min-h-[360px] sm:min-h-[440px] lg:min-h-full">
                 <img
                   src="/pro-collage.png"
                   alt="Creative professionals"
-                  className="absolute inset-0 size-full object-cover object-center"
+                  className="absolute inset-0 size-full object-cover object-left"
                 />
               </div>
             </div>

@@ -296,7 +296,7 @@ Deno.serve(async (req: Request) => {
       if (wallet.error || ledger.error) throw new Error("Could not load wallet history.");
       return json({
         ok: true, balance_rwf: wallet.data.balance_rwf, sandbox_balance_rwf: wallet.data.sandbox_balance_rwf,
-        transactions: ledger.data || [], environment: Deno.env.get("MTN_TARGET_ENVIRONMENT") || "sandbox",
+        transactions: ledger.data || [], environment: Deno.env.get("MTN_TARGET_ENVIRONMENT") === "mtnrwanda" && Deno.env.get("MTN_LIVE_ENABLED") === "true" ? "production" : "sandbox",
       });
     }
 

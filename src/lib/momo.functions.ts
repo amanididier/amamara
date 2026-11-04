@@ -63,7 +63,7 @@ export function checkMomoPayment(referenceId: string) {
 }
 
 export function createMomoAdOrder(input: {
-  phone: string;
+  phone?: string;
   service_type: "video" | "flyer" | "banner" | "template";
   duration_seconds?: number;
   quality?: "standard" | "hd" | "premium";

@@ -16,7 +16,7 @@ export function WhatWeDo() {
       setVideoVisible(true);
       return;
     }
-    const observer = new IntersectionObserver(([entry]) => setVideoVisible(entry.isIntersecting), { threshold: 0.35 });
+    const observer = new IntersectionObserver(([entry]) => setVideoVisible(!!entry?.isIntersecting), { threshold: 0.35 });
     observer.observe(node);
     return () => observer.disconnect();
   }, []);

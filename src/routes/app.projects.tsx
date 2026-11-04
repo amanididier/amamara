@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download, Plus } from "lucide-react";
+import { SocialPostLinks } from "@/components/social-post-links";
 import { useLibrary } from "@/lib/library";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
@@ -57,6 +58,7 @@ function Projects() {
                 </span>
                 <a href={i.image} download className="grid size-8 place-items-center rounded-full border hover:text-primary" aria-label="Download"><Download className="size-4" /></a>
               </div>
+              {!i.demo && i.status === "done" && <SocialPostLinks />}
             </div>
           </div>
         ))}

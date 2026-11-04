@@ -14,7 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ad_comments: {
+        Row: {
+          ad_id: string
+          body: string
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          ad_id: string
+          body: string
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Update: {
+          ad_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      momo_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          fee: number
+          id: string
+          phone: string
+          purpose: string | null
+          reference_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          fee?: number
+          id?: string
+          phone: string
+          purpose?: string | null
+          reference_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          fee?: number
+          id?: string
+          phone?: string
+          purpose?: string | null
+          reference_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

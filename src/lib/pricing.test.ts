@@ -13,3 +13,13 @@ describe("estimatePrice", () => {
     expect(estimatePrice({ type: "banner", durationSec: 0, quality: "premium" }).total).toBe(10000);
   });
 });
+
+import { paymentTotal } from "./pricing";
+describe("payment total", () => {
+  it("adds 3% MTN fee", () => {
+    expect(paymentTotal(10000, "mtn")).toEqual({ price: 10000, fee: 300, total: 10300 });
+  });
+  it("no MTN fee on card", () => {
+    expect(paymentTotal(10000, "card").total).toBe(10000);
+  });
+});

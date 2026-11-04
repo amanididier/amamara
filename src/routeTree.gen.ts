@@ -14,6 +14,7 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as ExamplesRouteImport } from './routes/examples'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppCreateRouteImport } from './routes/app.create'
 import { Route as AppProRouteImport } from './routes/app.pro'
@@ -44,6 +45,11 @@ const PricingRoute = PricingRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateImageRoute = ApiGenerateImageRouteImport.update({
+  id: '/api/generate-image',
+  path: '/api/generate-image',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/examples': typeof ExamplesRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/examples': typeof ExamplesRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/examples': typeof ExamplesRoute
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/examples'
     | '/pricing'
     | '/services'
+    | '/api/generate-image'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/examples'
     | '/pricing'
     | '/services'
+    | '/api/generate-image'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/examples'
     | '/pricing'
     | '/services'
+    | '/api/generate-image'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   ExamplesRoute: typeof ExamplesRoute
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
+  ApiGenerateImageRoute: typeof ApiGenerateImageRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -200,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-image': {
+      id: '/api/generate-image'
+      path: '/api/generate-image'
+      fullPath: '/api/generate-image'
+      preLoaderRoute: typeof ApiGenerateImageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/': {
@@ -273,6 +293,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExamplesRoute: ExamplesRoute,
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
+  ApiGenerateImageRoute: ApiGenerateImageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

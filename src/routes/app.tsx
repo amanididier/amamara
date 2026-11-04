@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { Home, Sparkles, LayoutGrid, FolderOpen, UserRound, LifeBuoy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Home, Sparkles, LayoutGrid, FolderOpen, UserRound, Wallet, LifeBuoy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { LangSwitch, Logo, ThemeSwitch } from "@/components/brand";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
@@ -27,6 +27,7 @@ function AppLayout() {
     { to: "/app/templates", label: t("Ingero", "Templates"), Icon: LayoutGrid },
     { to: "/app/projects", label: t("Ibikorwa byanjye", "My ads"), Icon: FolderOpen },
     { to: "/app/pro", label: t("Serivisi z'abahanga", "Pro services"), Icon: UserRound },
+    { to: "/app/wallet", label: t("Amafaranga", "Wallet"), Icon: Wallet },
   ] as const;
 
   return (
@@ -69,9 +70,9 @@ function AppLayout() {
         <Outlet />
       </div>
 
-      {/* Mobile bottom nav — no wallet */}
-      <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t bg-background/95 px-2 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
-        {[nav[0], nav[2], nav[1], nav[3], nav[4]].map((n, i) =>
+      {/* Mobile bottom navigation */}
+      <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-6 border-t bg-background/95 px-2 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+        {[nav[0], nav[2], nav[1], nav[3], nav[4], nav[5]].map((n, i) =>
           i === 2 ? (
             <Link key={n.to} to={n.to} className="flex flex-col items-center justify-center py-2" aria-label={n.label}>
               <span className="-mt-6 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg glow-primary">

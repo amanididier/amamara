@@ -21,6 +21,7 @@ import { Route as AppProRouteImport } from './routes/app.pro'
 import { Route as AppProjectsRouteImport } from './routes/app.projects'
 import { Route as AppTemplatesRouteImport } from './routes/app.templates'
 import { Route as AppWalletRouteImport } from './routes/app.wallet'
+import { Route as AppCreateTypeRouteImport } from './routes/app.create_.$type'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +83,11 @@ const AppWalletRoute = AppWalletRouteImport.update({
   path: '/wallet',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCreateTypeRoute = AppCreateTypeRouteImport.update({
+  id: '/create_/$type',
+  path: '/create/$type',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/app/templates': typeof AppTemplatesRoute
   '/app/wallet': typeof AppWalletRoute
   '/app/': typeof AppIndexRoute
+  '/app/create/$type': typeof AppCreateTypeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/app/templates': typeof AppTemplatesRoute
   '/app/wallet': typeof AppWalletRoute
   '/app': typeof AppIndexRoute
+  '/app/create/$type': typeof AppCreateTypeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/app/templates': typeof AppTemplatesRoute
   '/app/wallet': typeof AppWalletRoute
   '/app/': typeof AppIndexRoute
+  '/app/create_/$type': typeof AppCreateTypeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
     | '/app/templates'
     | '/app/wallet'
     | '/app/'
+    | '/app/create/$type'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/app/templates'
     | '/app/wallet'
     | '/app'
+    | '/app/create/$type'
   id:
     | '__root__'
     | '/'
@@ -167,6 +178,7 @@ export interface FileRouteTypes {
     | '/app/templates'
     | '/app/wallet'
     | '/app/'
+    | '/app/create_/$type'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -264,6 +276,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWalletRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/create_/$type': {
+      id: '/app/create_/$type'
+      path: '/create/$type'
+      fullPath: '/app/create/$type'
+      preLoaderRoute: typeof AppCreateTypeRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -274,6 +293,7 @@ interface AppRouteChildren {
   AppTemplatesRoute: typeof AppTemplatesRoute
   AppWalletRoute: typeof AppWalletRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppCreateTypeRoute: typeof AppCreateTypeRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -283,6 +303,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppTemplatesRoute: AppTemplatesRoute,
   AppWalletRoute: AppWalletRoute,
   AppIndexRoute: AppIndexRoute,
+  AppCreateTypeRoute: AppCreateTypeRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

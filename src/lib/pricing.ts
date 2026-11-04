@@ -44,9 +44,8 @@ export function formatRWF(n: number) {
   return `${n.toLocaleString("en-US")} RWF`;
 }
 
-/** MTN Mobile Money charges 3% on top of the ad price. */
-export const MOMO_FEE_RATE = 0.03;
-export function paymentTotal(price: number, method: "mtn" | "card") {
-  const fee = method === "mtn" ? Math.round(price * MOMO_FEE_RATE) : 0;
-  return { price, fee, total: price + fee };
+/** MTN merchant fees are contract-dependent; do not add an unapproved customer surcharge. */
+export const MOMO_FEE_RATE = 0;
+export function paymentTotal(price: number, _method: "mtn" | "card") {
+  return { price, fee: 0, total: price };
 }

@@ -1,1 +1,7 @@
-project_id = "idqoetffqnwoxnstdkfh"
+project_id = "kuuvfikaupbsdhdhpcrm"
+
+[functions.momo-payments]
+verify_jwt = true
+
+[functions.momo-callback]
+verify_jwt = false

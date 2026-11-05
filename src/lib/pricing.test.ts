@@ -16,8 +16,8 @@ describe("estimatePrice", () => {
 
 import { paymentTotal } from "./pricing";
 describe("payment total", () => {
-  it("adds 3% MTN fee", () => {
-    expect(paymentTotal(10000, "mtn")).toEqual({ price: 10000, fee: 300, total: 10300 });
+  it("matches the current server: no unapproved MTN surcharge", () => {
+    expect(paymentTotal(10000, "mtn")).toEqual({ price: 10000, fee: 0, total: 10000 });
   });
   it("no MTN fee on card", () => {
     expect(paymentTotal(10000, "card").total).toBe(10000);

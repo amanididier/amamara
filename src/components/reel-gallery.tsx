@@ -6,6 +6,7 @@ import { formatLabel } from "@/data/ads";
 import { usePrefs } from "@/lib/prefs";
 import { formatCount, useComments, useLike } from "@/lib/likes";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export function ReelGallery({ ads }: { ads: SampleAd[] }) {
   const [open, setOpen] = useState<number | null>(null);
@@ -47,9 +48,10 @@ function ReelCard({ ad, onOpen }: { ad: SampleAd; onOpen: () => void }) {
 
 function ReelViewer({ ads, index, onIndex, onClose }: { ads: SampleAd[]; index: number; onIndex: (i: number) => void; onClose: () => void }) {
   const { t, lang } = usePrefs();
-  const ad = ads[index]!;
+  const ad = ads[index] ?? ads[0];
+  if (!ad) return null;
   const { liked, count, toggle } = useLike(ad.id);
-  const { comments, add } = useComments(ad.id, []);
+  const { comments, add, loading, error, sending } = useComments(ad.id, []);
   const [comment, setComment] = useState("");
   const [name, setName] = useState("");
   const [heartBurst, setHeartBurst] = useState(false);
@@ -75,17 +77,16 @@ function ReelViewer({ ads, index, onIndex, onClose }: { ads: SampleAd[]; index: 
     }
     setLastTap(now);
   };
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (!comment.trim()) return;
-    add(name, comment);
-    setComment("");
+    if (await add(name, comment)) setComment("");
   };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-3 backdrop-blur-sm sm:p-6" onClick={onClose} role="dialog" aria-modal="true" aria-label={ad.title}>
       <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"><X className="size-5" /></button>
-      <div key={ad.id} onClick={(e) => e.stopPropagation()} className="grid max-h-[88vh] w-full max-w-5xl overflow-hidden bg-background text-foreground shadow-2xl md:grid-cols-[minmax(0,1.1fr)_minmax(320px,.9fr)]">
+      <div key={ad.id} onClick={(e) => e.stopPropagation()} className="grid max-h-[88vh] w-full max-w-5xl overflow-y-auto rounded-lg bg-background text-foreground shadow-2xl md:grid-cols-[minmax(0,1.1fr)_minmax(320px,.9fr)]">
         <div className="relative flex min-h-[300px] items-center justify-center overflow-hidden bg-black md:min-h-[620px]" onClick={likeFromDoubleTap}>
           <img src={ad.image} alt={ad.title} className="max-h-[88vh] w-full object-contain" />
           {heartBurst && <Heart className="pointer-events-none absolute size-24 animate-heart-pop fill-white text-white drop-shadow-xl" />}
@@ -110,14 +111,16 @@ function ReelViewer({ ads, index, onIndex, onClose }: { ads: SampleAd[]; index: 
           </div>
           <div className="flex items-center gap-2 border-b px-5 py-3 text-sm font-semibold"><MessageCircle className="size-4" /> {t("Ibitekerezo", "Comments")} ({comments.length})</div>
           <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
-            {comments.length === 0 && <p className="text-sm text-muted-foreground">{t("Ba uwa mbere gutanga igitekerezo.", "Be the first to comment.")}</p>}
+            {loading && <p className="text-sm text-muted-foreground">{t("Turimo kuzana ibitekerezo…", "Loading comments…")}</p>}
+            {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+            {!loading && !error && comments.length === 0 && <p className="text-sm text-muted-foreground">{t("Ba uwa mbere gutanga igitekerezo.", "Be the first to comment.")}</p>}
             {comments.map((c, i) => <div key={i}><p className="text-sm font-semibold">{c.name}</p><p className="mt-0.5 text-sm text-muted-foreground">{c.text}</p></div>)}
           </div>
-          <form onSubmit={submit} className="space-y-2 border-t p-4">
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder={t("Izina (si ngombwa)", "Name (optional)")} className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:border-primary" />
-            <div className="flex gap-2">
-              <input value={comment} onChange={(e) => setComment(e.target.value)} placeholder={t("Andika igitekerezo...", "Add a comment...")} className="min-w-0 flex-1 rounded-md border bg-background px-3 py-2 text-sm outline-none focus:border-primary" />
-              <button type="submit" disabled={!comment.trim()} aria-label="Post comment" className="grid size-10 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground disabled:opacity-40"><Send className="size-4" /></button>
+          <form onSubmit={(e) => void submit(e)} className="sticky bottom-0 space-y-2 border-t bg-card p-4">
+            <input aria-label="Name (optional)" maxLength={60} value={name} onChange={(e) => setName(e.target.value)} placeholder={t("Izina (si ngombwa)", "Name (optional)")} className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:border-primary" />
+            <div className="flex items-end gap-2 rounded-md border bg-background p-2 focus-within:border-primary">
+              <textarea aria-label="Add a comment" maxLength={500} rows={2} value={comment} onChange={(e) => setComment(e.target.value)} placeholder={t("Andika igitekerezo...", "Add a comment...")} className="min-w-0 flex-1 resize-none bg-background px-1 py-1 text-sm outline-none" />
+              <Button type="submit" disabled={!comment.trim() || sending} aria-label="Post comment" title="Post comment" size="icon" className="shrink-0"><Send /></Button>
             </div>
           </form>
           <div className="flex justify-between border-t px-4 py-3">

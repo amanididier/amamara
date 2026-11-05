@@ -6,6 +6,8 @@ import { pricing } from "@/config/site";
 import { formatRWF } from "@/lib/pricing";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { AccountAccess, useAccount } from "@/components/account-access";
 import {
   checkMomoPayment,
   loadMomoWallet,
@@ -35,6 +37,8 @@ function prettyDate(value: string) {
 
 function WalletPage() {
   const { t } = usePrefs();
+  const { signedIn, ready } = useAccount();
+  const [attemptKey, setAttemptKey] = useState("");
   const [amount, setAmount] = useState<number>(pricing.topUpOptions[1] ?? 10000);
   const [phone, setPhone] = useState("");
   const [balance, setBalance] = useState(0);
@@ -62,8 +66,8 @@ function WalletPage() {
   }, []);
 
   useEffect(() => {
-    void refreshWallet();
-  }, [refreshWallet]);
+    if (signedIn) void refreshWallet();
+  }, [refreshWallet, signedIn]);
 
   async function handleTopUp() {
     if (!phone.trim()) {
@@ -72,7 +76,9 @@ function WalletPage() {
     }
     setSubmitting(true);
     try {
-      const result = await requestWalletTopUp(phone, amount);
+      const idempotencyKey = attemptKey || crypto.randomUUID();
+      setAttemptKey(idempotencyKey);
+      const result = await requestWalletTopUp(phone, amount, idempotencyKey);
       if (!result.ok || !result.reference_id) {
         throw new Error(result.error || "MTN did not accept the payment request.");
       }
@@ -122,6 +128,7 @@ function WalletPage() {
     expired: t("Byarangiye", "Expired"),
   };
 
+  if (!ready || !signedIn) return <main className="mx-auto max-w-3xl px-5 py-12"><h1 className="mb-8 text-3xl font-bold">{t("Amafaranga", "Wallet")}</h1>{ready ? <AccountAccess /> : <p>{t("Tegereza…", "Loading…")}</p>}</main>;
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 sm:px-8 sm:py-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -131,10 +138,10 @@ function WalletPage() {
             {t("Kwishyura no gukurikirana amafaranga yawe.", "Add funds and track your wallet activity.")}
           </p>
         </div>
-        <button onClick={() => void refreshWallet()} disabled={walletLoading} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold">
+        <Button variant="outline" onClick={() => void refreshWallet()} disabled={walletLoading}>
           <RefreshCw className={cn("size-4", walletLoading && "animate-spin")} />
           {t("Ongera urebe", "Refresh")}
-        </button>
+        </Button>
       </div>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -168,7 +175,7 @@ function WalletPage() {
             inputMode="tel"
             autoComplete="tel"
             value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            onChange={(event) => { setPhone(event.target.value); if (!reference) setAttemptKey(""); }}
             placeholder="078 000 0000"
             className="mt-2 w-full rounded-xl border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
           />
@@ -176,26 +183,26 @@ function WalletPage() {
           <p className="mt-4 text-sm font-medium">{t("Hitamo amafaranga", "Choose an amount")}</p>
           <div className="mt-2 grid grid-cols-2 gap-2">
             {pricing.topUpOptions.map((value) => (
-              <button
+              <Button variant="outline"
                 key={value}
-                onClick={() => setAmount(value)}
+                onClick={() => { setAmount(value); if (!reference) setAttemptKey(""); }}
                 className={cn(
                   "rounded-xl border py-3 text-sm font-semibold transition-colors",
                   amount === value && "border-primary bg-primary/10 text-primary",
                 )}
               >
                 {formatRWF(value)}
-              </button>
+              </Button>
             ))}
           </div>
 
-          <button
+          <Button
             onClick={() => void handleTopUp()}
-            disabled={submitting || walletLoading}
+            disabled={submitting || walletLoading || Boolean(reference && !["successful", "failed", "rejected", "expired"].includes(paymentStatus))}
             className="mt-4 w-full rounded-full bg-primary py-3 font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? t("Tegereza...", "Starting payment...") : t("Kwishyura", "Continue to MTN")} · {formatRWF(amount)}
-          </button>
+          </Button>
 
           {environment === "sandbox" && (
             <p className="mt-3 rounded-xl bg-muted p-3 text-xs leading-relaxed text-muted-foreground">
@@ -215,14 +222,14 @@ function WalletPage() {
                 {t("Imiterere", "Status")}: <span className="font-semibold">{statusLabel[paymentStatus] || paymentStatus}</span>
               </p>
             </div>
-            <button
+            <Button variant="outline"
               onClick={() => void handleCheckStatus()}
               disabled={checking || ["successful", "failed", "rejected", "expired"].includes(paymentStatus)}
               className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold disabled:opacity-50"
             >
               <RefreshCw className={cn("size-4", checking && "animate-spin")} />
               {checking ? t("Turimo kugenzura", "Checking...") : t("Reba uko byagenze", "Check payment")}
-            </button>
+            </Button>
           </div>
           {paymentStatus === "successful" && (
             <p className="mt-3 text-sm text-success">

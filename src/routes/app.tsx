@@ -4,6 +4,7 @@ import { Home, Sparkles, LayoutGrid, FolderOpen, UserRound, Wallet, LifeBuoy, Pa
 import { LangSwitch, Logo, ThemeSwitch } from "@/components/brand";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/app")({
   head: () => ({
@@ -24,9 +25,7 @@ function AppLayout() {
   const nav = [
     { to: "/app", label: t("Ahabanza", "Home"), Icon: Home, exact: true },
     { to: "/app/create", label: t("Kurema itangazo", "Create ad"), Icon: Sparkles },
-    { to: "/app/templates", label: t("Ingero", "Templates"), Icon: LayoutGrid },
     { to: "/app/projects", label: t("Ibikorwa byanjye", "My ads"), Icon: FolderOpen },
-    { to: "/app/pro", label: t("Serivisi z'abahanga", "Pro services"), Icon: UserRound },
     { to: "/app/wallet", label: t("Amafaranga", "Wallet"), Icon: Wallet },
   ] as const;
 
@@ -35,9 +34,9 @@ function AppLayout() {
       <aside className={cn("sticky top-0 hidden h-screen shrink-0 flex-col border-r bg-sidebar p-3 transition-[width] md:flex", collapsed ? "w-[72px]" : "w-64")}>
         <div className="flex h-12 items-center justify-between px-2">
           {!collapsed && <Logo />}
-          <button onClick={() => setCollapsed(!collapsed)} className="grid size-8 place-items-center rounded-lg text-muted-foreground hover:bg-sidebar-accent" aria-label="Collapse">
+          <Button variant="ghost" size="icon" onClick={() => setCollapsed(!collapsed)} className="size-8 text-muted-foreground" aria-label={collapsed ? "Expand menu" : "Collapse menu"} title={collapsed ? "Expand menu" : "Collapse menu"}>
             {collapsed ? <PanelLeftOpen className="size-4" /> : <PanelLeftClose className="size-4" />}
-          </button>
+          </Button>
         </div>
         <nav className="mt-6 flex-1 space-y-1">
           {nav.map((n) => (
@@ -71,9 +70,9 @@ function AppLayout() {
       </div>
 
       {/* Mobile bottom navigation */}
-      <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-6 border-t bg-background/95 px-2 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
-        {[nav[0], nav[2], nav[1], nav[3], nav[4], nav[5]].map((n, i) =>
-          i === 2 ? (
+      <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-4 border-t bg-background/95 px-2 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+        {nav.map((n, i) =>
+          i === 1 ? (
             <Link key={n.to} to={n.to} className="flex flex-col items-center justify-center py-2" aria-label={n.label}>
               <span className="-mt-6 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg glow-primary">
                 <n.Icon className="size-6" />

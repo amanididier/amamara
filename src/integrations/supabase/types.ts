@@ -38,223 +38,48 @@ export type Database = {
         }
         Relationships: []
       }
-      ad_orders: {
-        Row: {
-          amount_rwf: number
-          created_at: string
-          details: Json
-          id: string
-          idempotency_key: string | null
-          is_test: boolean
-          paid_at: string | null
-          service_type: string
-          status: string
-          user_id: string
-        }
-        Insert: {
-          amount_rwf: number
-          created_at?: string
-          details?: Json
-          id?: string
-          idempotency_key?: string | null
-          is_test?: boolean
-          paid_at?: string | null
-          service_type: string
-          status?: string
-          user_id: string
-        }
-        Update: {
-          amount_rwf?: number
-          created_at?: string
-          details?: Json
-          id?: string
-          idempotency_key?: string | null
-          is_test?: boolean
-          paid_at?: string | null
-          service_type?: string
-          status?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       momo_payments: {
         Row: {
-          amount_rwf: number
-          completed_at: string | null
+          amount: number
           created_at: string
-          currency: string
-          environment: string
-          external_id: string
-          failure_reason: string | null
-          fee_rwf: number
-          finalized_at: string | null
-          financial_transaction_id: string | null
+          fee: number
           id: string
-          idempotency_key: string | null
-          is_test: boolean
-          kind: string
-          mtn_amount: number
-          mtn_status: string | null
-          order_id: string | null
           phone: string
+          purpose: string | null
           reference_id: string
           status: string
           updated_at: string
-          user_id: string
         }
         Insert: {
-          amount_rwf: number
-          completed_at?: string | null
+          amount: number
           created_at?: string
-          currency: string
-          environment: string
-          external_id: string
-          failure_reason?: string | null
-          fee_rwf?: number
-          finalized_at?: string | null
-          financial_transaction_id?: string | null
+          fee?: number
           id?: string
-          idempotency_key?: string | null
-          is_test?: boolean
-          kind: string
-          mtn_amount: number
-          mtn_status?: string | null
-          order_id?: string | null
           phone: string
+          purpose?: string | null
           reference_id: string
           status?: string
           updated_at?: string
-          user_id: string
         }
         Update: {
-          amount_rwf?: number
-          completed_at?: string | null
+          amount?: number
           created_at?: string
-          currency?: string
-          environment?: string
-          external_id?: string
-          failure_reason?: string | null
-          fee_rwf?: number
-          finalized_at?: string | null
-          financial_transaction_id?: string | null
+          fee?: number
           id?: string
-          idempotency_key?: string | null
-          is_test?: boolean
-          kind?: string
-          mtn_amount?: number
-          mtn_status?: string | null
-          order_id?: string | null
           phone?: string
+          purpose?: string | null
           reference_id?: string
           status?: string
           updated_at?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "momo_payments_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "ad_orders"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      wallet_accounts: {
-        Row: {
-          balance_rwf: number
-          created_at: string
-          sandbox_balance_rwf: number
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          balance_rwf?: number
-          created_at?: string
-          sandbox_balance_rwf?: number
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          balance_rwf?: number
-          created_at?: string
-          sandbox_balance_rwf?: number
-          updated_at?: string
-          user_id?: string
         }
         Relationships: []
-      }
-      wallet_transactions: {
-        Row: {
-          amount_rwf: number
-          balance_after_rwf: number | null
-          created_at: string
-          description: string
-          id: string
-          is_test: boolean
-          order_id: string | null
-          payment_id: string | null
-          sandbox_balance_after_rwf: number | null
-          user_id: string
-        }
-        Insert: {
-          amount_rwf: number
-          balance_after_rwf?: number | null
-          created_at?: string
-          description: string
-          id?: string
-          is_test?: boolean
-          order_id?: string | null
-          payment_id?: string | null
-          sandbox_balance_after_rwf?: number | null
-          user_id: string
-        }
-        Update: {
-          amount_rwf?: number
-          balance_after_rwf?: number | null
-          created_at?: string
-          description?: string
-          id?: string
-          is_test?: boolean
-          order_id?: string | null
-          payment_id?: string | null
-          sandbox_balance_after_rwf?: number | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "wallet_transactions_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "ad_orders"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "wallet_transactions_payment_id_fkey"
-            columns: ["payment_id"]
-            isOneToOne: true
-            referencedRelation: "momo_payments"
-            referencedColumns: ["id"]
-          },
-        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      debit_wallet_for_order: {
-        Args: { p_order_id: string; p_user_id: string }
-        Returns: Json
-      }
-      finalize_momo_payment: {
-        Args: {
-          p_financial_transaction_id?: string
-          p_mtn_status: string
-          p_reference_id: string
-        }
-        Returns: Json
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Facebook, Heart, MessageCircle, Play, Share2 } from "lucide-react";
 import shopEntranceBanner from "@/assets/ads/shop-entrance-banner.jpg";
+import binderClip from "@/assets/binder-clip-cutout.png";
 import { usePrefs } from "@/lib/prefs";
 
 export function WhatWeDo() {
@@ -102,7 +103,7 @@ export function WhatWeDo() {
             <div className="wall-clip">
               <div className="wall-clip__back" />
               <img src={shopEntranceBanner} alt="Printed Amamaza banner displayed above a Rwandan shop entrance" className="wall-clip__front" />
-              <span className="wall-clip__clip" aria-hidden />
+              <img src={binderClip} alt="" className="wall-clip__clip" aria-hidden="true" />
             </div>
           </div>
         </div>

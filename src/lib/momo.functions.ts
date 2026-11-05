@@ -34,7 +34,7 @@ export function loadMomoWallet() {
   return invokeMomo<WalletSnapshot & { ok: true }>({ action: "wallet" });
 }
 
-export function requestWalletTopUp(phone: string, amountRwf: number) {
+export function requestWalletTopUp(phone: string, amountRwf: number, idempotencyKey = crypto.randomUUID()) {
   return invokeMomo<{
     ok: boolean;
     reference_id?: string;
@@ -48,7 +48,7 @@ export function requestWalletTopUp(phone: string, amountRwf: number) {
     kind: "wallet_topup",
     phone,
     amount_rwf: amountRwf,
-    idempotency_key: crypto.randomUUID(),
+    idempotency_key: idempotencyKey,
   });
 }
 
@@ -68,6 +68,7 @@ export function createMomoAdOrder(input: {
   duration_seconds?: number;
   quality?: "standard" | "hd" | "premium";
   payment_method: "momo" | "wallet";
+  idempotency_key?: string;
 }) {
   return invokeMomo<{
     ok: boolean;
@@ -83,6 +84,6 @@ export function createMomoAdOrder(input: {
     action: "start",
     kind: "ad_order",
     ...input,
-    idempotency_key: crypto.randomUUID(),
+    idempotency_key: input.idempotency_key || crypto.randomUUID(),
   });
 }

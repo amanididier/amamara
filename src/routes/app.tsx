@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/app")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Amamaza Studio" },
       { name: "description", content: "Create and manage your advertising projects in Amamaza Studio." },
       { name: "robots", content: "noindex, nofollow" },

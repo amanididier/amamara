@@ -19,6 +19,8 @@ import {
 export const Route = createFileRoute("/app/wallet")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Amafaranga — Amamaza" },
       { name: "description", content: "Shyira amafaranga kuri konti yawe ukoresheje MTN MoMo." },
       { property: "og:title", content: "Wallet — Amamaza" },
@@ -103,9 +105,11 @@ function WalletPage() {
       const result = await checkMomoPayment(reference);
       setPaymentStatus(result.status);
       if (result.status === "successful") {
-        toast.success(result.is_test
-          ? "Sandbox payment verified. Your test balance has been updated."
-          : "Payment verified. Your wallet has been credited.");
+        toast.success(
+          result.is_test
+            ? "Sandbox payment verified. Your test balance has been updated."
+            : "Payment verified. Your wallet has been credited.",
+        );
         await refreshWallet();
       } else if (["failed", "rejected", "expired"].includes(result.status)) {
         toast.error("The payment was not completed. Your wallet has not been credited.");
@@ -128,14 +132,25 @@ function WalletPage() {
     expired: t("Byarangiye", "Expired"),
   };
 
-  if (!ready || !signedIn) return <main className="mx-auto max-w-3xl px-5 py-12"><h1 className="mb-8 text-3xl font-bold">{t("Amafaranga", "Wallet")}</h1>{ready ? <AccountAccess /> : <p>{t("Tegereza…", "Loading…")}</p>}</main>;
+  if (!ready || !signedIn)
+    return (
+      <main className="mx-auto max-w-3xl px-5 py-12">
+        <h1 className="mb-8 text-3xl font-bold">{t("Amafaranga", "Wallet")}</h1>
+        {ready ? <AccountAccess /> : <p>{t("Tegereza…", "Loading…")}</p>}
+      </main>
+    );
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 sm:px-8 sm:py-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-extrabold sm:text-4xl">{t("Amafaranga asigaye", "Wallet")}</h1>
+          <h1 className="text-3xl font-extrabold sm:text-4xl">
+            {t("Amafaranga asigaye", "Wallet")}
+          </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            {t("Kwishyura no gukurikirana amafaranga yawe.", "Add funds and track your wallet activity.")}
+            {t(
+              "Kwishyura no gukurikirana amafaranga yawe.",
+              "Add funds and track your wallet activity.",
+            )}
           </p>
         </div>
         <Button variant="outline" onClick={() => void refreshWallet()} disabled={walletLoading}>
@@ -145,7 +160,7 @@ function WalletPage() {
       </div>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2">
-        <div className="rounded-3xl bg-primary p-8 text-primary-foreground">
+        <div className="rounded-lg bg-primary p-8 text-primary-foreground">
           <div className="flex items-center gap-2 opacity-85">
             <WalletIcon className="size-5" />
             <p>{t("Amafaranga nyayo", "Real wallet balance")}</p>
@@ -154,11 +169,14 @@ function WalletPage() {
             {walletLoading ? "…" : formatRWF(balance)}
           </p>
           <p className="mt-5 text-sm opacity-80">
-            {t("Amafaranga azakoreshwa mu kwishyura amatangazo.", "Funds available for paying for advertising orders.")}
+            {t(
+              "Amafaranga azakoreshwa mu kwishyura amatangazo.",
+              "Funds available for paying for advertising orders.",
+            )}
           </p>
         </div>
 
-        <div className="rounded-3xl border bg-card p-6">
+        <div className="rounded-lg border bg-card p-6">
           <div className="flex items-center justify-between gap-2">
             <p className="font-bold">{t("Ongeramo amafaranga", "Top up wallet")}</p>
             <span className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold">
@@ -175,7 +193,10 @@ function WalletPage() {
             inputMode="tel"
             autoComplete="tel"
             value={phone}
-            onChange={(event) => { setPhone(event.target.value); if (!reference) setAttemptKey(""); }}
+            onChange={(event) => {
+              setPhone(event.target.value);
+              if (!reference) setAttemptKey("");
+            }}
             placeholder="078 000 0000"
             className="mt-2 w-full rounded-xl border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
           />
@@ -183,9 +204,13 @@ function WalletPage() {
           <p className="mt-4 text-sm font-medium">{t("Hitamo amafaranga", "Choose an amount")}</p>
           <div className="mt-2 grid grid-cols-2 gap-2">
             {pricing.topUpOptions.map((value) => (
-              <Button variant="outline"
+              <Button
+                variant="outline"
                 key={value}
-                onClick={() => { setAmount(value); if (!reference) setAttemptKey(""); }}
+                onClick={() => {
+                  setAmount(value);
+                  if (!reference) setAttemptKey("");
+                }}
                 className={cn(
                   "rounded-xl border py-3 text-sm font-semibold transition-colors",
                   amount === value && "border-primary bg-primary/10 text-primary",
@@ -198,37 +223,54 @@ function WalletPage() {
 
           <Button
             onClick={() => void handleTopUp()}
-            disabled={submitting || walletLoading || Boolean(reference && !["successful", "failed", "rejected", "expired"].includes(paymentStatus))}
+            disabled={
+              submitting ||
+              walletLoading ||
+              Boolean(
+                reference &&
+                !["successful", "failed", "rejected", "expired"].includes(paymentStatus),
+              )
+            }
             className="mt-4 w-full rounded-full bg-primary py-3 font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {submitting ? t("Tegereza...", "Starting payment...") : t("Kwishyura", "Continue to MTN")} · {formatRWF(amount)}
+            {submitting
+              ? t("Tegereza...", "Starting payment...")
+              : t("Kwishyura", "Continue to MTN")}{" "}
+            · {formatRWF(amount)}
           </Button>
 
           {environment === "sandbox" && (
             <p className="mt-3 rounded-xl bg-muted p-3 text-xs leading-relaxed text-muted-foreground">
-              Sandbox testing is active. MTN will use a 1 EUR test request, not the RWF amount shown above. No real RWF is charged; successful tests go to a separate test balance.
+              Sandbox testing is active. MTN will use a 1 EUR test request, not the RWF amount shown
+              above. No real RWF is charged; successful tests go to a separate test balance.
             </p>
           )}
         </div>
       </div>
 
       {reference && (
-        <section className="mt-6 rounded-2xl border bg-card p-5">
+        <section className="mt-6 rounded-lg border bg-card p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="font-bold">{t("Kwishyura kwawe", "Your payment")}</p>
               <p className="mt-1 break-all font-mono text-xs text-muted-foreground">{reference}</p>
               <p className="mt-2 text-sm">
-                {t("Imiterere", "Status")}: <span className="font-semibold">{statusLabel[paymentStatus] || paymentStatus}</span>
+                {t("Imiterere", "Status")}:{" "}
+                <span className="font-semibold">{statusLabel[paymentStatus] || paymentStatus}</span>
               </p>
             </div>
-            <Button variant="outline"
+            <Button
+              variant="outline"
               onClick={() => void handleCheckStatus()}
-              disabled={checking || ["successful", "failed", "rejected", "expired"].includes(paymentStatus)}
+              disabled={
+                checking || ["successful", "failed", "rejected", "expired"].includes(paymentStatus)
+              }
               className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold disabled:opacity-50"
             >
               <RefreshCw className={cn("size-4", checking && "animate-spin")} />
-              {checking ? t("Turimo kugenzura", "Checking...") : t("Reba uko byagenze", "Check payment")}
+              {checking
+                ? t("Turimo kugenzura", "Checking...")
+                : t("Reba uko byagenze", "Check payment")}
             </Button>
           </div>
           {paymentStatus === "successful" && (
@@ -242,31 +284,55 @@ function WalletPage() {
       )}
 
       {environment === "sandbox" && (
-        <section className="mt-6 rounded-2xl border border-dashed p-5">
-          <p className="text-sm font-semibold">{t("Amafaranga yo kugerageza", "Sandbox test balance")}</p>
-          <p className="mt-2 text-2xl font-extrabold tabular-nums">{walletLoading ? "…" : formatRWF(sandboxBalance)}</p>
-          <p className="mt-1 text-xs text-muted-foreground">This is test-only credit. It is separate from your real wallet and cannot be withdrawn or used as real customer money.</p>
+        <section className="mt-6 rounded-lg border border-dashed p-5">
+          <p className="text-sm font-semibold">
+            {t("Amafaranga yo kugerageza", "Sandbox test balance")}
+          </p>
+          <p className="mt-2 text-2xl font-extrabold tabular-nums">
+            {walletLoading ? "…" : formatRWF(sandboxBalance)}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            This is test-only credit. It is separate from your real wallet and cannot be withdrawn
+            or used as real customer money.
+          </p>
         </section>
       )}
 
       <div className="mt-12 flex items-center justify-between gap-3">
         <h2 className="text-lg font-bold">{t("Amateka y'ubwishyu", "Wallet activity")}</h2>
-        <span className="text-xs text-muted-foreground">{transactions.length} {t("ibyakozwe", "entries")}</span>
+        <span className="text-xs text-muted-foreground">
+          {transactions.length} {t("ibyakozwe", "entries")}
+        </span>
       </div>
-      <div className="mt-4 divide-y rounded-3xl border bg-card">
+      <div className="mt-4 divide-y rounded-lg border bg-card">
         {transactions.length === 0 ? (
-          <p className="p-6 text-sm text-muted-foreground">{walletLoading ? t("Turimo kuzana amateka...", "Loading activity...") : t("Nta bikorwa biraboneka.", "No wallet activity yet.")}</p>
-        ) : transactions.map((item) => (
-          <div key={item.id} className="flex items-center justify-between gap-4 p-4">
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold">{item.description}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{prettyDate(item.created_at)}{item.is_test ? " · Sandbox" : ""}</p>
+          <p className="p-6 text-sm text-muted-foreground">
+            {walletLoading
+              ? t("Turimo kuzana amateka...", "Loading activity...")
+              : t("Nta bikorwa biraboneka.", "No wallet activity yet.")}
+          </p>
+        ) : (
+          transactions.map((item) => (
+            <div key={item.id} className="flex items-center justify-between gap-4 p-4">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold">{item.description}</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {prettyDate(item.created_at)}
+                  {item.is_test ? " · Sandbox" : ""}
+                </p>
+              </div>
+              <p
+                className={cn(
+                  "shrink-0 font-semibold tabular-nums",
+                  item.amount_rwf > 0 ? "text-success" : "text-foreground",
+                )}
+              >
+                {item.amount_rwf > 0 ? "+" : ""}
+                {formatRWF(item.amount_rwf)}
+              </p>
             </div>
-            <p className={cn("shrink-0 font-semibold tabular-nums", item.amount_rwf > 0 ? "text-success" : "text-foreground")}>
-              {item.amount_rwf > 0 ? "+" : ""}{formatRWF(item.amount_rwf)}
-            </p>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </main>
   );

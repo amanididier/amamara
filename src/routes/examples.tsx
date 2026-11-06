@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/examples")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Ad Examples & Design Inspiration in Rwanda | Amamaza" },
       { name: "description", content: "Browse advertising examples for Rwandan businesses, including promotional videos, social media posts, flyers and shop banners for restaurants, hotels, salons and more." },
       { property: "og:title", content: "Advertising Examples & Inspiration | Amamaza" },
@@ -52,7 +54,7 @@ function Examples() {
             </button>
           ))}
         </div>
-        <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-black p-3 shadow-2xl sm:p-5">
+        <div className="mt-8 rounded-lg border border-white/10 bg-black p-3 shadow-2xl sm:p-5">
           {list.length > 0 && <ReelGallery ads={list} />}
         {list.length === 0 && <p className="py-20 text-center text-white/55">{t("Nta rugero ruhari ubu.", "No samples here yet.")}</p>}
         </div>

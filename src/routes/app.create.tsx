@@ -17,6 +17,8 @@ export const Route = createFileRoute("/app/create")({
   },
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Kurema itangazo — Amamaza" },
       { name: "description", content: "Hitamo icyo ushaka gukora: post, video cyangwa icyapa." },
       { property: "og:title", content: "Kurema itangazo — Amamaza" },

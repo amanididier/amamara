@@ -7,6 +7,8 @@ import { usePrefs } from "@/lib/prefs";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "AI Ad Design Services in Rwanda | Amamaza" },
       { name: "description", content: "Explore Amamaza services for Rwandan businesses: AI video ads, promotional flyers, social media posts, print-ready shop banners and professional ad design." },
       { property: "og:title", content: "AI Advertising & Design Services | Amamaza" },
@@ -35,7 +37,7 @@ function Services() {
         </p>
         <div className="mt-14 space-y-6">
           {rows.map((r, i) => (
-            <div key={r.title} className="grid items-center gap-6 overflow-hidden rounded-3xl border bg-card md:grid-cols-2">
+            <div key={r.title} className="grid items-center gap-6 overflow-hidden rounded-lg border bg-card md:grid-cols-2">
               <img src={r.img} alt={r.title} loading="lazy" className={`aspect-[4/3] size-full object-cover ${i % 2 ? "md:order-2" : ""}`} />
               <div className="p-8">
                 <h2 className="text-3xl font-bold">{r.title}</h2>

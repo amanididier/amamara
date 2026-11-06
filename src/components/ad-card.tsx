@@ -17,7 +17,7 @@ export function AdCard({ ad, className, tall }: { ad: SampleAd; className?: stri
     <article className={cn("group", className)}>
       <div
         className={cn(
-          "relative overflow-hidden rounded-2xl bg-muted",
+          "relative overflow-hidden rounded-lg bg-muted",
           tall ? "aspect-[4/5]" : ad.format === "banner" ? "aspect-[3/2]" : "aspect-[4/5]",
         )}
         onMouseEnter={() => isVideo && setPlaying(true)}

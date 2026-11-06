@@ -82,7 +82,7 @@ function ProblemSolution() {
         {t("Ikibazo n'igisubizo", "The problem, solved")}
       </h2>
       <div className="mt-12 grid gap-4 md:grid-cols-2">
-        <div className="rounded-3xl border bg-card p-8">
+        <div className="rounded-lg border bg-card p-8">
           <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t("Mbere", "Before")}</p>
           <ul className="mt-6 space-y-4">
             {problems.map((p) => (
@@ -95,7 +95,7 @@ function ProblemSolution() {
             ))}
           </ul>
         </div>
-        <div className="rounded-3xl bg-primary p-8 text-primary-foreground">
+        <div className="rounded-lg bg-primary p-8 text-primary-foreground">
           <p className="text-sm font-semibold uppercase tracking-wider opacity-80">{t("Na Amamaza", "With Amamaza")}</p>
           <ul className="mt-6 space-y-4">
             {solutions.map((p) => (
@@ -119,7 +119,7 @@ function ProSection() {
   return (
     <section className="bg-[#0a0a0a] py-12 text-white sm:py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black">
+        <div className="overflow-hidden rounded-lg border border-white/10 bg-black">
           <div className="grid lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
             <div className="flex flex-col justify-center p-8 sm:p-10 lg:py-14 lg:pl-16 lg:pr-8">
               <h3 className="mt-5 text-3xl font-extrabold leading-tight sm:text-5xl">
@@ -186,7 +186,7 @@ function PricingPreview() {
         </p>
         <div className="mt-12 grid gap-4 text-left md:grid-cols-3">
           {opts.map((o) => (
-            <div key={o.title} className="rounded-3xl border bg-card p-7">
+            <div key={o.title} className="rounded-lg border bg-card p-7">
               <o.Icon className="size-6 text-primary" />
               <h3 className="mt-5 text-lg font-bold">{o.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{o.body}</p>
@@ -209,7 +209,7 @@ function FinalCta() {
   const { t } = usePrefs();
   return (
     <section className="px-4 py-20 sm:px-6 sm:py-24">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-primary px-6 py-16 text-center text-primary-foreground sm:py-20">
+      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-lg bg-primary px-6 py-16 text-center text-primary-foreground sm:py-20">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <h2 className="relative mx-auto max-w-2xl text-4xl font-extrabold sm:text-6xl">
           {t("Ubucuruzi bwawe bukwiye kugaragara neza.", "Your business deserves to look great.")}

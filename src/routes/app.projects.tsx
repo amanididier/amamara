@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/app/projects")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Ibikorwa byanjye — Amamaza" },
       { name: "description", content: "Amatangazo yawe yose ahantu hamwe." },
       { property: "og:title", content: "Ibikorwa byanjye — Amamaza" },
@@ -44,7 +46,7 @@ function Projects() {
       </div>
       <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {list.map((i) => (
-          <div key={i.id} className="overflow-hidden rounded-2xl border bg-card">
+          <div key={i.id} className="overflow-hidden rounded-lg border bg-card">
             <div className="relative">
               <img src={i.image} alt={i.name} loading="lazy" className="aspect-square w-full object-cover" />
               {i.demo && <span className="absolute left-2 top-2 rounded-full bg-overlay px-2 py-0.5 text-[11px] font-semibold text-on-overlay">{t("Urugero", "Sample")}</span>}

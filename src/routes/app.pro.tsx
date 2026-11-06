@@ -9,6 +9,8 @@ import { usePrefs } from "@/lib/prefs";
 export const Route = createFileRoute("/app/pro")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Serivisi z'abahanga — Amamaza" },
       { name: "description", content: "Saba abahanga nyabo bagukorere itangazo ryihariye." },
       { property: "og:title", content: "Serivisi z'abahanga — Amamaza" },
@@ -32,11 +34,11 @@ function Pro() {
       <h1 className="mt-4 text-3xl font-extrabold sm:text-4xl">{t("Serivisi z'abahanga", "Professional services")}</h1>
       <p className="mt-2 max-w-xl text-muted-foreground">{t("Iyi si AI — ni abahanga nyabo bagukorera itangazo ryihariye.", "This isn't AI — real editors create a custom ad for you.")}</p>
       <div className="mt-8 grid grid-cols-3 gap-3">
-        {[images.hotel, images.realestate, images.restaurant].map((s, i) => <img key={i} src={s} alt="" loading="lazy" className="aspect-[4/3] rounded-2xl object-cover" />)}
+        {[images.hotel, images.realestate, images.restaurant].map((s, i) => <img key={i} src={s} alt="" loading="lazy" className="aspect-[4/3] rounded-lg object-cover" />)}
       </div>
       <div className="mt-8 grid gap-3 md:grid-cols-3">
         {packs.map((p) => (
-          <div key={p.name} className="rounded-2xl border bg-card p-5">
+          <div key={p.name} className="rounded-lg border bg-card p-5">
             <p className="font-bold">{p.name}</p>
             <p className="mt-2 font-display text-2xl font-extrabold">{formatRWF(p.price)}</p>
             <p className="text-xs text-muted-foreground">{p.days}</p>
@@ -48,7 +50,7 @@ function Pro() {
           e.preventDefault();
           toast.success(t("Twakiriye ubusabe bwawe (demo). Tuzaguhamagara.", "Request received (demo). We'll call you."));
         }}
-        className="mt-10 grid gap-4 rounded-3xl border bg-card p-6 md:grid-cols-2"
+        className="mt-10 grid gap-4 rounded-lg border bg-card p-6 md:grid-cols-2"
       >
         <label className="space-y-1.5 text-sm font-medium">{t("Izina ry'ubucuruzi", "Business name")}<input required className={field} /></label>
         <label className="space-y-1.5 text-sm font-medium">{t("Telefoni", "Phone")}<input required type="tel" className={field} placeholder="07..." /></label>

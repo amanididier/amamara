@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/app/templates")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Ingero (Templates) — Amamaza" },
       { name: "description", content: "Hitamo template y'itangazo uyihindure ibe iyawe." },
       { property: "og:title", content: "Templates — Amamaza" },
@@ -40,7 +42,7 @@ function Templates() {
       </div>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((ad) => (
-          <div key={ad.id} className="overflow-hidden rounded-3xl border bg-card">
+          <div key={ad.id} className="overflow-hidden rounded-lg border bg-card">
             <img src={ad.image} alt={ad.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
             <div className="p-5">
               <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">

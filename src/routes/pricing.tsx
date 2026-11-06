@@ -9,6 +9,8 @@ import { usePrefs } from "@/lib/prefs";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "AI Ad Design Prices in Rwanda | Amamaza" },
       { name: "description", content: "See Amamaza's sample pricing for AI video ads, promotional flyers and shop banners in Rwanda. Compare ad formats and understand pay-per-ad pricing in RWF." },
       { property: "og:title", content: "AI Advertising Prices in Rwanda | Amamaza" },
@@ -41,7 +43,7 @@ function Pricing() {
         </div>
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {plans.map((p) => (
-            <div key={p.name} className={p.hot ? "rounded-3xl bg-primary p-8 text-primary-foreground" : "rounded-3xl border bg-card p-8"}>
+            <div key={p.name} className={p.hot ? "rounded-lg bg-primary p-8 text-primary-foreground" : "rounded-lg border bg-card p-8"}>
               <h2 className="text-2xl font-bold">{p.name}</h2>
               <p className="mt-6 text-sm opacity-80">{t("Guhera kuri", "From")}</p>
               <p className="font-display text-4xl font-extrabold">{formatRWF(p.from)}</p>
@@ -54,7 +56,7 @@ function Pricing() {
             </div>
           ))}
         </div>
-        <div className="mt-6 rounded-3xl border bg-card p-8 md:flex md:items-center md:justify-between">
+        <div className="mt-6 rounded-lg border bg-card p-8 md:flex md:items-center md:justify-between">
           <div>
             <h2 className="text-xl font-bold">{t("Serivisi y'abahanga", "Professional editing")}</h2>
             <p className="text-sm text-muted-foreground">{t("Abantu nyabo bagukorera itangazo ryihariye.", "Real editors craft a custom ad for you.")} {t("Guhera kuri", "From")} {formatRWF(pricing.proServiceFrom)}</p>

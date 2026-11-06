@@ -8,6 +8,8 @@ import { usePrefs } from "@/lib/prefs";
 export const Route = createFileRoute("/app/")({
   head: () => ({
     meta: [
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
       { title: "Ahabanza — Amamaza Studio" },
       { name: "description", content: "Twamamaze iki uyu munsi? Tangira gukora itangazo." },
       { property: "og:title", content: "Amamaza Studio" },
@@ -38,7 +40,7 @@ function Dashboard() {
             key={a.type}
             to={a.type === "template" ? "/app/templates" : "/app/create"}
             search={a.type === "template" ? {} : { type: a.type }}
-            className="group relative aspect-[4/5] overflow-hidden rounded-3xl sm:aspect-[4/3]"
+            className="group relative aspect-[4/5] overflow-hidden rounded-lg sm:aspect-[4/3]"
           >
             <img src={a.img} alt={a.title} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
             <div className="absolute inset-0 scrim" />
@@ -66,7 +68,7 @@ function Dashboard() {
           </div>
         </section>
         <aside className="space-y-4">
-          <div className="rounded-3xl border bg-card p-6">
+          <div className="rounded-lg border bg-card p-6">
             <p className="font-bold">{t("Uko bikora", "How it works")}</p>
             <ol className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li>1. {t("Hitamo ubwoko bw'itangazo", "Choose ad type")}</li>
@@ -84,7 +86,7 @@ function Dashboard() {
         </div>
         <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
           {all.slice(0, 3).map((i) => (
-            <div key={i.id} className="overflow-hidden rounded-2xl border bg-card">
+            <div key={i.id} className="overflow-hidden rounded-lg border bg-card">
               <img src={i.image} alt={i.name} loading="lazy" className="aspect-video w-full object-cover" />
               <div className="p-3">
                 <p className="truncate text-sm font-semibold">{i.name}</p>

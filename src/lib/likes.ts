@@ -75,24 +75,52 @@ export function useComments(id: string, seed: Comment[]) {
   const [sending, setSending] = useState(false);
   useEffect(() => {
     let active = true;
-    setMine([]); setLoading(true); setError("");
-    void supabase.from("ad_comments").select("name,body,created_at").eq("ad_id", id).order("created_at", { ascending: true }).limit(100).then(({ data, error }) => {
-      if (!active) return;
-      setLoading(false);
-      if (error) setError("Comments could not load.");
-      else setMine((data ?? []).map((c) => ({ name: c.name, text: c.body, at: new Date(c.created_at).getTime() })));
-    });
-    return () => { active = false; };
+    setMine([]);
+    setLoading(true);
+    setError("");
+    void supabase
+      .from("ad_comments")
+      .select("name,body,created_at")
+      .eq("ad_id", id)
+      .order("created_at", { ascending: true })
+      .limit(100)
+      .then(({ data, error }) => {
+        if (!active) return;
+        setLoading(false);
+        if (error) setError("Comments could not load.");
+        else
+          setMine(
+            (data ?? []).map((c) => ({
+              name: c.name,
+              text: c.body,
+              at: new Date(c.created_at).getTime(),
+            })),
+          );
+      });
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   const add = useCallback(
     async (name: string, text: string) => {
       if (!text.trim() || text.trim().length > 500 || name.trim().length > 60) return false;
-      setSending(true); setError("");
-      const { data, error } = await supabase.from("ad_comments").insert({ ad_id: id, name: name.trim() || "Umushyitsi", body: text.trim() }).select("name,body,created_at").single();
+      setSending(true);
+      setError("");
+      const { data, error } = await supabase
+        .from("ad_comments")
+        .insert({ ad_id: id, name: name.trim() || "Umushyitsi", body: text.trim() })
+        .select("name,body,created_at")
+        .single();
       setSending(false);
-      if (error || !data) { setError("Your comment could not be saved. Please retry."); return false; }
-      setMine((all) => [...all, { name: data.name, text: data.body, at: new Date(data.created_at).getTime() }]);
+      if (error || !data) {
+        setError("Your comment could not be saved. Please retry.");
+        return false;
+      }
+      setMine((all) => [
+        ...all,
+        { name: data.name, text: data.body, at: new Date(data.created_at).getTime() },
+      ]);
       return true;
     },
     [id],

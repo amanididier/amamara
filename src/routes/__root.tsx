@@ -81,7 +81,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Amamaza — Amatangazo meza y'ubucuruzi bwawe" },
-      { name: "description", content: "Kora video, flyer na banner by'ubucuruzi bwawe ukoresheje AI. Byoroshye, ku giciro gito." },
+      {
+        name: "description",
+        content:
+          "Kora video, flyer na banner by'ubucuruzi bwawe ukoresheje AI. Byoroshye, ku giciro gito.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -122,6 +126,24 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  useEffect(() => {
+    async function resume() {
+      const target = sessionStorage.getItem("amamaza-return");
+      if (!target) return;
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) return;
+      sessionStorage.removeItem("amamaza-return");
+      if (target === "/app/wallet") void router.navigate({ to: "/app/wallet" });
+      else {
+        const type = target.split("/").at(-1);
+        if (type === "flyer" || type === "video" || type === "banner")
+          void router.navigate({ to: "/app/create/$type", params: { type } });
+      }
+    }
+    void resume();
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>

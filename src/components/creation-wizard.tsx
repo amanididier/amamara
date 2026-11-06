@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { outputFormats, findFormat } from "@/lib/output-formats";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
@@ -568,12 +569,11 @@ export function CreationWizard({ type }: { type: CreationType }) {
         {step === 5 && (
           <>
             {options(
-              (type === "banner" ? ["3:1", "2:1", "3:2"] : ["9:16", "4:5", "1:1", "16:9"]).map(
-                (id) => ({ id, rw: id, en: id }),
-              ),
+              outputFormats[type].map((f) => ({ id: f.id, rw: `${f.rw} · ${f.ratio}`, en: `${f.en} · ${f.ratio}` })),
               brief.ratio,
               (ratio) => update({ ratio }),
             )}
+            <p className="text-xs text-muted-foreground">{findFormat(type, brief.ratio).spec}</p>
             {type === "video" && (
               <div>
                 <p className="mb-3 text-sm font-medium">{t("Igihe cya video", "Video length")}</p>

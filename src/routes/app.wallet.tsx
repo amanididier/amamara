@@ -104,6 +104,7 @@ function WalletPage() {
     try {
       const result = await checkMomoPayment(reference);
       setPaymentStatus(result.status);
+      if (["successful", "failed", "rejected", "expired"].includes(result.status)) setAttemptKey("");
       if (result.status === "successful") {
         toast.success(
           result.is_test

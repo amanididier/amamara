@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { Home, Sparkles, LayoutGrid, FolderOpen, UserRound, Wallet, LifeBuoy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Home, Sparkles, FolderOpen, Wallet, LifeBuoy, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { LangSwitch, Logo, ThemeSwitch } from "@/components/brand";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";

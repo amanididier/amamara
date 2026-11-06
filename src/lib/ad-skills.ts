@@ -107,6 +107,7 @@ export function buildPrompt(b: Brief): string {
     `Professional advertising ${b.type === "banner" ? "shop banner" : b.type === "video" ? "video" : "social media poster"} for "${b.businessName || "the business"}", a ${cat} in ${b.area || "Kigali"}, Rwanda.`,
     `Purpose: ${goal}.${b.discount ? ` Feature the offer "${b.discount}" as the biggest visual element after the product.` : ""}${b.newLocation ? ` Announce the new address: "${b.newLocation}".` : ""}`,
     `Client brief: ${b.description}`,
+    b.period ? `Campaign period, display only as supplied: "${b.period}".` : "",
     b.headline ? `Headline text, render exactly: "${b.headline}".` : "",
     b.cta ? `Call to action text, render exactly: "${b.cta}".` : "",
     b.contact ? `Contact to display clearly: "${b.contact}".` : "",

@@ -122,6 +122,23 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  useEffect(() => {
+    async function resume() {
+      const target = sessionStorage.getItem("amamaza-return");
+      if (!target) return;
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) return;
+      sessionStorage.removeItem("amamaza-return");
+      if (target === "/app/wallet") void router.navigate({ to: "/app/wallet" });
+      else {
+        const type = target.split("/").at(-1);
+        if (type === "flyer" || type === "video" || type === "banner") void router.navigate({ to: "/app/create/$type", params: { type } });
+      }
+    }
+    void resume();
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>

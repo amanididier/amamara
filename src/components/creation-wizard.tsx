@@ -7,7 +7,7 @@ import { AccountAccess, useAccount } from "@/components/account-access";
 import { buildPrompt, categories, goals, imageStyles, suggestStyle, videoStyles, type Brief } from "@/lib/ad-skills";
 import { BRIEF_STEPS, isBriefStepValid } from "@/lib/creation-brief";
 import { estimatePrice, formatRWF, type Quality } from "@/lib/pricing";
-import { checkMomoPayment, createMomoAdOrder } from "@/lib/momo.functions";
+import { checkMomoPayment, createMomoAdOrder, loadMomoWallet } from "@/lib/momo.functions";
 import { usePrefs } from "@/lib/prefs";
 import { images } from "@/data/ads";
 import { cn } from "@/lib/utils";
@@ -54,7 +54,9 @@ export function CreationWizard({ type }: { type: CreationType }) {
     setBusy(true);
     const idempotency = attemptKey || crypto.randomUUID(); setAttemptKey(idempotency);
     try {
-      const result = await createMomoAdOrder({ service_type: type, duration_seconds: brief.duration, quality, payment_method: method, phone, idempotency_key: idempotency });
+      const wallet = await loadMomoWallet();
+      if (wallet.environment !== "sandbox") throw new Error("Ad production is not connected. Live order payments are disabled.");
+      const result = await createMomoAdOrder({ service_type: type, duration_seconds: brief.duration ?? 15, quality, payment_method: method, phone, idempotency_key: idempotency });
       if (!result.ok) throw new Error(result.error || "Payment request failed.");
       setReference(result.reference_id || ""); setStatus(result.status);
       if (result.is_test) toast.info(t("Igerageza gusa. Nta tangazo ririmo gukorwa.", "Test payment only. No ad is being generated."));

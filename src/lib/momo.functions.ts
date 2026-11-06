@@ -34,7 +34,7 @@ export function loadMomoWallet() {
   return invokeMomo<WalletSnapshot & { ok: true }>({ action: "wallet" });
 }
 
-export function requestWalletTopUp(phone: string, amountRwf: number, idempotencyKey = crypto.randomUUID()) {
+export function requestWalletTopUp(phone: string, amountRwf: number, idempotencyKey: string = crypto.randomUUID()) {
   return invokeMomo<{
     ok: boolean;
     reference_id?: string;

@@ -38,6 +38,24 @@ export type Database = {
         }
         Relationships: []
       }
+      agency_settings: {
+        Row: {
+          config: Json
+          id: boolean
+          updated_at: string
+        }
+        Insert: {
+          config?: Json
+          id?: boolean
+          updated_at?: string
+        }
+        Update: {
+          config?: Json
+          id?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       momo_payments: {
         Row: {
           amount: number
@@ -74,15 +92,301 @@ export type Database = {
         }
         Relationships: []
       }
+      professional_request_notes: {
+        Row: {
+          assignee: string | null
+          author_id: string
+          body: string
+          contacted_at: string | null
+          created_at: string
+          id: string
+          quoted_rwf: number | null
+          request_id: string
+        }
+        Insert: {
+          assignee?: string | null
+          author_id?: string
+          body: string
+          contacted_at?: string | null
+          created_at?: string
+          id?: string
+          quoted_rwf?: number | null
+          request_id: string
+        }
+        Update: {
+          assignee?: string | null
+          author_id?: string
+          body?: string
+          contacted_at?: string | null
+          created_at?: string
+          id?: string
+          quoted_rwf?: number | null
+          request_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "professional_request_notes_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "professional_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      professional_request_status_history: {
+        Row: {
+          changed_by: string | null
+          created_at: string
+          id: string
+          request_id: string
+          status: string
+        }
+        Insert: {
+          changed_by?: string | null
+          created_at?: string
+          id?: string
+          request_id: string
+          status: string
+        }
+        Update: {
+          changed_by?: string | null
+          created_at?: string
+          id?: string
+          request_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "professional_request_status_history_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "professional_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      professional_requests: {
+        Row: {
+          ad_type: string
+          answers: Json
+          assets: Json
+          campaign: Json
+          contact_detail: string
+          contact_method: string
+          created_at: string
+          creative_brief: string
+          customer_name: string
+          duration: number
+          id: string
+          reference: string
+          related_job_id: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ad_type: string
+          answers: Json
+          assets?: Json
+          campaign?: Json
+          contact_detail: string
+          contact_method: string
+          created_at?: string
+          creative_brief: string
+          customer_name: string
+          duration: number
+          id?: string
+          reference?: string
+          related_job_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          ad_type?: string
+          answers?: Json
+          assets?: Json
+          campaign?: Json
+          contact_detail?: string
+          contact_method?: string
+          created_at?: string
+          creative_brief?: string
+          customer_name?: string
+          duration?: number
+          id?: string
+          reference?: string
+          related_job_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "professional_requests_related_job_id_fkey"
+            columns: ["related_job_id"]
+            isOneToOne: false
+            referencedRelation: "video_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      video_jobs: {
+        Row: {
+          ad_type: string
+          charged_rwf: number
+          cost_snapshot: Json
+          created_at: string
+          duration: number
+          endpoint: string
+          id: string
+          model: string
+          output_path: string | null
+          provider_reference: string | null
+          quote_id: string
+          quoted_rwf: number
+          resolution: string
+          sound: boolean
+          status: string
+          user_id: string
+        }
+        Insert: {
+          ad_type: string
+          charged_rwf?: number
+          cost_snapshot: Json
+          created_at?: string
+          duration: number
+          endpoint: string
+          id?: string
+          model: string
+          output_path?: string | null
+          provider_reference?: string | null
+          quote_id: string
+          quoted_rwf: number
+          resolution: string
+          sound: boolean
+          status?: string
+          user_id: string
+        }
+        Update: {
+          ad_type?: string
+          charged_rwf?: number
+          cost_snapshot?: Json
+          created_at?: string
+          duration?: number
+          endpoint?: string
+          id?: string
+          model?: string
+          output_path?: string | null
+          provider_reference?: string | null
+          quote_id?: string
+          quoted_rwf?: number
+          resolution?: string
+          sound?: boolean
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "video_jobs_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: true
+            referencedRelation: "video_quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      video_quotes: {
+        Row: {
+          ad_type: string
+          campaign: Json
+          cost_snapshot: Json
+          created_at: string
+          duration: number
+          expires_at: string
+          id: string
+          sound: boolean
+          total_rwf: number
+          user_id: string
+        }
+        Insert: {
+          ad_type: string
+          campaign?: Json
+          cost_snapshot: Json
+          created_at?: string
+          duration: number
+          expires_at?: string
+          id?: string
+          sound: boolean
+          total_rwf: number
+          user_id: string
+        }
+        Update: {
+          ad_type?: string
+          campaign?: Json
+          cost_snapshot?: Json
+          created_at?: string
+          duration?: number
+          expires_at?: string
+          id?: string
+          sound?: boolean
+          total_rwf?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      admin_agency_settings: { Args: never; Returns: Json }
+      agency_contacts: { Args: never; Returns: Json }
+      calculate_video_quote: {
+        Args: { ad_type: string; seconds: number; sound?: boolean }
+        Returns: Json
+      }
+      default_agency_settings: { Args: never; Returns: Json }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      reserve_video_quote: {
+        Args: {
+          ad_type: string
+          campaign: Json
+          seconds: number
+          sound: boolean
+        }
+        Returns: Json
+      }
+      video_price: {
+        Args: { ad_type: string; seconds: number; sound?: boolean }
+        Returns: Json
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -209,6 +513,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const

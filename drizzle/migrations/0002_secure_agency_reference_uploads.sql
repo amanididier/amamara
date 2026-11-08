@@ -1,0 +1,3 @@
+CREATE POLICY agency_reference_upload ON storage.objects FOR INSERT TO authenticated WITH CHECK(bucket_id='agency-references' AND (storage.foldername(name))[1]=auth.uid()::text AND lower(storage.extension(name)) IN ('jpg','jpeg','png','webp'));
+CREATE POLICY agency_reference_read ON storage.objects FOR SELECT TO authenticated USING(bucket_id='agency-references' AND ((storage.foldername(name))[1]=auth.uid()::text OR public.has_role(auth.uid(),'admin')));
+CREATE POLICY agency_reference_delete ON storage.objects FOR DELETE TO authenticated USING(bucket_id='agency-references' AND (storage.foldername(name))[1]=auth.uid()::text);

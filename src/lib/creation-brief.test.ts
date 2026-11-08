@@ -34,4 +34,9 @@ describe("Seven-question brief", () => {
     expect(isBriefStepValid(4, { ...brief, type: "video" })).toBe(false);
     expect(isBriefStepValid(4, { ...brief, type: "video", videoStyle: "ugc" })).toBe(true);
   });
+  it("rejects premium durations in self-service", () => {
+    expect(isBriefStepValid(5, { ...brief, type: "video", duration: 30 })).toBe(false);
+    expect(isBriefStepValid(5, { ...brief, type: "video", duration: 60 })).toBe(false);
+    expect(isBriefStepValid(5, { ...brief, type: "video", duration: 15 })).toBe(true);
+  });
 });

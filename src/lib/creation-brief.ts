@@ -16,9 +16,9 @@ export function isBriefStepValid(step: number, b: Brief): boolean {
     case 3:
       return Boolean(b.headline.trim() && b.cta.trim());
     case 4:
-      return Boolean(b.type === "video" ? b.videoStyle : b.style);
+      return b.type === "video" ? ["ugc", "product", "cinematic"].includes(b.videoStyle ?? "") : Boolean(b.style);
     case 5:
-      return Boolean(b.ratio && (b.type !== "video" || [10, 15, 20, 30].includes(b.duration ?? 0)));
+      return Boolean(b.ratio && (b.type !== "video" || [10, 15].includes(b.duration ?? 0)));
     case 6:
       return Boolean(b.period.trim());
     default:

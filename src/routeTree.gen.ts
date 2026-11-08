@@ -16,12 +16,14 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppAdminRouteImport } from './routes/app.admin'
 import { Route as AppCreateRouteImport } from './routes/app.create'
 import { Route as AppProRouteImport } from './routes/app.pro'
 import { Route as AppProjectsRouteImport } from './routes/app.projects'
 import { Route as AppTemplatesRouteImport } from './routes/app.templates'
 import { Route as AppWalletRouteImport } from './routes/app.wallet'
 import { Route as AppCreateTypeRouteImport } from './routes/app.create_.$type'
+import { Route as AppVideoIdRouteImport } from './routes/app.video.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +60,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCreateRoute = AppCreateRouteImport.update({
   id: '/create',
   path: '/create',
@@ -88,6 +95,11 @@ const AppCreateTypeRoute = AppCreateTypeRouteImport.update({
   path: '/create/$type',
   getParentRoute: () => AppRoute,
 } as any)
+const AppVideoIdRoute = AppVideoIdRouteImport.update({
+  id: '/video/$id',
+  path: '/video/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -96,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -103,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/app/wallet': typeof AppWalletRoute
   '/app/': typeof AppIndexRoute
   '/app/create/$type': typeof AppCreateTypeRoute
+  '/app/video/$id': typeof AppVideoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +124,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -117,6 +132,7 @@ export interface FileRoutesByTo {
   '/app/wallet': typeof AppWalletRoute
   '/app': typeof AppIndexRoute
   '/app/create/$type': typeof AppCreateTypeRoute
+  '/app/video/$id': typeof AppVideoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -126,6 +142,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -133,6 +150,7 @@ export interface FileRoutesById {
   '/app/wallet': typeof AppWalletRoute
   '/app/': typeof AppIndexRoute
   '/app/create_/$type': typeof AppCreateTypeRoute
+  '/app/video/$id': typeof AppVideoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -143,6 +161,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/api/generate-image'
+    | '/app/admin'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -150,6 +169,7 @@ export interface FileRouteTypes {
     | '/app/wallet'
     | '/app/'
     | '/app/create/$type'
+    | '/app/video/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -157,6 +177,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/api/generate-image'
+    | '/app/admin'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -164,6 +185,7 @@ export interface FileRouteTypes {
     | '/app/wallet'
     | '/app'
     | '/app/create/$type'
+    | '/app/video/$id'
   id:
     | '__root__'
     | '/'
@@ -172,6 +194,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/api/generate-image'
+    | '/app/admin'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -179,6 +202,7 @@ export interface FileRouteTypes {
     | '/app/wallet'
     | '/app/'
     | '/app/create_/$type'
+    | '/app/video/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -241,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/admin': {
+      id: '/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/create': {
       id: '/app/create'
       path: '/create'
@@ -283,10 +314,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCreateTypeRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/video/$id': {
+      id: '/app/video/$id'
+      path: '/video/$id'
+      fullPath: '/app/video/$id'
+      preLoaderRoute: typeof AppVideoIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
   AppCreateRoute: typeof AppCreateRoute
   AppProRoute: typeof AppProRoute
   AppProjectsRoute: typeof AppProjectsRoute
@@ -294,9 +333,11 @@ interface AppRouteChildren {
   AppWalletRoute: typeof AppWalletRoute
   AppIndexRoute: typeof AppIndexRoute
   AppCreateTypeRoute: typeof AppCreateTypeRoute
+  AppVideoIdRoute: typeof AppVideoIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
   AppCreateRoute: AppCreateRoute,
   AppProRoute: AppProRoute,
   AppProjectsRoute: AppProjectsRoute,
@@ -304,6 +345,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppWalletRoute: AppWalletRoute,
   AppIndexRoute: AppIndexRoute,
   AppCreateTypeRoute: AppCreateTypeRoute,
+  AppVideoIdRoute: AppVideoIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

@@ -35,6 +35,8 @@ import { checkMomoPayment, createMomoAdOrder, loadMomoWallet } from "@/lib/momo.
 import { usePrefs } from "@/lib/prefs";
 import { images } from "@/data/ads";
 import { cn } from "@/lib/utils";
+import { VideoDuration, useVideoPrice } from "@/components/video-duration";
+import { supabase } from "@/integrations/supabase/client";
 
 type CreationType = "flyer" | "banner" | "video";
 export function CreationWizard({ type }: { type: CreationType }) {
@@ -72,7 +74,7 @@ export function CreationWizard({ type }: { type: CreationType }) {
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(key) || "null");
-      if (saved?.type === type) setBrief(saved);
+      if (saved?.type === type) setBrief({ ...saved, ...(type === "video" ? { duration: [10,15].includes(saved.duration) ? saved.duration : 15, videoStyle: ["ugc","product","cinematic"].includes(saved.videoStyle) ? saved.videoStyle : "product" } : {}) });
     } catch {
       /* keep empty brief */
     }
@@ -97,7 +99,8 @@ export function CreationWizard({ type }: { type: CreationType }) {
     setBrief((b) => ({ ...b, ...patch }));
     setAttemptKey("");
   };
-  const price = estimatePrice({ type, durationSec: brief.duration ?? 15, quality });
+  const { quote: videoQuote, error: quoteError } = useVideoPrice(brief.videoStyle || "product", brief.duration ?? 15, Boolean(brief.sound), type === "video");
+  const price = type === "video" ? { total: videoQuote?.total ?? 0, lines: [{labelRw:"Igiciro cya video",labelEn:"Video production",amount:videoQuote?.total ?? 0}] } : estimatePrice({ type, durationSec: brief.duration ?? 15, quality });
   const recommended = suggestStyle(brief.category, type);
   const titles = [
     t("Sobanura icyo ushaka", "What would you like to advertise?"),
@@ -148,6 +151,10 @@ export function CreationWizard({ type }: { type: CreationType }) {
     </div>
   );
   async function pay() {
+    if (type === "video") {
+      toast.error(t("Gukora video ntibirahuzwa. Nta mafaranga yishyurwa.", "Video generation is unavailable. No charge will be taken."));
+      return;
+    }
     if (!signedIn || method === "card") return;
     setBusy(true);
     const idempotency = attemptKey || crypto.randomUUID();
@@ -352,7 +359,7 @@ export function CreationWizard({ type }: { type: CreationType }) {
             <p className="mt-3 text-xs text-muted-foreground">
               {t(
                 "Ibiciro ni iby'icyitegererezo. Nta nyongera ya MTN ishyirwaho muri iyi kode.",
-                "Placeholder prices. Your current payment setup adds no MTN surcharge.",
+                type === "video" ? "Video prices include configured operating costs. No payment is taken while generation is unavailable." : "Placeholder prices. Your current payment setup adds no MTN surcharge.",
               )}
             </p>
             <p className="mt-5 border-l-2 border-creative pl-4 text-sm leading-relaxed">
@@ -379,7 +386,12 @@ export function CreationWizard({ type }: { type: CreationType }) {
                     />
                   </label>
                 )}
-                {method === "card" ? (
+                {type === "video" ? (
+                  <><Button className="mt-5 w-full" disabled={busy || !videoQuote} onClick={async () => {
+                    setBusy(true);
+                    try { const {data,error}=await supabase.rpc("reserve_video_quote",{ad_type:brief.videoStyle||"product",seconds:brief.duration??15,sound:Boolean(brief.sound),campaign:JSON.parse(JSON.stringify(brief))}); if(error)throw error; toast.success(t("Igiciro cyabitswe. Nta mafaranga yishyuwe.","Quote saved. No charge taken.")); setStatus("quoted"); } catch(e){toast.error(e instanceof Error?e.message:"Could not save quote.");}finally{setBusy(false);}
+                  }}>{t("Emeza kandi ubike igiciro", "Confirm & save quote — no charge")}</Button><Button asChild variant="outline" className="mt-3 w-full"><Link to="/app/pro" search={{adType:brief.videoStyle,duration:brief.duration}} onClick={()=>localStorage.setItem("amamaza-pro-campaign",JSON.stringify(brief))}>{t("Vugana n'umuhanga", "Talk to a Pro")}</Link></Button>{status==="quoted"&&<p role="status" className="mt-3 text-sm text-success">{t("Igiciro cyabitswe.","Your quote is saved.")}</p>}</>
+                ) : method === "card" ? (
                   <p className="mt-5 text-sm text-muted-foreground">
                     {t("Kwishyura ikarita ntibirahuzwa.", "Card payments are not connected yet.")}
                   </p>
@@ -421,7 +433,7 @@ export function CreationWizard({ type }: { type: CreationType }) {
       </main>
     );
   return (
-    <main className="mx-auto max-w-3xl px-5 py-8 sm:py-12">
+    <main className="mx-auto max-w-4xl px-5 py-8 sm:py-12">
       <div className="flex items-center justify-between">
         <Button asChild variant="ghost" size="icon" title={t("Subira", "Back")}>
           <Link to="/app/create">
@@ -573,18 +585,15 @@ export function CreationWizard({ type }: { type: CreationType }) {
               brief.ratio,
               (ratio) => update({ ratio }),
             )}
-            <p className="text-xs text-muted-foreground">{findFormat(type, brief.ratio).spec}</p>
+            <p className="text-xs text-muted-foreground">{type === "video" ? t("Ibipimo bya video bizagenwa n'ubushobozi bwa serivisi; 1080p ntiremezwa.", "Aspect ratio requested. Delivered resolution depends on the locked model; 1080p is not guaranteed.") : findFormat(type, brief.ratio)?.spec}</p>
             {type === "video" && (
               <div>
                 <p className="mb-3 text-sm font-medium">{t("Igihe cya video", "Video length")}</p>
-                {options(
-                  [10, 15, 20, 30].map((s) => ({ id: String(s), rw: `${s}s`, en: `${s}s` })),
-                  String(brief.duration),
-                  (s) => update({ duration: Number(s) }),
-                )}
+                <VideoDuration brief={brief} onChange={(duration)=>update({duration})}/>
+                {brief.videoStyle === "product" && <label className="mt-4 flex items-center gap-3 text-sm"><input type="checkbox" checked={Boolean(brief.sound)} onChange={e=>update({sound:e.target.checked})}/>{t("Ijwi ririmo", "Include sound")}</label>}
               </div>
             )}
-            {options(
+            {type !== "video" && options(
               [
                 { id: "standard", rw: "Ibanze", en: "Standard" },
                 { id: "hd", rw: "HD", en: "HD" },
@@ -597,7 +606,7 @@ export function CreationWizard({ type }: { type: CreationType }) {
               },
             )}
             <p className="text-lg font-bold">
-              {t("Igiciro giteganyijwe", "Estimate")}: {formatRWF(price.total)}
+              {t("Igiciro giteganyijwe", "Estimate")}: {type === "video" && !videoQuote ? quoteError || t("Tegereza…","Loading…") : formatRWF(price.total)}
             </p>
           </>
         )}

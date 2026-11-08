@@ -8,6 +8,13 @@
       "when": 1793800356137,
       "tag": "0000_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794130756193,
+      "tag": "0001_agency_video_quotes_and_professional_leads",
+      "breakpoints": true
     }
   ]
 }

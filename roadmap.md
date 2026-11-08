@@ -1,4 +1,8 @@
 # Amamaza completion
+- [ ] Implement locked video configuration and authoritative quotes with 60% margin tests.
+- [ ] Route 30/60-second videos into a persistent adaptive consultation with secure reference uploads.
+- [ ] Add protected admin lead management and configurable pricing/contact settings.
+- [ ] Verify pricing, consultation persistence, permissions and mobile/desktop navigation; document external generation blockers.
 - [x] Complete seven-question brief, review/payment screen and honest animated waiting states; desktop journey verified.
 - [x] Apply banner clip, wider papers and tighter angles; checked in page context.
 - [x] Use smaller card corners and four-item studio navigation; desktop and phone checked.

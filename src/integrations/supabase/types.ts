@@ -357,6 +357,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_agency_settings: { Args: never; Returns: Json }
       agency_contacts: { Args: never; Returns: Json }
       calculate_video_quote: {
         Args: { ad_type: string; seconds: number; sound?: boolean }

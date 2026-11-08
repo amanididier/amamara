@@ -16,6 +16,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppAdminRouteImport } from './routes/app.admin'
 import { Route as AppCreateRouteImport } from './routes/app.create'
 import { Route as AppProRouteImport } from './routes/app.pro'
 import { Route as AppProjectsRouteImport } from './routes/app.projects'
@@ -58,6 +59,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCreateRoute = AppCreateRouteImport.update({
   id: '/create',
   path: '/create',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/create': typeof AppCreateRoute
   '/app/pro': typeof AppProRoute
   '/app/projects': typeof AppProjectsRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/api/generate-image'
+    | '/app/admin'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/api/generate-image'
+    | '/app/admin'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/services'
     | '/api/generate-image'
+    | '/app/admin'
     | '/app/create'
     | '/app/pro'
     | '/app/projects'
@@ -241,6 +253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/admin': {
+      id: '/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/create': {
       id: '/app/create'
       path: '/create'
@@ -287,6 +306,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
   AppCreateRoute: typeof AppCreateRoute
   AppProRoute: typeof AppProRoute
   AppProjectsRoute: typeof AppProjectsRoute
@@ -297,6 +317,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
   AppCreateRoute: AppCreateRoute,
   AppProRoute: AppProRoute,
   AppProjectsRoute: AppProjectsRoute,

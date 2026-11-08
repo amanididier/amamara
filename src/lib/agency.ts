@@ -48,6 +48,8 @@ export function contactAction(method: Consultation["contactMethod"], contacts: C
   if (method === "whatsapp" && /^\+?\d{8,15}$/.test(contacts.whatsapp)) return `https://wa.me/${contacts.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
   if (method === "phone" && /^\+?\d{8,15}$/.test(contacts.phone)) return `tel:${contacts.phone}`;
   if (method === "email" && contacts.email) return `mailto:${contacts.email}?subject=${encodeURIComponent(`Creative consultation ${reference}`)}&body=${encodeURIComponent(message)}`;
-  if (method === "instagram" && contacts.instagram) return contacts.instagram;
+  if (method === "instagram" && contacts.instagram) {
+    try { const url = new URL(contacts.instagram); if (url.protocol === "https:" && ["instagram.com", "www.instagram.com"].includes(url.hostname)) return url.href; } catch { return null; }
+  }
   return null;
 }

@@ -21,6 +21,7 @@ export interface Brief {
   style: string;
   videoStyle?: string;
   duration?: number;
+  sound?: boolean;
   ratio: string;
   period: string;
 }
@@ -60,14 +61,12 @@ export const videoStyles = [
   { id: "ugc", rw: "Umuntu uvuga ku gicuruzwa", en: "Person talking (UGC)" },
   { id: "product", rw: "Igicuruzwa kizunguruka", en: "Product showcase" },
   { id: "cinematic", rw: "Nka filime", en: "Cinematic story" },
-  { id: "motion-text", rw: "Inyandiko zigenda", en: "Animated text promo" },
-  { id: "slideshow", rw: "Amafoto akurikirana", en: "Photo slideshow" },
 ] as const;
 
 /** Style most users of this category pick — shown as the "Most picked" badge. */
 export function suggestStyle(category: string, type: AdType): string {
   if (type === "video") {
-    return ({ restaurant: "product", salon: "ugc", fashion: "cinematic", electronics: "product" } as Record<string, string>)[category] ?? "motion-text";
+    return ({ restaurant: "product", salon: "ugc", fashion: "cinematic", electronics: "product" } as Record<string, string>)[category] ?? "product";
   }
   return ({
     restaurant: "energetic", salon: "luxury", fashion: "premium", electronics: "premium",

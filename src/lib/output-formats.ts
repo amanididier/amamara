@@ -31,5 +31,5 @@ export const outputFormats: Record<"flyer" | "video" | "banner", OutputFormat[]>
 };
 
 export function findFormat(type: keyof typeof outputFormats, id: string) {
-  return outputFormats[type].find((f) => f.id === id) ?? outputFormats[type][0]!;
+  return outputFormats[type].find((f) => f.id === id) ?? outputFormats[type][0];
 }

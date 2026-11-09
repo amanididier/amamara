@@ -1,101 +1,50 @@
+import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Film, FileImage, PanelTop, LayoutGrid } from "lucide-react";
+import { ArrowRight, Clapperboard, FileImage, PanelTop, Sparkles, Plus, Clock3 } from "lucide-react";
 import { AdCard } from "@/components/ad-card";
-import { images, sampleAds } from "@/data/ads";
+import { images, sampleAds, type Format } from "@/data/ads";
 import { useLibrary } from "@/lib/library";
 import { usePrefs } from "@/lib/prefs";
+import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/app/")({
-  head: () => ({
-    meta: [
-      { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:type", content: "website" },
-      { title: "Ahabanza — Amamaza Studio" },
-      { name: "description", content: "Twamamaze iki uyu munsi? Tangira gukora itangazo." },
-      { property: "og:title", content: "Amamaza Studio" },
-      { property: "og:description", content: "Ahabanza ha studio ya Amamaza." },
-    ],
-  }),
-  component: Dashboard,
-});
+export const Route = createFileRoute("/app/")({ head: () => ({ meta: [{ title: "Home — Amamara Studio" }, { name: "description", content: "Create beautiful advertising with Amamara Studio." }, { name: "robots", content: "noindex, nofollow" }] }), component: Dashboard });
 
 function Dashboard() {
   const { t } = usePrefs();
   const { all } = useLibrary();
+  const [tab, setTab] = useState<Format>("video");
+  const templates = useMemo(() => sampleAds.filter((ad) => ad.format === tab), [tab]);
   const actions = [
-    { type: "video", title: t("Video yamamaza", "Video ad"), Icon: Film, img: images.hotel },
-    { type: "flyer", title: "Flyer", Icon: FileImage, img: images.fashion },
-    { type: "banner", title: "Banner", Icon: PanelTop, img: images.shopBanner },
-    { type: "template", title: t("Koresha template", "Use a template"), Icon: LayoutGrid, img: images.juice },
+    { type: "video", title: t("Kwamamaza kuri video", "Video advertisement"), detail: t("Amashusho agenda n'inkuru", "Motion, storytelling and product films"), Icon: Clapperboard, img: images.hotel },
+    { type: "flyer", title: t("Post ya social media", "Social media post"), detail: t("Igishushanyo gikurura abantu", "Scroll-stopping campaign artwork"), Icon: FileImage, img: images.fashion },
+    { type: "banner", title: t("Banner n'icyapa", "Banner & signage"), detail: t("Digital no gucapisha", "Digital and print layouts"), Icon: PanelTop, img: images.shopBanner },
   ];
-  return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-8 sm:py-12">
-      <h1 className="text-3xl font-extrabold sm:text-5xl">{t("Murakaza neza! Twamamaze iki uyu munsi?", "Welcome! What shall we advertise today?")}</h1>
-      <p className="mt-2 text-muted-foreground">{t("Kora itangazo ryiza ry'ubucuruzi bwawe mu buryo bworoshye.", "Create a great ad for your business, simply.")}</p>
-
-      <h2 className="mt-10 text-lg font-bold">{t("Ni iki wifuza gukora?", "What would you like to make?")}</h2>
-      <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {actions.map((a) => (
-          <Link
-            key={a.type}
-            to={a.type === "template" ? "/app/templates" : "/app/create"}
-            search={a.type === "template" ? {} : { type: a.type }}
-            className="group relative aspect-[4/5] overflow-hidden rounded-lg sm:aspect-[4/3]"
-          >
-            <img src={a.img} alt={a.title} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 scrim" />
-            <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4 text-on-overlay">
-              <div>
-                <a.Icon className="size-5" />
-                <p className="mt-2 font-display text-lg font-bold leading-tight">{a.title}</p>
-              </div>
-              <span className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:translate-x-1">
-                <ArrowRight className="size-4" />
-              </span>
-            </div>
-          </Link>
-        ))}
+  const tabs = [{ id: "video" as const, label: t("Video", "Videos") }, { id: "flyer" as const, label: t("Amaposti", "Posts") }, { id: "banner" as const, label: t("Ibyapa", "Banners") }];
+  return <main className="amamara-dashboard mx-auto max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
+    <section className="amamara-welcome">
+      <div className="relative z-10 max-w-2xl">
+        <span className="inline-flex items-center gap-2 rounded-full border bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[.18em] text-muted-foreground"><Sparkles className="size-3.5 text-primary"/> Amamara creative studio</span>
+        <h1 className="mt-5 max-w-[700px] text-4xl leading-[1.04] tracking-[-.045em] sm:text-5xl lg:text-[64px]">{t("Ibitekerezo byawe. Byahinduwe amatangazo.", "Big ideas. Beautifully advertised.")}</h1>
+        <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">{t("Kora video, ama-poster n'ibyapa by'umwuga. Tangira ku gitekerezo, urangize ufite igihangano.", "Create polished videos, social campaigns and banners. Start with an idea and leave with work worth sharing.")}</p>
       </div>
-
-      <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_280px]">
-        <section>
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold">{t("Ingero zikunzwe", "Popular templates")}</h2>
-            <Link to="/app/templates" className="text-sm font-semibold text-primary">{t("Reba zose", "View all")}</Link>
-          </div>
-          <div className="no-scrollbar -mx-4 mt-4 flex gap-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-            {sampleAds.slice(0, 5).map((ad) => <AdCard key={ad.id} ad={ad} tall className="w-56 shrink-0" />)}
-          </div>
-        </section>
-        <aside className="space-y-4">
-          <div className="rounded-lg border bg-card p-6">
-            <p className="font-bold">{t("Uko bikora", "How it works")}</p>
-            <ol className="mt-3 space-y-2 text-sm text-muted-foreground">
-              <li>1. {t("Hitamo ubwoko bw'itangazo", "Choose ad type")}</li>
-              <li>2. {t("Sobanura ubucuruzi bwawe", "Describe your business")}</li>
-              <li>3. {t("Emeza igiciro, ukuremo", "Confirm price, download")}</li>
-            </ol>
-          </div>
-        </aside>
+      <div className="amamara-showcase" aria-label="Amamara creative work">
+        <div className="amamara-showcase__card amamara-showcase__poster"><img src={images.juice} alt="Product social media poster"/></div>
+        <div className="amamara-showcase__card amamara-showcase__banner"><img src={images.shopBanner} alt="Retail advertising banner"/></div>
+        <div className="amamara-showcase__card amamara-showcase__video"><video src="/ads/amamaza-showreel-placeholder.mp4" autoPlay muted loop playsInline preload="metadata" aria-label="Amamara video advertisement preview"/><span className="amamara-showcase__play"><span/></span></div>
       </div>
-
-      <section className="mt-12">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold">{t("Ibyo uheruka gukora", "Recent ads")}</h2>
-          <Link to="/app/projects" className="text-sm font-semibold text-primary">{t("Byose", "All")}</Link>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
-          {all.slice(0, 3).map((i) => (
-            <div key={i.id} className="overflow-hidden rounded-lg border bg-card">
-              <img src={i.image} alt={i.name} loading="lazy" className="aspect-video w-full object-cover" />
-              <div className="p-3">
-                <p className="truncate text-sm font-semibold">{i.name}</p>
-                <p className="text-xs text-muted-foreground">{i.type} · {i.date}{i.demo ? ` · ${t("Urugero", "Sample")}` : ""}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+    </section>
+    <section className="mt-12 sm:mt-16">
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-3"><div><p className="text-[11px] font-bold uppercase tracking-[.2em] text-muted-foreground">{t("Tangira hano", "Make something")}</p><h2 className="mt-2 text-2xl tracking-[-.035em] sm:text-3xl">{t("Hitamo icyo ushaka gukora", "Create an advertisement")}</h2></div><span className="hidden text-xs text-muted-foreground sm:block">{t("Hitamo uburyo bwo gutangira", "Choose a format to get started")}</span></div>
+      <div className="grid gap-4 md:grid-cols-3">{actions.map(({type,title,detail,Icon,img})=><Link key={type} to="/app/create" search={{type}} className="amamara-create-card group"><img src={img} alt="" loading="lazy"/><div className="amamara-create-card__scrim"/><div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 p-5 sm:p-6"><div className="min-w-0 text-white"><span className="mb-4 grid size-10 place-items-center rounded-2xl border border-white/25 bg-white/15 backdrop-blur"><Icon className="size-5"/></span><h3 className="text-xl font-semibold tracking-[-.025em] sm:text-2xl">{title}</h3><p className="mt-1 text-xs text-white/75 sm:text-sm">{detail}</p></div><span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-black transition-transform group-hover:translate-x-1"><ArrowRight className="size-4"/></span></div></Link>)}</div>
+    </section>
+    <section className="mt-14 sm:mt-20">
+      <div className="mb-5 flex items-end justify-between gap-4"><div><p className="text-[11px] font-bold uppercase tracking-[.2em] text-muted-foreground">{t("Isomero ryawe", "Your workspace")}</p><h2 className="mt-2 text-2xl tracking-[-.035em] sm:text-3xl">{t("Amatangazo uheruka", "Recent ads")}</h2></div><Link to="/app/projects" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">{t("Reba yose", "View all")} <ArrowRight className="size-4"/></Link></div>
+      {all.length ? <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{all.slice(0,3).map(item=><article key={item.id} className="group overflow-hidden rounded-2xl border bg-card transition-all hover:-translate-y-1 hover:shadow-xl"><div className="aspect-[16/9] overflow-hidden bg-muted"><img src={item.image} alt={item.name} loading="lazy" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"/></div><div className="flex items-center justify-between gap-3 p-4"><div className="min-w-0"><h3 className="truncate text-sm font-semibold">{item.name}</h3><p className="mt-1 text-xs text-muted-foreground">{item.type} · {item.date}{item.demo ? ` · ${t("Urugero","Sample")}` : ""}</p></div><span className="grid size-9 place-items-center rounded-full border text-muted-foreground"><Clock3 className="size-4"/></span></div></article>)}</div> : <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed bg-card/50 px-6 py-12 text-center"><span className="grid size-12 place-items-center rounded-2xl bg-muted"><Plus className="size-5 text-muted-foreground"/></span><h3 className="mt-4 font-semibold">{t("Nta matangazo urakora kugeza ubu","Your creative library is waiting")}</h3><p className="mt-1 max-w-sm text-sm text-muted-foreground">{t("Amatangazo uzakora azajya agaragara hano.","The ads you create will appear here.")}</p><Link to="/app/create" className="mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground">{t("Kora itangazo rya mbere","Create your first ad")} <ArrowRight className="size-4"/></Link></div>}
+    </section>
+    <section className="mt-14 sm:mt-20">
+      <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-[11px] font-bold uppercase tracking-[.2em] text-muted-foreground">{t("Hitamo aho uhera","A little inspiration")}</p><h2 className="mt-2 text-2xl tracking-[-.035em] sm:text-3xl">{t("Popular templates","Popular templates")}</h2></div><Link to="/app/templates" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">{t("Reba zose","Explore templates")} <ArrowRight className="size-4"/></Link></div>
+      <div className="mt-5 flex items-center gap-2 border-b" role="tablist" aria-label={t("Ubwoko bwa template","Template categories")}>{tabs.map(item=><button key={item.id} role="tab" aria-selected={tab===item.id} onClick={()=>setTab(item.id)} className={cn("relative -mb-px min-h-11 border-b-2 px-4 text-sm font-semibold transition-colors",tab===item.id?"border-foreground text-foreground":"border-transparent text-muted-foreground hover:text-foreground")}>{item.label}</button>)}</div>
+      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{templates.slice(0,3).map(ad=><AdCard key={ad.id} ad={ad}/>)}</div>
+    </section>
+  </main>;
 }

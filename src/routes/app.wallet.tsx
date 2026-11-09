@@ -21,10 +21,10 @@ export const Route = createFileRoute("/app/wallet")({
     meta: [
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { title: "Amafaranga — Amamaza" },
+      { title: "Amafaranga — Amamara" },
       { name: "description", content: "Shyira amafaranga kuri konti yawe ukoresheje MTN MoMo." },
-      { property: "og:title", content: "Wallet — Amamaza" },
-      { property: "og:description", content: "Konti y'amafaranga ya Amamaza." },
+      { property: "og:title", content: "Wallet — Amamara" },
+      { property: "og:description", content: "Konti y'amafaranga ya Amamara." },
     ],
   }),
   component: WalletPage,

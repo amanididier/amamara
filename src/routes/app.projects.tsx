@@ -11,9 +11,9 @@ export const Route = createFileRoute("/app/projects")({
     meta: [
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { title: "Ibikorwa byanjye — Amamaza" },
+      { title: "Ibikorwa byanjye — Amamara" },
       { name: "description", content: "Amatangazo yawe yose ahantu hamwe." },
-      { property: "og:title", content: "Ibikorwa byanjye — Amamaza" },
+      { property: "og:title", content: "Ibikorwa byanjye — Amamara" },
       { property: "og:description", content: "Isomero ry'amatangazo yawe." },
     ],
   }),

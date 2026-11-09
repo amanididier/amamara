@@ -11,9 +11,9 @@ export const Route = createFileRoute("/examples")({
     meta: [
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { title: "Ad Examples & Design Inspiration in Rwanda | Amamaza" },
+      { title: "Ad Examples & Design Inspiration in Rwanda | Amamara" },
       { name: "description", content: "Browse advertising examples for Rwandan businesses, including promotional videos, social media posts, flyers and shop banners for restaurants, hotels, salons and more." },
-      { property: "og:title", content: "Advertising Examples & Inspiration | Amamaza" },
+      { property: "og:title", content: "Advertising Examples & Inspiration | Amamara" },
       { property: "og:description", content: "Explore sample ads and creative ideas for businesses in Rwanda. Reba ingero za video, flyers, posts n'ibyapa." },
     ],
     links: [{"rel":"canonical","href":"https://amamaza.vercel.app/examples"}],

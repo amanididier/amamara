@@ -1,0 +1,1 @@
+revoke all on function public.track_pro_status() from public, anon, authenticated;

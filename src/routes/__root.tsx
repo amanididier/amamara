@@ -80,13 +80,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Amamara — Amatangazo meza y'ubucuruzi bwawe" },
+      { title: "Amamara Studio | AI Advertising & Design in Rwanda" },
       {
         name: "description",
         content:
-          "Kora video, flyer na banner by'ubucuruzi bwawe ukoresheje AI. Byoroshye, ku giciro gito.",
+          "Amamara Studio helps businesses in Rwanda create AI-powered video ads, social media designs, promotional flyers and print-ready banners in Kinyarwanda or English.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Amamara Studio" },
+      { name: "twitter:site", content: "@amamara" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

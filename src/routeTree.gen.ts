@@ -22,6 +22,7 @@ import { Route as AppProRouteImport } from './routes/app.pro'
 import { Route as AppProjectsRouteImport } from './routes/app.projects'
 import { Route as AppTemplatesRouteImport } from './routes/app.templates'
 import { Route as AppWalletRouteImport } from './routes/app.wallet'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppCreateTypeRouteImport } from './routes/app.create_.$type'
 import { Route as AppVideoIdRouteImport } from './routes/app.video.$id'
 
@@ -90,6 +91,11 @@ const AppWalletRoute = AppWalletRouteImport.update({
   path: '/wallet',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCreateTypeRoute = AppCreateTypeRouteImport.update({
   id: '/create_/$type',
   path: '/create/$type',
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/app/projects': typeof AppProjectsRoute
   '/app/templates': typeof AppTemplatesRoute
   '/app/wallet': typeof AppWalletRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
   '/app/create/$type': typeof AppCreateTypeRoute
   '/app/video/$id': typeof AppVideoIdRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/app/projects': typeof AppProjectsRoute
   '/app/templates': typeof AppTemplatesRoute
   '/app/wallet': typeof AppWalletRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app': typeof AppIndexRoute
   '/app/create/$type': typeof AppCreateTypeRoute
   '/app/video/$id': typeof AppVideoIdRoute
@@ -167,6 +175,7 @@ export interface FileRouteTypes {
     | '/app/projects'
     | '/app/templates'
     | '/app/wallet'
+    | '/app/settings'
     | '/app/'
     | '/app/create/$type'
     | '/app/video/$id'
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/app/projects'
     | '/app/templates'
     | '/app/wallet'
+    | '/app/settings'
     | '/app'
     | '/app/create/$type'
     | '/app/video/$id'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/app/projects'
     | '/app/templates'
     | '/app/wallet'
+    | '/app/settings'
     | '/app/'
     | '/app/create_/$type'
     | '/app/video/$id'
@@ -307,6 +318,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWalletRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/create_/$type': {
       id: '/app/create_/$type'
       path: '/create/$type'
@@ -331,6 +349,7 @@ interface AppRouteChildren {
   AppProjectsRoute: typeof AppProjectsRoute
   AppTemplatesRoute: typeof AppTemplatesRoute
   AppWalletRoute: typeof AppWalletRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppIndexRoute: typeof AppIndexRoute
   AppCreateTypeRoute: typeof AppCreateTypeRoute
   AppVideoIdRoute: typeof AppVideoIdRoute
@@ -343,6 +362,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppProjectsRoute: AppProjectsRoute,
   AppTemplatesRoute: AppTemplatesRoute,
   AppWalletRoute: AppWalletRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppIndexRoute: AppIndexRoute,
   AppCreateTypeRoute: AppCreateTypeRoute,
   AppVideoIdRoute: AppVideoIdRoute,

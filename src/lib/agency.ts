@@ -29,7 +29,7 @@ export const consultationSchema = z.object({
 });
 export type Consultation = z.infer<typeof consultationSchema>;
 export function creativeBrief(v: Consultation) {
-  return `# Amamaza creative brief\n\n## Customer\n${v.customerName}\n${v.contactMethod}: ${v.contactDetail}\n\n## Campaign\nBusiness: ${v.business}\nObjective: ${v.objective}\nAudience: ${v.audience}\nFormat: ${v.adType} / ${v.duration}s\nKey message: ${v.message}\nScenes and features: ${v.scenes}\nVisual style: ${v.style}\nPlatforms: ${v.platforms.join(", ")}\nDeadline: ${v.deadline}\n\n## Additional direction\n${v.instructions || "Not supplied"}\n\n## References\n${v.references || "Not supplied"}`;
+  return `# Amamara creative brief\n\n## Customer\n${v.customerName}\n${v.contactMethod}: ${v.contactDetail}\n\n## Campaign\nBusiness: ${v.business}\nObjective: ${v.objective}\nAudience: ${v.audience}\nFormat: ${v.adType} / ${v.duration}s\nKey message: ${v.message}\nScenes and features: ${v.scenes}\nVisual style: ${v.style}\nPlatforms: ${v.platforms.join(", ")}\nDeadline: ${v.deadline}\n\n## Additional direction\n${v.instructions || "Not supplied"}\n\n## References\n${v.references || "Not supplied"}`;
 }
 const positive = z.number().finite().nonnegative();
 export const settingsSchema = z.object({
@@ -44,7 +44,7 @@ export const settingsSchema = z.object({
 export type AgencySettings = z.infer<typeof settingsSchema>;
 export type Contacts = AgencySettings["contacts"];
 export function contactAction(method: Consultation["contactMethod"], contacts: Contacts, reference: string) {
-  const message = `Hello Amamaza, I would like to discuss creative brief ${reference}.`;
+  const message = `Hello Amamara, I would like to discuss creative brief ${reference}.`;
   if (method === "whatsapp" && /^\+?\d{8,15}$/.test(contacts.whatsapp)) return `https://wa.me/${contacts.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
   if (method === "phone" && /^\+?\d{8,15}$/.test(contacts.phone)) return `tel:${contacts.phone}`;
   if (method === "email" && contacts.email) return `mailto:${contacts.email}?subject=${encodeURIComponent(`Creative consultation ${reference}`)}&body=${encodeURIComponent(message)}`;

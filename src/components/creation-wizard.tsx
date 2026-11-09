@@ -256,6 +256,12 @@ export function CreationWizard({ type }: { type: CreationType }) {
             "No payment taken. Ad generation has not started.",
           )}
         </p>
+        <div className="mt-8 w-full max-w-lg">
+          <p className="mb-3 text-left text-[11px] font-bold uppercase tracking-[.18em] text-muted-foreground">{t("Ingero z'ibikorwa bya studio","Studio creative examples")}</p>
+          <div className="grid grid-cols-3 gap-3">
+            {[{src:images.restaurant,label:t("Resitora","Restaurant")},{src:images.juice,label:t("Ibicuruzwa","Products")},{src:images.fashion,label:t("Imyenda","Fashion")}].map(x=><figure key={x.label}><img src={x.src} alt={x.label} className="aspect-[4/5] w-full rounded-xl object-cover"/><figcaption className="mt-2 text-xs text-muted-foreground">{x.label}</figcaption></figure>)}
+          </div>
+        </div>
       </main>
     );
   if (stage === "payment")
@@ -368,6 +374,7 @@ export function CreationWizard({ type }: { type: CreationType }) {
                 "Ad production is not connected yet. Save your brief; do not pay real money. MTN is test-only: a 1 EUR request, separate from real funds.",
               )}
             </p>
+            {type !== "video" && <Button asChild variant="outline" className="mt-5 w-full"><Link to="/app/pro" search={{adType:type,duration:brief.duration}} onClick={()=>localStorage.setItem("amamaza-pro-campaign",JSON.stringify(brief))}>{t("Vugana n’umuhanga","Talk to a Pro")} <ArrowRight/></Link></Button>}
             {!signedIn ? (
               <div className="mt-5">
                 <AccountAccess />

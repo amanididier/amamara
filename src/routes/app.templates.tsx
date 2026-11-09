@@ -9,9 +9,9 @@ export const Route = createFileRoute("/app/templates")({
     meta: [
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { title: "Ingero (Templates) — Amamaza" },
+      { title: "Ingero (Templates) — Amamara" },
       { name: "description", content: "Hitamo template y'itangazo uyihindure ibe iyawe." },
-      { property: "og:title", content: "Templates — Amamaza" },
+      { property: "og:title", content: "Templates — Amamara" },
       { property: "og:description", content: "Templates z'amatangazo y'ubucuruzi." },
     ],
   }),

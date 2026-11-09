@@ -7,9 +7,9 @@ export const Route = createFileRoute("/app/pro")({
     meta: [
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { title: "Serivisi z'abahanga — Amamaza" },
+      { title: "Serivisi z'abahanga — Amamara" },
       { name: "description", content: "Saba abahanga nyabo bagukorere itangazo ryihariye." },
-      { property: "og:title", content: "Serivisi z'abahanga — Amamaza" },
+      { property: "og:title", content: "Serivisi z'abahanga — Amamara" },
       { property: "og:description", content: "Amatangazo akozwe n'abantu nyabo." },
     ],
   }),

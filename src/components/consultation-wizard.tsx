@@ -50,8 +50,6 @@ export function ConsultationWizard({ adType, duration, jobId }: { adType?: strin
       setFiles([]);
       const row = await submitConsultation({ data: { brief: parsed.data, campaign, jobId: jobId || null, assets: uploaded, honeypot } });
       setResult(row); localStorage.removeItem("amamaza-pro-draft"); localStorage.removeItem("amamaza-pro-campaign");
-      const action = contactAction(v.contactMethod, contacts, row.reference);
-      
     } catch (e) { toast.error(e instanceof Error ? e.message : "Your request could not be saved."); } finally { setBusy(false); }
   }
   if (result) {

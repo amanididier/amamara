@@ -366,18 +366,18 @@
 @media(max-width:640px){.amamara-problem{border-radius:22px}.amamara-problem__panel--before{border-right:0!important;border-bottom:1px solid rgba(255,255,255,.25)!important}}
 
 
-/* Three-card creation chooser: a gentle inward-facing arc */
-.creation-card-arc{perspective:1100px;isolation:isolate}
-.creation-card{transform-style:preserve-3d;will-change:transform}
-.creation-card--left{aspect-ratio:1/1;transform:rotate(8deg) translateY(13px);z-index:1}
-.creation-card--center{aspect-ratio:1.35/1;min-height:290px;transform:scale(1.06);z-index:3}
-.creation-card--right{aspect-ratio:1/1;transform:rotate(-8deg) translateY(13px);z-index:1}
-.creation-card--left:hover{transform:rotate(3deg) translateY(-7px) scale(1.025)}
-.creation-card--right:hover{transform:rotate(-3deg) translateY(-7px) scale(1.025)}
-.creation-card--center:hover{transform:scale(1.09) translateY(-7px)}
+/* Three-image homepage showcase: a wide, open V-shaped arc */
+.showcase-card-arc{perspective:1200px;isolation:isolate}
+.showcase-card{transform-style:preserve-3d;will-change:transform;transition:transform .35s ease,box-shadow .35s ease}
+.showcase-card--left{aspect-ratio:1/1;transform:rotate(8deg) translateY(13px);z-index:1}
+.showcase-card--center{aspect-ratio:1.38/1;min-height:300px;transform:scale(1.06);z-index:3}
+.showcase-card--right{aspect-ratio:1/1;transform:rotate(-8deg) translateY(13px);z-index:1}
+.showcase-card--left:hover{transform:rotate(4deg) translateY(-5px) scale(1.025);z-index:4}
+.showcase-card--right:hover{transform:rotate(-4deg) translateY(-5px) scale(1.025);z-index:4}
+.showcase-card--center:hover{transform:scale(1.09) translateY(-5px)}
 @media(max-width:639px){
-  .creation-card-arc{max-width:420px;gap:14px}
-  .creation-card--left,.creation-card--center,.creation-card--right{aspect-ratio:auto;min-height:190px;transform:none}
-  .creation-card--left:hover,.creation-card--right:hover,.creation-card--center:hover{transform:translateY(-3px)}
+  .showcase-card-arc{max-width:520px;gap:18px}
+  .showcase-card--left,.showcase-card--center,.showcase-card--right{aspect-ratio:5/4;min-height:0;transform:none}
+  .showcase-card--left:hover,.showcase-card--right:hover,.showcase-card--center:hover{transform:translateY(-3px)}
 }
-@media(prefers-reduced-motion:reduce){.creation-card{transition:none}}
+@media(prefers-reduced-motion:reduce){.showcase-card{transition:none}}

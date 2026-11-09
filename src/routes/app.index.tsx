@@ -19,6 +19,13 @@ function Dashboard() {
     { id: "video", src: "/ads/amamaza-showreel-placeholder.mp4", alt: "Video advertisement preview", video: true, position: "showcase-card--center" },
     { id: "banner", src: images.shopBanner, alt: "Retail advertising banner", position: "showcase-card--right" },
   ];
+  const actions = [
+    { id: "flyer", title: "Post", detail: t("Ifoto yo kuri social media", "Social media post"), Icon: FileImage, color: "bg-post text-post-foreground" },
+    { id: "video", title: "Video", detail: t("Video ngufi yamamaza", "Short promo video"), Icon: Clapperboard, color: "bg-vid text-white" },
+    { id: "banner", title: t("Icyapa", "Banner"), detail: t("Icyapa cy'iduka", "Shop banner"), Icon: PanelTop, color: "bg-ban text-ban-foreground" },
+    { id: "pro", title: t("Umuhanga", "Professional"), detail: t("Vugana n'umuhanga", "Talk to a professional"), Icon: UserRound, color: "bg-success text-success-foreground" },
+  ] as const;
+  const chooserCard = "flex aspect-[4/5] flex-col justify-between rounded-lg p-5 text-left transition-transform hover:-translate-y-1";
   const tabs = [{ id: "video" as const, label: t("Video", "Videos") }, { id: "flyer" as const, label: t("Amaposti", "Posts") }, { id: "banner" as const, label: t("Ibyapa", "Banners") }];
   const chooserCard = "creation-card group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-xl p-5 text-left shadow-sm transition duration-300 hover:z-10 hover:-translate-y-2 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-[250px] sm:p-6";
   return <main className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">

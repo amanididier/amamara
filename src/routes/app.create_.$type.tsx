@@ -4,9 +4,9 @@ import { CreationWizard } from "@/components/creation-wizard";
 export const Route = createFileRoute("/app/create_/$type")({
   head: () => ({
     meta: [
-      { title: "Tegura itangazo — Amamaza" },
+      { title: "Tegura itangazo — Amamara" },
       { name: "description", content: "Intambwe zo gutegura itangazo ryawe." },
-      { property: "og:title", content: "Tegura itangazo — Amamaza" },
+      { property: "og:title", content: "Tegura itangazo — Amamara" },
       { property: "og:description", content: "Intambwe zo gutegura itangazo ryawe." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

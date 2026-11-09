@@ -215,7 +215,7 @@ function FinalCta() {
           {t("Ubucuruzi bwawe bukwiye kugaragara neza.", "Your business deserves to look great.")}
         </h2>
         <Link
-          to="/app/create"
+          to="/app"
           className="relative mt-10 inline-flex items-center gap-2 rounded-full bg-background px-8 py-4 font-semibold text-foreground transition-transform hover:scale-[1.03]"
         >
           {t("Tangira ubu", "Start now")} <ArrowRight className="size-4" />

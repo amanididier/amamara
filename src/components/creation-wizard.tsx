@@ -240,7 +240,7 @@ export function CreationWizard({ type }: { type: CreationType }) {
   if (stage === "preparing")
     return (
       <main className="mx-auto flex min-h-[65vh] max-w-xl flex-col items-center justify-center px-5 text-center">
-        <Sparkles className="size-10 text-primary motion-safe:animate-pulse" />
+        <div className="amamara-particle-orb" role="img" aria-label="Preparing your creative brief"><span/><span/><span/><span/><span/><span/><span/><span/></div>
         <h1 key={word} className="mt-6 min-h-16 text-2xl font-bold motion-safe:animate-word">
           {
             [

@@ -27,22 +27,22 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Amamaza | AI Advertising & Design for Rwanda" },
+      { title: "Amamara | AI Advertising & Design for Rwanda" },
       {
         name: "description",
         content:
           "Create business adverts in Rwanda with AI. Make social media posts, promotional flyers, short video ads and shop banners in Kinyarwanda or English.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Amamaza | AI Advertising for Rwandan Businesses" },
+      { property: "og:title", content: "Amamara | AI Advertising for Rwandan Businesses" },
       {
         property: "og:description",
         content:
-          "Kora amatangazo y'ubucuruzi ukoresheje AI: posts, flyers, video zamamaza n'ibyapa by'amaduka. Create ads in Kinyarwanda or English.",
+          "Kora amatangazo y'ubucuruzi ukoresheje AI: posts, flyers, video zamamara n'ibyapa by'amaduka. Create ads in Kinyarwanda or English.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://amamaza.vercel.app/" }],
+    links: [{ rel: "canonical", href: "https://amamara.vercel.app/" }],
   }),
   component: Landing,
 });
@@ -77,12 +77,12 @@ function ProblemSolution() {
     t("Itangazo ryawe riboneka mu minota", "Your ad is ready in minutes"),
   ];
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+    <section className="amamara-problem mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
       <h2 className="text-center text-3xl font-bold sm:text-5xl">
         {t("Ikibazo n'igisubizo", "The problem, solved")}
       </h2>
-      <div className="mt-12 grid gap-4 md:grid-cols-2">
-        <div className="rounded-lg border bg-card p-8">
+      <div className="amamara-problem__grid mt-12 grid gap-4 md:grid-cols-2">
+        <div className="amamara-problem__panel amamara-problem__panel--before rounded-lg border p-8">
           <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t("Mbere", "Before")}</p>
           <ul className="mt-6 space-y-4">
             {problems.map((p) => (
@@ -95,8 +95,8 @@ function ProblemSolution() {
             ))}
           </ul>
         </div>
-        <div className="rounded-lg bg-primary p-8 text-primary-foreground">
-          <p className="text-sm font-semibold uppercase tracking-wider opacity-80">{t("Na Amamaza", "With Amamaza")}</p>
+        <div className="amamara-problem__panel amamara-problem__panel--after rounded-lg p-8 text-primary-foreground">
+          <p className="text-sm font-semibold uppercase tracking-wider opacity-80">{t("Na Amamara", "With Amamara")}</p>
           <ul className="mt-6 space-y-4">
             {solutions.map((p) => (
               <li key={p} className="flex items-center gap-3 text-lg font-semibold">

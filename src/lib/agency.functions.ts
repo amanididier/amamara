@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabase } from "@/integrations/supabase/client";
-import { consultationSchema, creativeBrief, settingsSchema } from "./agency";
+import { consultationSchema, settingsSchema } from "./agency";
 import { z } from "zod";
 
 export async function submitConsultation({ data }: { data: { brief: z.infer<typeof consultationSchema>; campaign: Record<string, unknown>; jobId: string | null; assets: { path: string; name: string }[]; honeypot?: string } }) {

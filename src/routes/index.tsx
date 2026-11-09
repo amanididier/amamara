@@ -27,22 +27,22 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Amamara | AI Advertising & Design for Rwanda" },
+      { title: "Amamara Studio | AI Advertising & Design in Rwanda" },
       {
         name: "description",
         content:
-          "Create business adverts in Rwanda with AI. Make social media posts, promotional flyers, short video ads and shop banners in Kinyarwanda or English.",
+          "Amamara Studio helps Rwandan businesses create professional AI-powered video ads, social media posts, promotional flyers and print-ready shop banners in Kinyarwanda or English.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Amamara | AI Advertising for Rwandan Businesses" },
+      { property: "og:title", content: "Amamara Studio | AI Advertising for Rwandan Businesses" },
       {
         property: "og:description",
         content:
-          "Kora amatangazo y'ubucuruzi ukoresheje AI: posts, flyers, video zamamara n'ibyapa by'amaduka. Create ads in Kinyarwanda or English.",
+          "Create better business adverts with Amamara Studio. Make social posts, flyers, video ads and shop banners in Kinyarwanda or English.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://amamara.vercel.app/" }],
+    links: [{ rel: "canonical", href: "https://amamaza.vercel.app/" }],
   }),
   component: Landing,
 });

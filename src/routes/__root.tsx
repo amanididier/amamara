@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Amamaza — Amatangazo meza y'ubucuruzi bwawe" },
+      { title: "Amamara — Amatangazo meza y'ubucuruzi bwawe" },
       {
         name: "description",
         content:
@@ -91,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      // Favicon — red Amamaza logo (hard-refresh / clear cache if tab still shows old icon)
+      // Favicon — red Amamara logo (hard-refresh / clear cache if tab still shows old icon)
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "32x32" },
       { rel: "icon", href: "/amamaza-icon.png", type: "image/png", sizes: "192x192" },

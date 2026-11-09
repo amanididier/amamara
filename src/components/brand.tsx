@@ -11,12 +11,12 @@ const markSrc: Record<LogoVariant, string> = {
   icon: "/amamaza-icon.png", // white mark on red tile (app logo / favicon)
 };
 
-/** Amamaza logo — exact brand mark in three variants. */
+/** Amamara logo — exact brand mark in three variants. */
 export function LogoMark({ variant = "icon", className }: { variant?: LogoVariant; className?: string }) {
   return (
     <img
       src={markSrc[variant]}
-      alt="Amamaza"
+      alt="Amamara"
       className={cn("size-9 shrink-0 object-contain", variant === "icon" && "rounded-[22%]", className)}
     />
   );
@@ -34,11 +34,11 @@ export function Logo({
   return (
     <Link
       to="/"
-      aria-label="Amamaza home"
+      aria-label="Amamara home"
       className={cn("flex items-center gap-2.5 font-display text-lg font-extrabold tracking-tight", className)}
     >
       <LogoMark variant={variant} />
-      {showWordmark && <span>amamaza</span>}
+      {showWordmark && <span>amamara</span>}
     </Link>
   );
 }

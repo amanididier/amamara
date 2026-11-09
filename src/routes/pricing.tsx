@@ -11,8 +11,8 @@ export const Route = createFileRoute("/pricing")({
     meta: [
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { title: "AI Ad Design Prices in Rwanda | Amamara" },
-      { name: "description", content: "See Amamara's sample pricing for AI video ads, promotional flyers and shop banners in Rwanda. Compare ad formats and understand pay-per-ad pricing in RWF." },
+      { title: "AI Advertising Prices in Rwanda | Amamara Studio Studio" },
+      { name: "description", content: "See Amamara Studio sample pricing for AI video ads, promotional flyers and shop banners in Rwanda. Compare ad formats and understand pay-per-ad pricing in RWF." },
       { property: "og:title", content: "AI Advertising Prices in Rwanda | Amamara" },
       { property: "og:description", content: "Explore sample prices for video ads, flyers and banners. Ibiciro by'amatangazo mu mafaranga y'u Rwanda." },
     ],

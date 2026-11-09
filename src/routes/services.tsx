@@ -9,9 +9,9 @@ export const Route = createFileRoute("/services")({
     meta: [
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
-      { title: "AI Ad Design Services in Rwanda | Amamaza" },
-      { name: "description", content: "Explore Amamaza services for Rwandan businesses: AI video ads, promotional flyers, social media posts, print-ready shop banners and professional ad design." },
-      { property: "og:title", content: "AI Advertising & Design Services | Amamaza" },
+      { title: "AI Ad Design Services in Rwanda | Amamara" },
+      { name: "description", content: "Explore Amamara services for Rwandan businesses: AI video ads, promotional flyers, social media posts, print-ready shop banners and professional ad design." },
+      { property: "og:title", content: "AI Advertising & Design Services | Amamara" },
       { property: "og:description", content: "Video ads, flyers, social posts and shop banners for businesses in Rwanda. Kora amatangazo meza y'ubucuruzi bwawe." },
     ],
     links: [{"rel":"canonical","href":"https://amamaza.vercel.app/services"}],

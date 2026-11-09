@@ -354,3 +354,14 @@
 @keyframes amamara-orbit{to{transform:rotate(360deg)}}
 @keyframes amamara-particle{0%,100%{opacity:.35;filter:blur(.5px)}50%{opacity:1;filter:blur(0);box-shadow:0 0 18px 3px var(--primary)}}
 @media(prefers-reduced-motion:reduce){.amamara-particle-orb,.amamara-particle-orb:before,.amamara-particle-orb:after,.amamara-particle-orb span{animation:none}}
+
+.amamara-problem{position:relative;isolation:isolate;overflow:hidden;border-radius:30px;background:#f51f4b;color:white}
+.amamara-problem:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);background-size:50% 50%,50% 50%;opacity:.8}
+.amamara-problem h2{color:white;font-family:var(--font-display);font-weight:400}
+.amamara-problem__grid{gap:0!important;overflow:hidden;border:1px solid rgba(255,255,255,.28);border-radius:20px;background:rgba(255,255,255,.04)}
+.amamara-problem__panel{min-height:300px;border:0!important;border-radius:0!important;background:transparent!important;color:white;padding:clamp(24px,4vw,48px)!important}
+.amamara-problem__panel--before{border-right:1px solid rgba(255,255,255,.25)!important}
+.amamara-problem__panel p{color:rgba(255,255,255,.8)}
+.amamara-problem__panel li>span:first-child{background:rgba(255,255,255,.16)!important;color:white}
+.amamara-problem__panel li>span:last-child{color:white!important;text-decoration:none}
+@media(max-width:640px){.amamara-problem{border-radius:22px}.amamara-problem__panel--before{border-right:0!important;border-bottom:1px solid rgba(255,255,255,.25)!important}}

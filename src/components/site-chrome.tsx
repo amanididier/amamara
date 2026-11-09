@@ -77,8 +77,8 @@ export function SiteFooter() {
           <Logo />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
             {t(
-              "Amamaza ifasha ubucuruzi bwose mu Rwanda gukora amatangazo meza — video, flyer na banner — mu minota mike.",
-              "Amamaza helps every business in Rwanda create great ads — videos, flyers and banners — in minutes.",
+              "Amamara ifasha ubucuruzi bwose mu Rwanda gukora amatangazo meza — video, flyer na banner — mu minota mike.",
+              "Amamara helps every business in Rwanda create great ads — videos, flyers and banners — in minutes.",
             )}
           </p>
           <p className="mt-3 text-sm font-semibold">{t(site.taglineRw, site.taglineEn)}</p>
@@ -95,8 +95,8 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="space-y-2.5 text-sm">
-          <p className="font-semibold">Amamaza</p>
-          <Link to="/services" className="block text-muted-foreground hover:text-foreground">{t("Ibyerekeye Amamaza", "About Amamaza")}</Link>
+          <p className="font-semibold">Amamara</p>
+          <Link to="/services" className="block text-muted-foreground hover:text-foreground">{t("Ibyerekeye Amamara", "About Amamara")}</Link>
           <Link to="/pricing" className="block text-muted-foreground hover:text-foreground">{t("Ibibazo bikunze kubazwa", "FAQ")}</Link>
           <Link to="/examples" className="block text-muted-foreground hover:text-foreground">{t("Ingero", "Examples")}</Link>
           <span className="block text-muted-foreground">{t("Amategeko n'ibanga", "Terms & privacy")}</span>
@@ -109,7 +109,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Amamaza · Made in Kigali 🇷🇼
+        © {new Date().getFullYear()} Amamara · Made in Kigali 🇷🇼
       </div>
     </footer>
   );

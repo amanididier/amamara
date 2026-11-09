@@ -53,9 +53,9 @@ export function WhatWeDo() {
             <div className="phone-frame">
               <div className="phone-frame__screen">
                 <span className="phone-frame__notch" />
-                <video ref={videoRef} src="/ads/amamaza-video-section-ad.mp4" muted playsInline loop preload="metadata" aria-label="Amamaza promotional video preview" />
+                <video ref={videoRef} src="/ads/amamaza-video-section-ad.mp4" muted playsInline loop preload="metadata" aria-label="Amamara promotional video preview" />
                 <div className="absolute inset-x-3 bottom-4 z-[4] flex items-center justify-between text-white drop-shadow">
-                  <span className="text-xs font-bold">Amamaza</span><Play className="size-4 fill-current" />
+                  <span className="text-xs font-bold">Amamara</span><Play className="size-4 fill-current" />
                 </div>
               </div>
             </div>
@@ -72,7 +72,7 @@ export function WhatWeDo() {
           <div className="relative mx-auto flex min-h-[340px] w-full max-w-xl items-center justify-center px-1 sm:px-2">
             <img
               src="/ads/amamaza-social-posts-collage.png"
-              alt="Collection of Amamaza social media advertisement designs"
+              alt="Collection of Amamara social media advertisement designs"
               className="block max-h-[420px] w-full max-w-[560px] object-contain drop-shadow-2xl"
             />
           </div>
@@ -102,7 +102,7 @@ export function WhatWeDo() {
           <div className="flex justify-center">
             <div className="wall-clip">
               <div className="wall-clip__back" />
-              <img src={shopEntranceBanner} alt="Printed Amamaza banner displayed above a Rwandan shop entrance" className="wall-clip__front" />
+              <img src={shopEntranceBanner} alt="Printed Amamara banner displayed above a Rwandan shop entrance" className="wall-clip__front" />
               <img src={binderClip} alt="" className="wall-clip__clip" aria-hidden="true" />
             </div>
           </div>

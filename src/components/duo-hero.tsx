@@ -105,11 +105,11 @@ export function DuoHero() {
                   )}
                   {current.kind === "posts" && (
                     <div className="grid h-full grid-cols-2">
-                      <img src={current.left} alt="Amamaza social media product post" />
-                      <img src={current.right} alt="Amamaza promotional product post" />
+                      <img src={current.left} alt="Amamara social media product post" />
+                      <img src={current.right} alt="Amamara promotional product post" />
                     </div>
                   )}
-                  {current.kind === "image" && <img src={current.src} alt="Printed shop banner created with Amamaza" style={{ objectFit: "contain", backgroundColor: "#111" }} />}
+                  {current.kind === "image" && <img src={current.src} alt="Printed shop banner created with Amamara" style={{ objectFit: "contain", backgroundColor: "#111" }} />}
                 </div>
               )}
             </div>

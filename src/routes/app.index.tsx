@@ -15,37 +15,38 @@ function Dashboard() {
   const [tab, setTab] = useState<Format>("video");
   const templates = useMemo(() => sampleAds.filter((ad) => ad.format === tab), [tab]);
   const showcase = [
-    { id: "poster", src: images.juice, alt: "Product social media campaign" },
-    { id: "banner", src: images.shopBanner, alt: "Retail advertising banner" },
-    { id: "video", src: "/ads/amamaza-showreel-placeholder.mp4", alt: "Video advertisement preview", video: true },
+    { id: "poster", src: images.juice, alt: "Product social media campaign", position: "showcase-card--left" },
+    { id: "video", src: "/ads/amamaza-showreel-placeholder.mp4", alt: "Video advertisement preview", video: true, position: "showcase-card--center" },
+    { id: "banner", src: images.shopBanner, alt: "Retail advertising banner", position: "showcase-card--right" },
   ];
-  const actions = [
-    { id: "flyer", title: "Post", detail: t("Ifoto yo kuri social media", "Social media post"), Icon: FileImage, color: "bg-post text-post-foreground", position: "creation-card--left" },
-    { id: "video", title: "Video", detail: t("Video ngufi yamamaza", "Short promo video"), Icon: Clapperboard, color: "bg-vid text-white", position: "creation-card--center" },
-    { id: "banner", title: t("Icyapa", "Banner"), detail: t("Icyapa cy'iduka", "Shop banner"), Icon: PanelTop, color: "bg-ban text-ban-foreground", position: "creation-card--right" },
-  ] as const;
   const tabs = [{ id: "video" as const, label: t("Video", "Videos") }, { id: "flyer" as const, label: t("Amaposti", "Posts") }, { id: "banner" as const, label: t("Ibyapa", "Banners") }];
   const chooserCard = "creation-card group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-xl p-5 text-left shadow-sm transition duration-300 hover:z-10 hover:-translate-y-2 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-[250px] sm:p-6";
   return <main className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
-    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="mx-auto grid w-full max-w-[1240px] grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
-      {showcase.map((item) => <div key={item.id} className="group relative aspect-[5/4] min-w-0 overflow-hidden rounded-2xl border bg-card shadow-sm sm:aspect-[4/3]">
-        {item.video ? <video src={item.src} autoPlay muted loop playsInline preload="metadata" aria-label={item.alt} className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /> : <img src={item.src} alt={item.alt} loading="eager" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />}
-        {item.video && <span className="pointer-events-none absolute bottom-4 right-4 grid size-10 place-items-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur"><Clapperboard className="size-4"/></span>}
-      </div>)}
+    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="mx-auto mt-5 w-full max-w-[1240px] sm:mt-7">
+      <div className="mb-8 text-center sm:mb-12">
+        <p className="text-xs font-bold uppercase tracking-[.22em] text-primary sm:text-sm">{t("Reka tubikore nonaha", "Let’s make it now")}</p>
+      </div>
+      <div className="showcase-card-arc mx-auto grid w-full max-w-[1180px] items-center gap-5 sm:grid-cols-[1fr_1.18fr_1fr] sm:gap-8">
+        {showcase.map((item) => <div key={item.id} className={cn("showcase-card group relative aspect-[5/4] min-w-0 overflow-hidden rounded-2xl border bg-card shadow-sm sm:aspect-[4/3]", item.position)}>
+          {item.video ? <video src={item.src} autoPlay muted loop playsInline preload="metadata" aria-label={item.alt} className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /> : <img src={item.src} alt={item.alt} loading="eager" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />}
+          {item.video && <span className="pointer-events-none absolute bottom-4 right-4 grid size-10 place-items-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur"><Clapperboard className="size-4"/></span>}
+        </div>)}
+      </div>
     </section>
 
     <section className="mx-auto mt-12 w-full max-w-[1240px] sm:mt-16">
-      <div className="mb-12 text-center sm:mb-16">
-        <p className="mb-5 text-xs font-bold uppercase tracking-[.22em] text-primary sm:mb-6">{t("Reka tubishyire mu bikorwa", "Let’s make it happen")}</p>
-        <h2 className="text-3xl font-extrabold tracking-[-.035em] sm:text-5xl">{t("Urashaka gukora iki?", "What would you like to create?")}</h2>
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+        <div><p className="text-[11px] font-bold uppercase tracking-[.2em] text-muted-foreground">{t("Tangira hano", "Make something")}</p><h2 className="mt-2 text-2xl tracking-[-.035em] sm:text-3xl">{t("Hitamo icyo ushaka gukora", "What would you like to create?")}</h2></div>
+        <span className="hidden text-xs text-muted-foreground sm:block">{t("Hitamo uburyo bwo gutangira", "Choose a format to get started")}</span>
       </div>
-      <div className="creation-card-arc mx-auto grid max-w-4xl items-center gap-5 sm:grid-cols-[1fr_1.2fr_1fr] sm:gap-3">
-        {actions.map(({id,title,detail,Icon,color,position}) => {
-          const content = <><Icon className="size-8 transition-transform duration-300 group-hover:scale-110 sm:size-9"/><span><span className="block font-display text-xl font-extrabold sm:text-2xl">{title}</span><span className="mt-1 block text-xs opacity-80 sm:text-sm">{detail}</span></span></>;
-          return <Link key={id} to="/app/create/$type" params={{type:id}} className={cn(chooserCard,color,position)}>{content}</Link>;
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {actions.map(({id,title,detail,Icon,color}) => {
+          const content = <><Icon className="size-8"/><span><span className="block font-display text-xl font-extrabold">{title}</span><span className="text-xs opacity-80">{detail}</span></span></>;
+          return id === "pro"
+            ? <Link key={id} to="/app/pro" className={cn(chooserCard,color)}>{content}</Link>
+            : <Link key={id} to="/app/create/$type" params={{type:id}} className={cn(chooserCard,color)}>{content}</Link>;
         })}
       </div>
-      <div className="mt-8 text-center"><Link to="/app/pro" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">{t("Vugana n'umuhanga", "Talk to a professional")} <ArrowRight className="size-4"/></Link></div>
     </section>
 
     <section className="mt-14 sm:mt-20">

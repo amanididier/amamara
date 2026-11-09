@@ -23,7 +23,7 @@ export const adminAccess = createServerFn({ method: "POST" }).middleware([requir
   return Boolean(data);
 });
 export const saveAgencySettings = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth])
-  .inputValidator(settingsSchema).handler(async ({ data, context }) => {
+  .validator(settingsSchema).handler(async ({ data, context }) => {
     const { data: allowed } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
     if (!allowed) throw new Error("Administrator access required.");
     const { error } = await context.supabase.from("agency_settings").upsert({ id: true, config: data, updated_at: new Date().toISOString() });

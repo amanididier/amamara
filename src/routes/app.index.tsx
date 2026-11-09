@@ -27,7 +27,6 @@ function Dashboard() {
   ] as const;
   const chooserCard = "flex aspect-[4/5] flex-col justify-between rounded-lg p-5 text-left transition-transform hover:-translate-y-1";
   const tabs = [{ id: "video" as const, label: t("Video", "Videos") }, { id: "flyer" as const, label: t("Amaposti", "Posts") }, { id: "banner" as const, label: t("Ibyapa", "Banners") }];
-  const chooserCard = "creation-card group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-xl p-5 text-left shadow-sm transition duration-300 hover:z-10 hover:-translate-y-2 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-[250px] sm:p-6";
   return <main className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
     <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="mx-auto mt-5 w-full max-w-[1240px] sm:mt-7">
       <div className="mb-8 text-center sm:mb-12">

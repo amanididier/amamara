@@ -76,7 +76,7 @@ export function DuoHero() {
             {t("ibicuruzwa na serivisi utanga byihuse kandi mu buryo ushaka.", "for your products and services, quickly and your way.")}
           </p>
           <div className="mt-6 flex flex-col items-center gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
-            <a href="/app/create" className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto">
+            <a href="/app" className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto">
               {t("Tangira gukora", "Start creating")} <ArrowRight className="size-4" />
             </a>
             <a href="/app" className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border bg-background px-6 text-sm font-semibold transition-colors hover:bg-accent sm:w-auto">

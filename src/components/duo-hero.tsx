@@ -54,10 +54,31 @@ export function DuoHero() {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
-    if (playing && current.kind === "video") video.play().catch(() => setActive(1));
-    else video.pause();
-  }, [playing, active, current.kind]);
+    if (!video || current.kind !== "video") return;
+
+    // Start the muted hero reel as soon as the landing page mounts.
+    // Keep it mounted behind the intro logo so the reveal animation does
+    // not delay the browser's autoplay opportunity.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const tryPlay = () => {
+      if (document.visibilityState !== "visible") return;
+      void video.play().catch(() => {
+        // Do not skip to the static slides on a transient autoplay rejection.
+        // canplay/visibility events below retry without requiring a user tap.
+      });
+    };
+
+    tryPlay();
+    video.addEventListener("canplay", tryPlay);
+    document.addEventListener("visibilitychange", tryPlay);
+    return () => {
+      video.removeEventListener("canplay", tryPlay);
+      document.removeEventListener("visibilitychange", tryPlay);
+    };
+  }, [active, current.kind]);
 
   return (
     <section className={cn("duo2 relative isolate overflow-hidden", `is-${phase}`)}>
@@ -97,21 +118,20 @@ export function DuoHero() {
                   <span>amamara</span>
                 </div>
               </div>
-              {playing && (
-                <div key={current.id} className="duo2__media">
-                  {current.kind === "video" && (
-                    <video ref={videoRef} src={current.src} muted playsInline autoPlay
-                      onEnded={() => setActive(1)} onError={() => setActive(1)} />
-                  )}
-                  {current.kind === "posts" && (
-                    <div className="grid h-full grid-cols-2">
-                      <img src={current.left} alt="Amamara social media product post" />
-                      <img src={current.right} alt="Amamara promotional product post" />
-                    </div>
-                  )}
-                  {current.kind === "image" && <img src={current.src} alt="Product advertisement created with Amamara" style={{ objectFit: "contain", backgroundColor: "#111" }} />}
-                </div>
-              )}
+              <div key={current.id} className={cn("duo2__media", !playing && "duo2__media--preload")}>
+                {current.kind === "video" && (
+                  <video ref={videoRef} src={current.src} muted defaultMuted playsInline autoPlay preload="auto"
+                    onCanPlay={(event) => { void event.currentTarget.play().catch(() => {}); }}
+                    onEnded={() => setActive(1)} />
+                )}
+                {playing && current.kind === "posts" && (
+                  <div className="grid h-full grid-cols-2">
+                    <img src={current.left} alt="Amamara social media product post" />
+                    <img src={current.right} alt="Amamara promotional product post" />
+                  </div>
+                )}
+                {playing && current.kind === "image" && <img src={current.src} alt="Product advertisement created with Amamara" style={{ objectFit: "contain", backgroundColor: "#111" }} />}
+              </div>
             </div>
           </div>
         </div>

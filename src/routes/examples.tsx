@@ -12,9 +12,9 @@ export const Route = createFileRoute("/examples")({
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
       { title: "Ad Examples & Design Inspiration in Rwanda | Amamara Studio" },
-      { name: "description", content: "Browse Amamara Studio advertising examples for Rwandan businesses, including promotional videos, social media posts, flyers and shop banners for restaurants, hotels, salons and more." },
+      { name: "description", content: "Browse Amamara Studio advertising examples for Rwandan businesses, including promotional videos, social media posts and flyers for restaurants, hotels, salons and more." },
       { property: "og:title", content: "Advertising Examples & Inspiration | Amamara Studio" },
-      { property: "og:description", content: "Explore sample ads and creative ideas for businesses in Rwanda. Reba ingero za video, flyers, posts n'ibyapa." },
+      { property: "og:description", content: "Explore sample ads and creative ideas for businesses in Rwanda. Reba ingero za video, flyers n'amapost." },
     ],
     links: [{"rel":"canonical","href":"https://amamaza.vercel.app/examples"}],
   }),
@@ -25,12 +25,17 @@ function Examples() {
   const { t, lang } = usePrefs();
   const [cat, setCat] = useState<Category | "all">("all");
   const [fmt, setFmt] = useState<Format | "all">("all");
-  const list = sampleAds.filter((a) => (cat === "all" || a.category === cat) && (fmt === "all" || a.format === fmt));
+  // Phase 1: hide banner samples from gallery (assets kept for later)
+  const list = sampleAds.filter(
+    (a) =>
+      a.format !== "banner" &&
+      (cat === "all" || a.category === cat) &&
+      (fmt === "all" || a.format === fmt),
+  );
   const fmts: { id: Format | "all"; l: string }[] = [
     { id: "all", l: t("Byose", "All") },
     { id: "video", l: "Video" },
     { id: "flyer", l: "Flyer" },
-    { id: "banner", l: "Banner" },
   ];
   return (
     <div className="min-h-screen bg-[#090909] text-white">

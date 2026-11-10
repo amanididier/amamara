@@ -14,7 +14,6 @@ import {
   Receipt,
   Film,
   Image as ImageIcon,
-  PanelTop,
 } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { TrendingSection } from "@/components/trending";
@@ -31,14 +30,14 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Amamara Studio helps Rwandan businesses create professional AI-powered video ads, social media posts, promotional flyers and print-ready shop banners in Kinyarwanda or English.",
+          "Amamara Studio helps Rwandan businesses create professional AI-powered video ads and social media posts in Kinyarwanda or English.",
       },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "Amamara Studio | AI Advertising for Rwandan Businesses" },
       {
         property: "og:description",
         content:
-          "Create better business adverts with Amamara Studio. Make social posts, flyers, video ads and shop banners in Kinyarwanda or English.",
+          "Create better business adverts with Amamara Studio. Make social posts, flyers and video ads in Kinyarwanda or English.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -127,8 +126,8 @@ function ProSection() {
               </h3>
               <p className="mt-4 max-w-md text-white/60">
                 {t(
-                  "Ushaka itangazo ryihariye ryakozwe n'umuhanga? Tanga brief, tuhire abahanga bakora video, flyer cyangwa banner yihariye ku giciro giteganyijwe.",
-                  "Need a custom ad crafted by a real creative? Share a brief and our pros will produce a tailored video, flyer or banner at a clear price.",
+                  "Ushaka itangazo ryihariye ryakozwe n'umuhanga? Tanga brief, tuhire abahanga bakora video cyangwa flyer yihariye ku giciro giteganyijwe.",
+                  "Need a custom ad crafted by a real creative? Share a brief and our pros will produce a tailored video or flyer at a clear price.",
                 )}
               </p>
               <Link

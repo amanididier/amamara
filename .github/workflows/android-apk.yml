@@ -1,0 +1,111 @@
+# Build Amamara Android APK on demand or when mobile/android changes.
+# Download: Actions → run → Artifacts → amamara-apk
+# Or tag v1.0.0 → Release asset amamara.apk
+name: Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - "mobile/android/**"
+      - "public/amamaza-mark-white.png"
+      - "capacitor.config.ts"
+      - ".github/workflows/android-apk.yml"
+
+concurrency:
+  group: android-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Pillow
+        run: pip install pillow -q
+
+      - name: Generate launcher + splash icons
+        run: |
+          python3 <<'PY'
+          from PIL import Image
+          import os
+          ROOT = "mobile/android"
+          RED = (196, 16, 46, 255)
+          white = Image.open("public/amamaza-mark-white.png").convert("RGBA")
+
+          def logo_on_red(size, ratio=0.55):
+              c = Image.new("RGBA", (size, size), RED)
+              m = white.copy()
+              m.thumbnail((int(size * ratio), int(size * ratio)), Image.Resampling.LANCZOS)
+              c.paste(m, ((size - m.width) // 2, (size - m.height) // 2), m)
+              return c
+
+          def white_logo(size):
+              c = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+              m = white.copy()
+              m.thumbnail((size, size), Image.Resampling.LANCZOS)
+              c.paste(m, ((size - m.width) // 2, (size - m.height) // 2), m)
+              return c
+
+          for folder, size in [
+              ("mipmap-mdpi", 48),
+              ("mipmap-hdpi", 72),
+              ("mipmap-xhdpi", 96),
+              ("mipmap-xxhdpi", 144),
+              ("mipmap-xxxhdpi", 192),
+          ]:
+              d = f"{ROOT}/app/src/main/res/{folder}"
+              os.makedirs(d, exist_ok=True)
+              logo_on_red(size).save(f"{d}/ic_launcher.png")
+              logo_on_red(size).save(f"{d}/ic_launcher_round.png")
+          os.makedirs(f"{ROOT}/app/src/main/res/drawable", exist_ok=True)
+          white_logo(256).save(f"{ROOT}/app/src/main/res/drawable/ic_logo_white.png")
+          print("icons generated")
+          PY
+
+      - name: Build debug APK
+        working-directory: mobile/android
+        run: |
+          gradle wrapper --gradle-version 8.2
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Package APK
+        run: |
+          mkdir -p out
+          cp mobile/android/app/build/outputs/apk/debug/app-debug.apk out/amamara.apk
+          ls -lh out/amamara.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: amamara-apk
+          path: out/amamara.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Attach APK to GitHub Release (version tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: out/amamara.apk
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

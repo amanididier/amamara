@@ -31,7 +31,7 @@ function Dashboard() {
   return <main className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
     <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="app-showcase-hero relative mb-0 mt-0 w-full rounded-none pb-14 pt-12 sm:pb-16 sm:pt-16 lg:pb-20 lg:pt-20">
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-7 lg:px-10">
-        <p className="mb-8 text-center text-[11px] font-extrabold uppercase tracking-[.24em] text-primary sm:mb-10 sm:text-xs">
+        <p className="mb-10 text-center text-sm font-semibold uppercase tracking-[.18em] text-primary sm:mb-12 sm:text-base lg:mb-14 lg:text-lg">
           {t("Reka tubikore nonaha", "Let’s make it now")}
         </p>
         <div className="showcase-card-arc mx-auto grid w-full max-w-[1080px] items-center gap-2 sm:grid-cols-[1fr_1.32fr_1fr] sm:gap-5 lg:gap-8">

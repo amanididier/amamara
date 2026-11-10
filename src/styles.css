@@ -381,3 +381,71 @@
   .showcase-card--left:hover,.showcase-card--right:hover,.showcase-card--center:hover{transform:translateY(-3px)}
 }
 @media(prefers-reduced-motion:reduce){.showcase-card{transition:none}}
+
+
+/* Homepage creative showcase hero — halftone atmosphere ends before the create chooser. */
+.app-showcase-hero{
+  isolation:isolate;
+  overflow:hidden;
+  background-color:#050505;
+  background-image:url("/images/amamaza-hero-background.svg");
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+.showcase-card-arc{
+  perspective:1400px;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.32fr) minmax(0,1fr);
+  column-gap:clamp(10px,2.4vw,34px);
+  align-items:center;
+}
+.showcase-card{
+  border:1px solid rgb(255 255 255 / .08);
+  transform-style:preserve-3d;
+  will-change:transform;
+  transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease;
+  box-shadow:0 24px 58px -28px rgb(0 0 0 / .9);
+}
+.showcase-card--left{
+  aspect-ratio:1 / 1;
+  transform:translateY(18px) rotate(-6deg);
+  z-index:1;
+}
+.showcase-card--center{
+  aspect-ratio:1.38 / 1;
+  min-height:clamp(230px,24vw,330px);
+  transform:translateY(-8px) scale(1.025);
+  z-index:3;
+}
+.showcase-card--right{
+  aspect-ratio:1 / 1;
+  transform:translateY(18px) rotate(6deg);
+  z-index:1;
+}
+.showcase-card--left:hover{transform:translateY(8px) rotate(-3deg) scale(1.025);z-index:4}
+.showcase-card--right:hover{transform:translateY(8px) rotate(3deg) scale(1.025);z-index:4}
+.showcase-card--center:hover{transform:translateY(-12px) scale(1.045)}
+@media(max-width:639px){
+  .app-showcase-hero{background-position:center top}
+  .showcase-card-arc{
+    grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr);
+    gap:7px;
+  }
+  .showcase-card{border-radius:12px}
+  .showcase-card--left,.showcase-card--right{
+    aspect-ratio:4 / 5;
+    transform:translateY(9px) rotate(-3deg);
+  }
+  .showcase-card--right{transform:translateY(9px) rotate(3deg)}
+  .showcase-card--center{
+    aspect-ratio:1.08 / 1;
+    min-height:0;
+    transform:translateY(-4px) scale(1.025);
+  }
+  .showcase-card--left:hover{transform:translateY(5px) rotate(-2deg) scale(1.015)}
+  .showcase-card--right:hover{transform:translateY(5px) rotate(2deg) scale(1.015)}
+  .showcase-card--center:hover{transform:translateY(-6px) scale(1.035)}
+}
+@media(prefers-reduced-motion:reduce){
+  .showcase-card{transition:none}
+}

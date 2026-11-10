@@ -97,7 +97,7 @@ export function StudioHero() {
           height: 6px;
           flex-shrink: 0;
           border-radius: 50%;
-          background: oklch(0.88 0.2 125);
+          background: oklch(0.64 0.23 22);
         }
         .studio-hero__title {
           margin: 16px 0 0;
@@ -206,7 +206,6 @@ export function StudioHero() {
           .dashboard-main > .studio-hero { margin: -28px -16px 0; }
           .studio-hero__inner { padding: 32px 16px 24px; }
           .studio-hero__title { font-size: 28px; margin-top: 14px; }
-          .studio-hero__subtitle { font-size: 13px; max-width: 300px; margin-top: 10px; }
           .studio-hero__arc { gap: 8px; margin-top: 28px; }
           .studio-hero__card--side { margin-top: 18px; }
           .studio-hero__play { width: 30px; height: 30px; right: 6px; bottom: 6px; }

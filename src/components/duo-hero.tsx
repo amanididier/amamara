@@ -94,7 +94,7 @@ export function DuoHero() {
               <div className={cn("duo2__logo", playing && "is-hidden")}>
                 <div>
                   <img src="/amamaza-mark-red.png" alt="" />
-                  <span>amamaza</span>
+                  <span>amamara</span>
                 </div>
               </div>
               {playing && (

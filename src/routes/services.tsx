@@ -10,9 +10,9 @@ export const Route = createFileRoute("/services")({
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
       { title: "AI Advertising & Design Services in Rwanda | Amamara Studio" },
-      { name: "description", content: "Explore Amamara Studio services for Rwandan businesses: AI video ads, promotional flyers, social media posts, print-ready shop banners and professional ad design." },
+      { name: "description", content: "Explore Amamara Studio services for Rwandan businesses: AI video ads, promotional flyers, social media posts and professional ad design." },
       { property: "og:title", content: "AI Advertising & Design Services | Amamara Studio" },
-      { property: "og:description", content: "Video ads, flyers, social posts and shop banners for businesses in Rwanda. Kora amatangazo meza y'ubucuruzi bwawe." },
+      { property: "og:description", content: "Video ads, flyers and social posts for businesses in Rwanda. Kora amatangazo meza y'ubucuruzi bwawe." },
     ],
     links: [{"rel":"canonical","href":"https://amamaza.vercel.app/services"}],
   }),
@@ -21,10 +21,10 @@ export const Route = createFileRoute("/services")({
 
 function Services() {
   const { t } = usePrefs();
+  // Phase 1: video + flyer + pro only (banners deferred)
   const rows = [
     { img: images.hotel, title: t("Video zamamaza", "Video ads"), body: t("Video ngufi z'imbuga nkoranyambaga — TikTok, Instagram, WhatsApp Status. Uhitamo igihe n'ibipimo.", "Short social videos for TikTok, Instagram and WhatsApp Status. Choose length and format."), type: "video" },
     { img: images.fashion, title: "Flyers", body: t("Flyer za promosiyo, ibirori n'ibicuruzwa bishya — byiteguye gusangizwa cyangwa gucapishwa.", "Flyers for promos, events and new products — ready to share or print."), type: "flyer" },
-    { img: images.shopBanner, title: t("Banner z'amaduka", "Shop banners"), body: t("Banner nini zo kumanika ku iduka, zifite izina, telefoni n'ibyo ucuruza, mu bipimo byo gucapisha.", "Large storefront banners with name, phone and products, in print-ready sizes."), type: "banner" },
     { img: images.salon, title: t("Abahanga bagukorera", "Professional editors"), body: t("Ukeneye ikintu cyihariye? Abahanga nyabo bagukorera itangazo.", "Need something special? Real editors make it for you."), type: "pro" },
   ];
   return (

@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Clapperboard, Image as ImageIcon, PanelsTopLeft } from "lucide-react";
+import { ArrowRight, Clapperboard, Image as ImageIcon } from "lucide-react";
 import { ReelGallery } from "@/components/reel-gallery";
-import { sampleAds, type Format } from "@/data/ads";
+import { sampleAds } from "@/data/ads";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
 
@@ -13,16 +13,16 @@ const mixedCardOrder: Record<"video" | "flyer", number[]> = {
 
 export function TrendingSection() {
   const { t, lang } = usePrefs();
-  const [tab, setTab] = useState<Format>("video");
+  const [tab, setTab] = useState<"video" | "flyer">("video");
   const list = useMemo(() => {
     const source = sampleAds.filter((ad) => ad.format === tab);
-    if (tab === "banner" || source.length === 0) return source;
-    return mixedCardOrder[tab].map((index) => source[index % source.length]!);
+    if (source.length === 0) return source;
+    // Phase 1: video + social posts only (banners deferred)
+    return mixedCardOrder[tab as "video" | "flyer"].map((index) => source[index % source.length]!);
   }, [tab]);
   const tabs = [
     { id: "video" as const, rw: "Video", en: "Videos", Icon: Clapperboard },
     { id: "flyer" as const, rw: "Amaposti", en: "Posts", Icon: ImageIcon },
-    { id: "banner" as const, rw: "Ibyapa", en: "Banners", Icon: PanelsTopLeft },
   ];
 
   return (
@@ -50,23 +50,7 @@ export function TrendingSection() {
         </div>
 
         <div className="mt-6" role="tabpanel">
-          {tab === "banner" ? (
-            <div className="grid gap-5 md:grid-cols-2">
-              {list.map((ad) => (
-                <Link key={ad.id} to="/examples" className="group grid overflow-hidden border bg-card transition-shadow hover:shadow-xl sm:grid-cols-[1.5fr_1fr]">
-                  <div className="aspect-[16/8] overflow-hidden bg-muted sm:aspect-auto">
-                    <img src={ad.image} alt={ad.title} loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                  </div>
-                  <div className="flex flex-col justify-center p-5">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{t("Urugero rw'icyapa", "Banner example")}</span>
-                    <h3 className="mt-2 text-base font-bold">{ad.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{lang === "rw" ? ad.descRw : ad.descEn}</p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">{t("Reba ingero", "Explore examples")} <ArrowRight className="size-4" /></span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : <ReelGallery ads={list} />}
+          <ReelGallery ads={list} />
         </div>
       </div>
     </section>

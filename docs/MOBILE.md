@@ -1,54 +1,52 @@
 # Amamara Android app
 
-The native app is a **Capacitor shell** that opens the **studio only** (`/app`), never the marketing site.
+Native shell in `mobile/android/` opens **studio only** (`https://amamaza.vercel.app/app`).
 
-- **App ID:** `com.amamara.studio`
-- **Name:** Amamara
-- **Splash / status bar:** brand red `#C4102E` + white mark (no Capacitor branding)
-- **Home screen icon:** white logo on red background (`resources/icon.png`)
+- Package: `com.amamara.studio`
+- Splash / icon: brand red `#C4102E` + white mark (no Capacitor branding)
 
-## One-time setup (your machine)
+## Build on GitHub Actions (recommended)
 
-Requirements: Node 20+, Android Studio (SDK 34+), Java 17+.
+Workflow: **`.github/workflows/android-apk.yml`**
+
+### Run a build (any time)
+
+1. GitHub repo → **Actions**
+2. Left sidebar → **Android APK**
+3. **Run workflow** → branch `main` → **Run workflow**
+4. When green → open the run → **Artifacts** → download **`amamara-apk`**
+5. Unzip → install `amamara.apk` on your phone
+
+### Auto builds
+
+Also runs when you push changes to:
+
+- `mobile/android/**`
+- `capacitor.config.ts`
+- the workflow file itself
+
+Website-only changes (hero, copy, studio UI) **do not** need a new APK — the app loads the live site.
+
+### Version release (stable download URL)
 
 ```bash
-npm install
-npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/splash-screen @capacitor/status-bar @capacitor/app
-npx cap add android
-npx @capacitor/assets generate --android
-npx cap sync android
-npx cap open android
+git tag v1.0.0
+git push origin v1.0.0
 ```
 
-In Android Studio: **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+Actions attaches `amamara.apk` to the GitHub Release:
 
-Copy the release APK to:
+`https://github.com/amanididier/amamara/releases/latest/download/amamara.apk`
 
-```text
-public/downloads/amamara.apk
+After the first tag, point marketing **Download the app** at that URL (or set `PLAY_STORE_URL` / release URL in `src/lib/native.ts`).
+
+## Local build (optional)
+
+```bash
+cd mobile/android
+gradle wrapper --gradle-version 8.2
+./gradlew assembleDebug
+# APK: app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Commit or upload that file so **Download the app** on the marketing site works.
-
-## Production URL
-
-`capacitor.config.ts` points at:
-
-```text
-https://amamaza.vercel.app/app
-```
-
-Change that host if your production domain changes, then `npx cap sync android` and ship a new store build.
-
-## Updates
-
-| Change | How users get it |
-|--------|------------------|
-| UI, copy, studio features | Deploy the website — app loads remote `/app` |
-| Icon, splash, plugins | New APK + Play Store (or replace `public/downloads/amamara.apk`) |
-
-## Play Store
-
-1. Create app with package `com.amamara.studio`
-2. Upload AAB from Android Studio
-3. Set `PLAY_STORE_URL` in `src/lib/native.ts`
+Requires JDK 17 + Android SDK.

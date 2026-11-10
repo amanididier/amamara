@@ -29,7 +29,7 @@ function Dashboard() {
   const tabs = [{ id: "video" as const, label: t("Video", "Videos") }, { id: "flyer" as const, label: t("Amaposti", "Posts") }, { id: "banner" as const, label: t("Ibyapa", "Banners") }];
 
   return <main className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
-    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="app-showcase-hero relative left-1/2 -ml-[50vw] mb-0 mt-[-28px] w-screen pb-14 pt-10 sm:mt-[-28px] sm:pb-16 sm:pt-12 lg:mt-[-40px] lg:pb-20 lg:pt-14">
+    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="app-showcase-hero relative mb-0 mt-0 w-full rounded-none pb-14 pt-12 sm:pb-16 sm:pt-16 lg:pb-20 lg:pt-20">
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-7 lg:px-10">
         <p className="mb-8 text-center text-[11px] font-extrabold uppercase tracking-[.24em] text-primary sm:mb-10 sm:text-xs">
           {t("Reka tubikore nonaha", "Let’s make it now")}

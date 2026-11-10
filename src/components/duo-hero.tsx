@@ -11,7 +11,7 @@ type Slide =
 const slides: Slide[] = [
   { id: "video", kind: "video", src: "/ads/amamaza-showreel-placeholder.mp4", label: "Video" },
   { id: "posts", kind: "posts", left: "/ads/amamaza-product-post-01.jpg", right: "/ads/amamaza-product-post-02.jpg", label: "Social posts" },
-  { id: "banner", kind: "image", src: "/ads/amamaza-print-banner.jpg", label: "Print banner" },
+  { id: "product", kind: "image", src: "/ads/amamaza-product-post-01.jpg", label: "Product post" },
 ];
 
 type Phase = "intro" | "unfold" | "slide" | "play";
@@ -23,8 +23,8 @@ export function DuoHero() {
   const [word, setWord] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const words = lang === "rw"
-    ? ["video zamamaza", "amapost yo kwamamaza", "ibyapa byamamaza"]
-    : ["video ads", "social media posts", "promotional shop banners"];
+    ? ["video zamamaza", "amapost yo kwamamaza", "amafoto y'ibicuruzwa"]
+    : ["video ads", "social media posts", "product photos"];
   const current = slides[active]!;
   const playing = phase === "play";
   const open = phase !== "intro";
@@ -109,7 +109,7 @@ export function DuoHero() {
                       <img src={current.right} alt="Amamara promotional product post" />
                     </div>
                   )}
-                  {current.kind === "image" && <img src={current.src} alt="Printed shop banner created with Amamara" style={{ objectFit: "contain", backgroundColor: "#111" }} />}
+                  {current.kind === "image" && <img src={current.src} alt="Product advertisement created with Amamara" style={{ objectFit: "contain", backgroundColor: "#111" }} />}
                 </div>
               )}
             </div>

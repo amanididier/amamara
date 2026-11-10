@@ -17,6 +17,6 @@ export const Route = createFileRoute("/app/create_/$type")({
 
 function Intro() {
   const { type } = Route.useParams();
-  if (type !== "video" && type !== "flyer" && type !== "banner") return <main className="p-8"><Link to="/app/create">Hitamo itangazo / Choose an ad</Link></main>;
+  if (type !== "video" && type !== "flyer") return <main className="p-8"><Link to="/app/create">Hitamo itangazo / Choose an ad</Link></main>;
   return <CreationWizard key={type} type={type} />;
 }

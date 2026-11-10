@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Clapperboard, FileImage, PanelTop, UserRound, Clock3 } from "lucide-react";
+import { ArrowRight, Clapperboard, FileImage, UserRound, Clock3 } from "lucide-react";
 import { AdCard } from "@/components/ad-card";
-import { sampleAds, type Format } from "@/data/ads";
+import { sampleAds } from "@/data/ads";
 import { StudioHero } from "@/components/studio-hero";
 import { useLibrary } from "@/lib/library";
 import { usePrefs } from "@/lib/prefs";
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/app/")({
 function Dashboard() {
   const { t } = usePrefs();
   const { all } = useLibrary();
-  const [tab, setTab] = useState<Format>("video");
+  const [tab, setTab] = useState<"video" | "flyer">("video");
   const templates = useMemo(() => sampleAds.filter((ad) => ad.format === tab), [tab]);
 
   const actions = [
@@ -41,13 +41,6 @@ function Dashboard() {
       color: "bg-vid text-white",
     },
     {
-      id: "banner",
-      title: t("Icyapa", "Banner"),
-      detail: t("Icyapa cy'iduka", "Shop banner"),
-      Icon: PanelTop,
-      color: "bg-ban text-ban-foreground",
-    },
-    {
       id: "pro",
       title: t("Umuhanga", "Professional"),
       detail: t("Vugana n'umuhanga", "Talk to a professional"),
@@ -61,12 +54,10 @@ function Dashboard() {
   const tabs = [
     { id: "video" as const, label: t("Video", "Videos") },
     { id: "flyer" as const, label: t("Amaposti", "Posts") },
-    { id: "banner" as const, label: t("Ibyapa", "Banners") },
   ];
 
   return (
     <main className="dashboard-main mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
-      {/* Lovable studio-hero arrangement — app home only; marketing site untouched */}
       <StudioHero />
 
       <section className="mx-auto mt-8 w-full max-w-[1240px] sm:mt-10">
@@ -83,7 +74,7 @@ function Dashboard() {
             {t("Hitamo uburyo bwo gutangira", "Choose a format to get started")}
           </span>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           {actions.map(({ id, title, detail, Icon, color }) => {
             const cardContent = (
               <>

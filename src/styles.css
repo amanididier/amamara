@@ -449,3 +449,78 @@
 @media(prefers-reduced-motion:reduce){
   .showcase-card{transition:none}
 }
+
+
+/* Full-bleed dashboard hero: span the content panel, never the sidebar. */
+.dashboard-main .app-showcase-hero{
+  width:calc(100vw - var(--app-sidebar-width, 264px));
+  margin-left:calc((100% - (100vw - var(--app-sidebar-width, 264px)))/2 - 40px);
+  padding:30px 0 34px;
+  overflow:hidden;
+  border-radius:0;
+  background-color:#050505;
+  background-image:url("/images/amamaza-hero-background.svg");
+  background-position:center 46%;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+.dashboard-main .app-showcase-hero > div{
+  max-width:1240px;
+  padding-left:clamp(16px,2.8vw,40px);
+  padding-right:clamp(16px,2.8vw,40px);
+}
+.dashboard-main .showcase-eyebrow{
+  margin:0 0 22px;
+  font-size:clamp(16px,1.35vw,19px);
+  line-height:1.35;
+  letter-spacing:.16em;
+}
+.dashboard-main .showcase-card-arc{
+  max-width:960px;
+  gap:clamp(12px,2vw,26px);
+}
+.dashboard-main .showcase-card--center{
+  min-height:clamp(190px,18vw,250px);
+}
+.dashboard-main .showcase-card--left,
+.dashboard-main .showcase-card--right{
+  max-height:250px;
+}
+@media(max-width:1023px){
+  .dashboard-main .app-showcase-hero{
+    margin-left:calc((100% - (100vw - var(--app-sidebar-width, 264px)))/2 - 28px);
+    padding:26px 0 30px;
+  }
+  .dashboard-main .app-showcase-hero > div{
+    padding-left:28px;
+    padding-right:28px;
+  }
+  .dashboard-main .showcase-eyebrow{margin-bottom:18px}
+  .dashboard-main .showcase-card--center{min-height:190px}
+}
+@media(max-width:767px){
+  .app-content-panel{--app-sidebar-width:0px!important}
+  .dashboard-main .app-showcase-hero{
+    width:100vw;
+    margin-left:-16px;
+    padding:24px 0 26px;
+    background-position:center center;
+  }
+  .dashboard-main .app-showcase-hero > div{
+    padding-left:16px;
+    padding-right:16px;
+  }
+  .dashboard-main .showcase-eyebrow{
+    margin-bottom:16px;
+    font-size:15px;
+    letter-spacing:.13em;
+  }
+  .dashboard-main .showcase-card-arc{
+    max-width:620px;
+    gap:8px;
+  }
+  .dashboard-main .showcase-card--center{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard-main .showcase-card{transition:none}
+}

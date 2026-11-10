@@ -8,9 +8,14 @@ import { usePrefs } from "@/lib/prefs";
  * Do not use on the marketing landing page (keep DuoHero / phone there).
  */
 export function StudioHero() {
-  const { t } = usePrefs();
+  const { t, theme } = usePrefs();
   const video = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
+
+  const bgSrc =
+    theme === "light"
+      ? "/images/studio-halftone-light.png"
+      : "/images/studio-halftone.png";
 
   useEffect(() => {
     video.current?.play().catch(() => setPlaying(false));
@@ -29,6 +34,7 @@ export function StudioHero() {
   return (
     <section
       className="studio-hero"
+      data-theme={theme}
       aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")}
     >
       <style>{`
@@ -38,6 +44,11 @@ export function StudioHero() {
           overflow: hidden;
           background: oklch(0 0 0);
           color: oklch(0.98 0 0);
+          transition: background-color 500ms ease, color 500ms ease;
+        }
+        .studio-hero[data-theme="light"] {
+          background: oklch(0.97 0 0);
+          color: oklch(0.18 0 0);
         }
         .studio-hero__background {
           position: absolute;
@@ -46,20 +57,22 @@ export function StudioHero() {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          transition: opacity 500ms ease;
         }
         .studio-hero::after {
           content: "";
           position: absolute;
           inset: auto 0 0;
-          height: 88px;
+          height: 72px;
           z-index: -1;
           background: linear-gradient(transparent, var(--background));
           pointer-events: none;
+          transition: background 500ms ease;
         }
         .studio-hero__inner {
           max-width: 1100px;
           margin-inline: auto;
-          padding: 48px 24px 40px;
+          padding: 48px 24px 36px;
           text-align: center;
         }
         .studio-hero__badge {
@@ -69,10 +82,15 @@ export function StudioHero() {
           border: 1px solid oklch(1 0 0 / 48%);
           border-radius: 8px;
           padding: 6px 12px;
-          font-family: "Barlow Condensed", "Arial Narrow", var(--font-display, system-ui);
-          font-size: 13px;
+          font-family: var(--font-display);
+          font-size: 12px;
           font-weight: 700;
+          letter-spacing: 0.04em;
           text-transform: uppercase;
+          transition: border-color 500ms ease, color 500ms ease;
+        }
+        .studio-hero[data-theme="light"] .studio-hero__badge {
+          border-color: oklch(0 0 0 / 18%);
         }
         .studio-hero__badge span {
           width: 6px;
@@ -83,12 +101,13 @@ export function StudioHero() {
         }
         .studio-hero__title {
           margin: 16px 0 0;
-          font-family: "Barlow Condensed", "Arial Narrow", var(--font-display, system-ui);
+          font-family: var(--font-display);
           font-size: 44px;
           font-weight: 800;
           line-height: 1.08;
-          text-transform: uppercase;
-          letter-spacing: 0;
+          letter-spacing: -0.03em;
+          overflow-wrap: break-word;
+          transition: color 500ms ease;
         }
         .studio-hero__subtitle {
           margin: 12px auto 0;
@@ -96,8 +115,11 @@ export function StudioHero() {
           font-size: 15px;
           line-height: 1.6;
           color: oklch(0.74 0 0);
+          transition: color 500ms ease;
         }
-        /* Medium cards — tighter than Lovable ZIP defaults */
+        .studio-hero[data-theme="light"] .studio-hero__subtitle {
+          color: oklch(0.42 0 0);
+        }
         .studio-hero__arc {
           display: grid;
           grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
@@ -114,6 +136,15 @@ export function StudioHero() {
           border-radius: 12px;
           background: oklch(0.13 0 0);
           box-shadow: 0 20px 44px -24px oklch(0 0 0 / 80%);
+          transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 400ms ease, border-color 500ms ease;
+        }
+        .studio-hero[data-theme="light"] .studio-hero__card {
+          border-color: oklch(0 0 0 / 10%);
+          background: oklch(1 0 0);
+          box-shadow: 0 16px 36px -20px oklch(0 0 0 / 25%);
+        }
+        .studio-hero__card:hover {
+          transform: translateY(-4px);
         }
         .studio-hero__card--side {
           aspect-ratio: 1 / 1.08;
@@ -128,6 +159,11 @@ export function StudioHero() {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .studio-hero__card:hover > img,
+        .studio-hero__card:hover > video {
+          transform: scale(1.03);
         }
         .studio-hero__play {
           position: absolute;
@@ -139,13 +175,14 @@ export function StudioHero() {
           height: 36px;
           border-radius: 50%;
           color: oklch(0.98 0 0);
-          background: oklch(0 0 0 / 48%);
-          border: 1px solid oklch(1 0 0 / 48%);
-          backdrop-filter: blur(12px);
+          background: oklch(0 0 0 / 55%);
+          border: 1px solid oklch(1 0 0 / 40%);
           cursor: pointer;
+          transition: background 250ms ease, transform 250ms ease;
         }
         .studio-hero__play:hover {
-          background: oklch(0 0 0 / 65%);
+          background: oklch(0 0 0 / 75%);
+          transform: scale(1.06);
         }
         .studio-hero__video-label {
           position: absolute;
@@ -155,12 +192,6 @@ export function StudioHero() {
           height: 16px;
           color: oklch(0.98 0 0);
           pointer-events: none;
-        }
-        .studio-hero__note {
-          margin: 28px 0 0;
-          font-size: 13px;
-          line-height: 1.6;
-          color: oklch(0.74 0 0);
         }
         .dashboard-main > .studio-hero {
           margin: -40px -40px 0;
@@ -173,12 +204,11 @@ export function StudioHero() {
         }
         @media (max-width: 639px) {
           .dashboard-main > .studio-hero { margin: -28px -16px 0; }
-          .studio-hero__inner { padding: 32px 16px 28px; }
+          .studio-hero__inner { padding: 32px 16px 24px; }
           .studio-hero__title { font-size: 28px; margin-top: 14px; }
           .studio-hero__subtitle { font-size: 13px; max-width: 300px; margin-top: 10px; }
           .studio-hero__arc { gap: 8px; margin-top: 28px; }
           .studio-hero__card--side { margin-top: 18px; }
-          .studio-hero__note { margin-top: 22px; font-size: 12px; }
           .studio-hero__play { width: 30px; height: 30px; right: 6px; bottom: 6px; }
           .studio-hero__video-label { display: none; }
         }
@@ -186,11 +216,21 @@ export function StudioHero() {
           .studio-hero__title { font-size: 24px; }
           .studio-hero__arc { gap: 6px; }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .studio-hero,
+          .studio-hero__background,
+          .studio-hero__card,
+          .studio-hero__card > img,
+          .studio-hero__card > video,
+          .studio-hero__play {
+            transition: none !important;
+          }
+        }
       `}</style>
 
-      {/* Background: upload to public/images/studio-halftone.png */}
       <img
-        src="/images/studio-halftone.png"
+        key={bgSrc}
+        src={bgSrc}
         alt=""
         className="studio-hero__background"
         aria-hidden="true"
@@ -250,13 +290,6 @@ export function StudioHero() {
             <img src={images.shopBanner} alt="Amamara shop banner advertisement" />
           </div>
         </div>
-
-        <p className="studio-hero__note">
-          {t(
-            "Ibitekerezo byiza ntibitegereza. Icyawe gikurikire.",
-            "Good ideas don’t wait. Yours is next.",
-          )}
-        </p>
       </div>
     </section>
   );

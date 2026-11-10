@@ -285,8 +285,8 @@ export function StudioHero() {
             <Clapperboard className="studio-hero__video-label" aria-hidden="true" />
           </div>
 
-          <div className="studio-hero__card studio-hero__card--side" data-format="banner">
-            <img src={images.shopBanner} alt="Amamara shop banner advertisement" />
+          <div className="studio-hero__card studio-hero__card--side" data-format="image">
+            <img src={images.fashion} alt="Amamara fashion product advertisement" />
           </div>
         </div>
       </div>

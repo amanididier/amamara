@@ -524,3 +524,11 @@
 @media(prefers-reduced-motion:reduce){
   .dashboard-main .showcase-card{transition:none}
 }
+
+
+/* Keep the landing hero reel mounted and playing underneath its intro logo. */
+.duo2__media--preload{
+  opacity:0;
+  pointer-events:none;
+  animation:none;
+}

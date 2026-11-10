@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.45" fill="#a9a9a9" fill-opacity=".62"/>
+    </pattern>
+    <radialGradient id="fade" cx="49%" cy="42%" r="64%">
+      <stop offset="0" stop-color="white" stop-opacity=".96"/>
+      <stop offset=".48" stop-color="white" stop-opacity=".72"/>
+      <stop offset="1" stop-color="black" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="atmosphere" cx="50%" cy="44%" r="65%">
+      <stop offset="0" stop-color="#242424" stop-opacity=".3"/>
+      <stop offset=".7" stop-color="#090909" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="dot-mask"><rect width="1920" height="1080" fill="url(#fade)"/></mask>
+  </defs>
+  <rect width="1920" height="1080" fill="#050505"/>
+  <rect width="1920" height="1080" fill="url(#atmosphere)"/>
+  <rect width="1920" height="1080" fill="url(#dots)" mask="url(#dot-mask)"/>
+</svg>

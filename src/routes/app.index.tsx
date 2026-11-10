@@ -15,9 +15,9 @@ function Dashboard() {
   const [tab, setTab] = useState<Format>("video");
   const templates = useMemo(() => sampleAds.filter((ad) => ad.format === tab), [tab]);
   const showcase = [
-    { id: "poster", src: images.juice, alt: "Product social media campaign", position: "showcase-card--left" },
-    { id: "video", src: "/ads/amamaza-showreel-placeholder.mp4", alt: "Video advertisement preview", video: true, position: "showcase-card--center" },
-    { id: "banner", src: images.shopBanner, alt: "Retail advertising banner", position: "showcase-card--right" },
+    { id: "poster", src: images.juice, alt: "Fresh Valley product poster", position: "showcase-card--left" },
+    { id: "video", src: "/ads/amamaza-showreel-placeholder.mp4", alt: "Amamaza video advertisement preview", video: true, position: "showcase-card--center" },
+    { id: "banner", src: images.shopBanner, alt: "Mama Keza supermarket banner", position: "showcase-card--right" },
   ];
   const actions = [
     { id: "flyer", title: "Post", detail: t("Ifoto yo kuri social media", "Social media post"), Icon: FileImage, color: "bg-post text-post-foreground" },
@@ -27,16 +27,21 @@ function Dashboard() {
   ] as const;
   const chooserCard = "flex aspect-[4/5] flex-col justify-between rounded-lg p-5 text-left transition-transform hover:-translate-y-1";
   const tabs = [{ id: "video" as const, label: t("Video", "Videos") }, { id: "flyer" as const, label: t("Amaposti", "Posts") }, { id: "banner" as const, label: t("Ibyapa", "Banners") }];
+
   return <main className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
-    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="mx-auto mt-5 w-full max-w-[1240px] sm:mt-7">
-      <div className="mb-8 text-center sm:mb-12">
-        <p className="text-xs font-bold uppercase tracking-[.22em] text-primary sm:text-sm">{t("Reka tubikore nonaha", "Let’s make it now")}</p>
-      </div>
-      <div className="showcase-card-arc mx-auto grid w-full max-w-[1180px] items-center gap-5 sm:grid-cols-[1fr_1.18fr_1fr] sm:gap-8">
-        {showcase.map((item) => <div key={item.id} className={cn("showcase-card group relative aspect-[5/4] min-w-0 overflow-hidden rounded-2xl border bg-card shadow-sm sm:aspect-[4/3]", item.position)}>
-          {item.video ? <video src={item.src} autoPlay muted loop playsInline preload="metadata" aria-label={item.alt} className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /> : <img src={item.src} alt={item.alt} loading="eager" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />}
-          {item.video && <span className="pointer-events-none absolute bottom-4 right-4 grid size-10 place-items-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur"><Clapperboard className="size-4"/></span>}
-        </div>)}
+    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="app-showcase-hero relative left-1/2 -ml-[50vw] mb-0 mt-[-28px] w-screen pb-14 pt-10 sm:mt-[-28px] sm:pb-16 sm:pt-12 lg:mt-[-40px] lg:pb-20 lg:pt-14">
+      <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-7 lg:px-10">
+        <p className="mb-8 text-center text-[11px] font-extrabold uppercase tracking-[.24em] text-primary sm:mb-10 sm:text-xs">
+          {t("Reka tubikore nonaha", "Let’s make it now")}
+        </p>
+        <div className="showcase-card-arc mx-auto grid w-full max-w-[1080px] items-center gap-2 sm:grid-cols-[1fr_1.32fr_1fr] sm:gap-5 lg:gap-8">
+          {showcase.map((item) => <div key={item.id} className={cn("showcase-card group relative aspect-[1/1.08] min-w-0 overflow-hidden rounded-xl bg-neutral-900 shadow-[0_24px_60px_-28px_rgba(0,0,0,.85)] sm:aspect-[4/3] sm:rounded-2xl", item.position)}>
+            {item.video
+              ? <video src={item.src} autoPlay muted loop playsInline preload="metadata" aria-label={item.alt} className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
+              : <img src={item.src} alt={item.alt} loading="eager" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" />}
+            {item.video && <span className="pointer-events-none absolute bottom-3 right-3 grid size-9 place-items-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur sm:bottom-4 sm:right-4 sm:size-10"><Clapperboard className="size-4"/></span>}
+          </div>)}
+        </div>
       </div>
     </section>
 
@@ -47,10 +52,10 @@ function Dashboard() {
       </div>
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {actions.map(({id,title,detail,Icon,color}) => {
-          const content = <><Icon className="size-8"/><span><span className="block font-display text-xl font-extrabold">{title}</span><span className="text-xs opacity-80">{detail}</span></span></>;
+          const cardContent = <><Icon className="size-8"/><span><span className="block font-display text-xl font-extrabold">{title}</span><span className="text-xs opacity-80">{detail}</span></span></>;
           return id === "pro"
-            ? <Link key={id} to="/app/pro" className={cn(chooserCard,color)}>{content}</Link>
-            : <Link key={id} to="/app/create/$type" params={{type:id}} className={cn(chooserCard,color)}>{content}</Link>;
+            ? <Link key={id} to="/app/pro" className={cn(chooserCard,color)}>{cardContent}</Link>
+            : <Link key={id} to="/app/create/$type" params={{type:id}} className={cn(chooserCard,color)}>{cardContent}</Link>;
         })}
       </div>
     </section>

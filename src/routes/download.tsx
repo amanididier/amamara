@@ -28,8 +28,8 @@ function DownloadPage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main className="mx-auto max-w-lg px-4 py-14 text-center sm:px-6">
-        <div className="mx-auto grid size-24 place-items-center overflow-hidden rounded-3xl bg-[#C4102E] shadow-lg">
-          <img src="/icons/amamara-app-icon.png" alt="Amamara" className="size-full object-cover" />
+        <div className="mx-auto grid size-24 place-items-center overflow-hidden rounded-3xl bg-[#C4102E] p-3 shadow-lg">
+          <img src="/amamaza-mark-white.png" alt="Amamara" className="size-full object-contain" />
         </div>
         <h1 className="mt-8 text-3xl font-extrabold tracking-tight sm:text-4xl">
           {t("Kuramo Amamara", "Get Amamara")}

@@ -77,8 +77,8 @@ export function SiteFooter() {
           <Logo />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
             {t(
-              "Amamara ifasha ubucuruzi bwose mu Rwanda gukora amatangazo meza — video, flyer na banner — mu minota mike.",
-              "Amamara helps every business in Rwanda create great ads — videos, flyers and banners — in minutes.",
+              "Amamara ifasha ubucuruzi bwose mu Rwanda gukora amatangazo meza — video na post — mu minota mike.",
+              "Amamara helps every business in Rwanda create great ads — videos and social posts — in minutes.",
             )}
           </p>
           <p className="mt-3 text-sm font-semibold">{t(site.taglineRw, site.taglineEn)}</p>

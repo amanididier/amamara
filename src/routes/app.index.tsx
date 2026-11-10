@@ -28,10 +28,10 @@ function Dashboard() {
   const chooserCard = "flex aspect-[4/5] flex-col justify-between rounded-lg p-5 text-left transition-transform hover:-translate-y-1";
   const tabs = [{ id: "video" as const, label: t("Video", "Videos") }, { id: "flyer" as const, label: t("Amaposti", "Posts") }, { id: "banner" as const, label: t("Ibyapa", "Banners") }];
 
-  return <main className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
-    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="app-showcase-hero relative mb-0 mt-0 w-full rounded-none pb-14 pt-12 sm:pb-16 sm:pt-16 lg:pb-20 lg:pt-20">
+  return <main className="dashboard-main mx-auto w-full max-w-[1440px] px-4 pb-16 pt-7 sm:px-7 lg:px-10 lg:pt-10">
+    <section aria-label={t("Ibikorwa bya Amamara", "Amamara creative work")} className="app-showcase-hero relative mb-0 mt-0 rounded-none">
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-7 lg:px-10">
-        <p className="mb-10 text-center text-sm font-semibold uppercase tracking-[.18em] text-primary sm:mb-12 sm:text-base lg:mb-14 lg:text-lg">
+        <p className="showcase-eyebrow text-center font-semibold uppercase tracking-[.18em] text-primary">
           {t("Reka tubikore nonaha", "Let’s make it now")}
         </p>
         <div className="showcase-card-arc mx-auto grid w-full max-w-[1080px] items-center gap-2 sm:grid-cols-[1fr_1.32fr_1fr] sm:gap-5 lg:gap-8">
@@ -45,7 +45,7 @@ function Dashboard() {
       </div>
     </section>
 
-    <section className="mx-auto mt-12 w-full max-w-[1240px] sm:mt-16">
+    <section className="mx-auto mt-8 w-full max-w-[1240px] sm:mt-10">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div><p className="text-[11px] font-bold uppercase tracking-[.2em] text-muted-foreground">{t("Tangira hano", "Make something")}</p><h2 className="mt-2 text-2xl tracking-[-.035em] sm:text-3xl">{t("Hitamo icyo ushaka gukora", "What would you like to create?")}</h2></div>
         <span className="hidden text-xs text-muted-foreground sm:block">{t("Hitamo uburyo bwo gutangira", "Choose a format to get started")}</span>
